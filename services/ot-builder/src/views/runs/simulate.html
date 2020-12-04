@@ -1,0 +1,20 @@
+<html>
+
+  <head>
+    <title>OT-2 Protocol Builder</title>
+  </head>
+
+  <body>
+    <div style="margin: 2em;">
+      <h1>OT-2 Protocol Builder (Simulator)</h1>
+      <a href="/runs/{{ run.uuid }}">Back</a>
+      <h3>Run ID: {{ run.uuid }}</h3>
+      <h3>Protocol: {{ run.protocol }}</h3>
+      <form action="/runs/{{ run.uuid }}/download" method="GET">
+        <input type="submit" value="Download">
+      </form>
+      <pre>{{ simulation }}</pre>
+    </div>
+  </body>
+
+</html>

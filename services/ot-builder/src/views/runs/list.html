@@ -1,0 +1,21 @@
+<html>
+
+  <head>
+    <title>OT-2 Protocol Builder</title>
+  </head>
+
+  <body>
+    <div style="margin: 2em;">
+      <h1>OT-2 Protocol Builder</h1>
+      <h2>Active Runs</h2>
+      <div>
+        {% for run in runs %}
+        <li>
+          <a href="/runs/{{ run.uuid }}">{{ run.protocol }} [{{ run.uuid }}]</a>
+        </li>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+
+</html>
