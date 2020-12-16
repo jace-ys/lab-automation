@@ -96,7 +96,9 @@ class Watcher(threading.Thread):
 
     def __build_command(self, experiment_id, run):
         activity = self.activity_api.get_activity(experiment_id, run.activity_id)
-        data = self.__get_experiment_data_raw(experiment_id, activity.id)
+
+        data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
+        datatable = data["datatables"][run.id]["datatable"][0]
 
         # NOTE: Assume the first resource is the target
         api_version = run.inputs[0].resource_name
@@ -107,17 +109,22 @@ class Watcher(threading.Thread):
         for input in activity.inputs:
             properties = {}
             for property in input.properties:
-                # TODO: Get property values
-                properties[utils.to_camelcase(property.name)] = random.randint(0, 100)
+                header = f"{activity.id} | input | {input.id} | {property.name} | value"
+                properties[utils.to_camelcase(property.name)] = datatable[header]
 
             cmd.spec[utils.to_camelcase(input.name)] = properties
 
         return cmd
 
-    def __get_experiment_data_raw(self, experiment_id, activity_id):
+    def __get_experiment_data_raw(self, experiment_id, activity_id, run):
         resp = requests.get(
             f"https://api.app.riffyn.com/v1/experiment/{experiment_id}/step/{activity_id}/data/raw",
             headers={"api-key": cfg.API_KEY},
+            params={
+                "rgid": [run.group_id],
+                "rid": [run.id],
+                "rnum": [run.num],
+            },
         )
 
         resp.raise_for_status()
