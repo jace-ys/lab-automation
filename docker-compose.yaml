@@ -6,7 +6,7 @@ x-environment: &environment
 
 services:
   db.redis:
-    image: redis:5.0-alpine
+    image: redis:6.0-alpine
     ports:
       - 6379:6379
 

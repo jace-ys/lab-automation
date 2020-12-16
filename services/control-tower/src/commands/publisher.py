@@ -15,13 +15,16 @@ class CommandPublisher(threading.Thread):
         while not self.done.is_set():
             try:
                 command = self.queue.get(block=False)
-                self.redis.publish(command.apiVersion, command.json())
-
-                self.logger.info(
-                    "command.published",
-                    channel=command.apiVersion,
-                    command=command.json(),
-                )
+                self.publish(command)
 
             except queue.Empty:
                 pass
+
+    def publish(self, command):
+        self.redis.publish(command.apiVersion, command.json())
+
+        self.logger.info(
+            "command.published",
+            channel=command.apiVersion,
+            command=command.json(),
+        )
