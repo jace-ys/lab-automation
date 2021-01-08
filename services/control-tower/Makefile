@@ -1,6 +1,6 @@
 DEPENDENCIES = db.redis
 
-.PHONY: run fmt test image
+.PHONY: run fmt test dependencies
 
 run:
 	poetry run python -m main
@@ -14,6 +14,3 @@ test:
 
 dependencies:
 	docker-compose up -d ${DEPENDENCIES}
-
-image:
-	docker build -t lab-automation-playground/service.control-tower:latest .

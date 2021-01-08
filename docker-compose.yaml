@@ -11,7 +11,9 @@ services:
       - 6379:6379
 
   service.control-tower:
-    build: ./services/control-tower
+    build:
+      context: .
+      dockerfile: ./builds/service.control-tower/Dockerfile
     image: lab-automation-playground/service.control-tower:latest
     env_file:
       - ./services/control-tower/.env
@@ -19,7 +21,9 @@ services:
       <<: *environment
 
   service.ot-builder:
-    build: ./services/ot-builder
+    build:
+      context: .
+      dockerfile: ./builds/service.ot-builder/Dockerfile
     image: lab-automation-playground/service.ot-builder:latest
     ports:
       - 8000:8000
