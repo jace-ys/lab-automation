@@ -32,6 +32,9 @@ if __name__ == "__main__":
     except Exception as err:
         logger.error("service.fatal", error=err)
 
+    except KeyboardInterrupt:
+        pass
+
     finally:
         pubsub_thread.stop()
         logger.info("pubsub.listen.stopped")

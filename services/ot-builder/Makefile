@@ -10,7 +10,7 @@ fmt:
 	poetry run isort . --skip vendor
 
 test:
-	poetry run python -m pytest -v test
+	poetry run pytest . --ignore vendor
 
 dependencies:
 	docker-compose up -d ${DEPENDENCIES}

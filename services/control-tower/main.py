@@ -22,6 +22,7 @@ queue = Queue()
 app = FastAPI()
 app.include_router(commands.router)
 
+
 if __name__ == "__main__":
     done = threading.Event()
     publisher = CommandPublisher(logger, redis, queue, done)
@@ -51,12 +52,12 @@ if __name__ == "__main__":
     except Exception as err:
         logger.error("service.fatal", error=err)
 
+    except KeyboardInterrupt:
+        pass
+
     finally:
         done.set()
-
-        logger.info("command.publisher.started")
+        logger.info("command.publisher.stopped")
 
         for plugin in plugins:
             logger.info(f"{plugin}.watcher.stopped")
-
-        sys.exit(1)
