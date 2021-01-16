@@ -1,0 +1,60 @@
+name: ci
+
+on: push
+
+env:
+  WORKDIR: ./services/chibio-relay
+
+jobs:
+  setup:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-service.chibio-relay-${{ hashFiles('services/chibio-relay/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.chibio-relay-
+      - uses: snok/install-poetry@v1.1.1
+      - name: Install dependencies
+        working-directory: ${{ env.WORKDIR }}
+        run: poetry install
+
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-service.chibio-relay-${{ hashFiles('services/chibio-relay/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.chibio-relay-
+      - uses: snok/install-poetry@v1.1.1
+      - name: Lint code
+        working-directory: ${{ env.WORKDIR }}
+        run: poetry run black . --check --diff --exclude vendor
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-service.chibio-relay-${{ hashFiles('services/chibio-relay/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.chibio-relay-
+      - uses: snok/install-poetry@v1.1.1
+      # - name: Run tests
+      #   working-directory: ${{ env.WORKDIR }}
+      #   run: make test
