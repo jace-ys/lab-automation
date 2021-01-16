@@ -25,6 +25,7 @@ app.include_router(commands.router)
 if __name__ == "__main__":
     done = threading.Event()
     publisher = CommandPublisher(logger, redis, queue, done)
+    watchers = {}
 
     try:
         publisher.start()
@@ -43,6 +44,7 @@ if __name__ == "__main__":
             )
             watcher.start()
             logger.info(f"{plugin}.watcher.started")
+            watchers[plugin] = watcher
 
         logger.info("server.started", port=cfg.server.PORT)
         uvicorn.run(app, host=cfg.server.HOST, port=cfg.server.PORT)
@@ -56,7 +58,10 @@ if __name__ == "__main__":
 
     finally:
         done.set()
+
+        publisher.join()
         logger.info("command.publisher.stopped")
 
-        for plugin in plugins:
+        for plugin, watcher in watchers.items():
+            watcher.join()
             logger.info(f"{plugin}.watcher.stopped")

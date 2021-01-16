@@ -35,12 +35,15 @@ class Watcher(threading.Thread):
 
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
-                        self.logger.info("run.started", run_id=run.id)
+                        try:
+                            cmd = self.__build_command(experiment_id, run)
+                            self.queue.put(cmd)
 
-                        command = self.__build_command(experiment_id, run)
-                        self.queue.put(command)
+                            self.redis.hset(self.cache_key, run.id, "")
+                            self.logger.info("run.started", run_id=run.id)
 
-                        self.redis.hset(self.cache_key, run.id, "")
+                        except command.Noop:
+                            pass
 
                     for run in runs["stopped"]:
                         self.logger.info("run.stopped", run_id=run.id)
@@ -109,10 +112,10 @@ class Watcher(threading.Thread):
         for input in activity.inputs:
             properties = {}
             for property in input.properties:
-                header = f"{activity.id} | input | {input.id} | {property.name} | value"
-                properties[utils.to_camelcase(property.name)] = datatable[header]
+                header = f"{activity.id} | input | {input.id} | {property.id} | value"
+                properties[utils.to_camelcase(property.id)] = datatable[header]
 
-            cmd.spec[utils.to_camelcase(input.name)] = properties
+            cmd.spec[utils.to_camelcase(input.id)] = properties
 
         return cmd
 

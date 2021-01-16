@@ -29,10 +29,10 @@ if __name__ == "__main__":
         logger.info("server.stopped")
 
     except Exception as err:
-        logger.error("server.fatal", error=err)
+        logger.error("service.fatal", error=err)
 
     except KeyboardInterrupt:
-        logger.info("forwarder.stopped")
+        pass
 
     finally:
         done.set()
