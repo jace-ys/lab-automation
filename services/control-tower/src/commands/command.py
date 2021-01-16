@@ -15,4 +15,4 @@ class Command:
         self.spec = spec
 
     def json(self):
-        return json.dumps(self, indent=4, cls=CommandEncoder)
+        return json.dumps(self, cls=CommandEncoder)

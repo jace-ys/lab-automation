@@ -1,6 +1,5 @@
 import glob
 import importlib
-import sys
 import threading
 from queue import Queue
 
