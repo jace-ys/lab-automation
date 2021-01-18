@@ -11,7 +11,7 @@ ENV PATH="/root/.poetry/bin:${PATH}"
 
 WORKDIR /src
 
-COPY ./$DIR/vendor ./vendor
+COPY ./vendor ./vendor
 COPY ./$DIR/poetry.lock ./$DIR/pyproject.toml ./
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev
