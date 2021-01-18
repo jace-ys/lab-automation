@@ -5,8 +5,8 @@ description = ""
 authors = ["jace-ys <jaceys.tan@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-swagger-client = {path = "vendor/riffyn-sdk"}
+python = "^3.8"
+swagger-client = {path = "../../vendor/riffyn-sdk"}
 fastapi = "^0.61.1"
 uvicorn = "^0.12.1"
 redis = "^3.5.3"

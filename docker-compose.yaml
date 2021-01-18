@@ -20,6 +20,16 @@ services:
     environment:
       <<: *environment
 
+  service.data-gateway:
+    build:
+      context: .
+      dockerfile: ./builds/service.data-gateway/Dockerfile
+    image: lab-automation-playground/service.data-gateway:latest
+    env_file:
+      - ./services/data-gateway/.env
+    environment:
+      <<: *environment
+
   service.ot-builder:
     build:
       context: .
@@ -29,3 +39,14 @@ services:
       - 8000:8000
     environment:
       <<: *environment
+
+  service.chibio-relay:
+    build:
+      context: .
+      dockerfile: ./builds/service.chibio-relay/Dockerfile
+    image: lab-automation-playground/service.chibio-relay:latest
+    environment:
+      <<: *environment
+      FORWARDER_BATCH_ENDPOINT: http://service.data-gateway:8000/data/batch
+    volumes:
+      - ./services/chibio-relay/test/data:/usr/service/data

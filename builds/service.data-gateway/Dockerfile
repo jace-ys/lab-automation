@@ -11,10 +11,10 @@ COPY ./vendor /vendor
 COPY ./lib /lib
 
 WORKDIR /usr/service
-COPY ./services/control-tower/poetry.lock ./services/control-tower/pyproject.toml ./
+COPY ./services/data-gateway/poetry.lock ./services/data-gateway/pyproject.toml ./
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev
 
-COPY ./services/control-tower ./
+COPY ./services/data-gateway ./
 
 CMD ["python", "-m", "main"]

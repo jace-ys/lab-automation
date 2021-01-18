@@ -7,14 +7,13 @@ ENV POETRY_VERSION=1.1.0
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 ENV PATH="/root/.poetry/bin:${PATH}"
 
-COPY ./vendor /vendor
 COPY ./lib /lib
 
 WORKDIR /usr/service
-COPY ./services/control-tower/poetry.lock ./services/control-tower/pyproject.toml ./
+COPY ./services/chibio-relay/poetry.lock ./services/chibio-relay/pyproject.toml ./
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev
 
-COPY ./services/control-tower ./
+COPY ./services/chibio-relay ./
 
 CMD ["python", "-m", "main"]
