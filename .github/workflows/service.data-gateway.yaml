@@ -1,9 +1,9 @@
-name: service.chibio-relay
+name: service.data-gateway
 
 on: push
 
 env:
-  WORKDIR: ./services/chibio-relay
+  WORKDIR: ./services/data-gateway
 
 jobs:
   setup:
@@ -16,8 +16,8 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-service.chibio-relay-${{ hashFiles('services/chibio-relay/poetry.lock') }}
-          restore-keys: ${{ runner.os }}-service.chibio-relay-
+          key: ${{ runner.os }}-service.data-gateway-${{ hashFiles('services/data-gateway/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.data-gateway-
       - uses: snok/install-poetry@v1.1.1
       - name: Install dependencies
         working-directory: ${{ env.WORKDIR }}
@@ -34,8 +34,8 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-service.chibio-relay-${{ hashFiles('services/chibio-relay/poetry.lock') }}
-          restore-keys: ${{ runner.os }}-service.chibio-relay-
+          key: ${{ runner.os }}-service.data-gateway-${{ hashFiles('services/data-gateway/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.data-gateway-
       - uses: snok/install-poetry@v1.1.1
       - name: Lint code
         working-directory: ${{ env.WORKDIR }}
@@ -52,8 +52,8 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-service.chibio-relay-${{ hashFiles('services/chibio-relay/poetry.lock') }}
-          restore-keys: ${{ runner.os }}-service.chibio-relay-
+          key: ${{ runner.os }}-service.data-gateway-${{ hashFiles('services/data-gateway/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.data-gateway-
       - uses: snok/install-poetry@v1.1.1
       # - name: Run tests
       #   working-directory: ${{ env.WORKDIR }}

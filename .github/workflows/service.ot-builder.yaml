@@ -1,4 +1,4 @@
-name: ci
+name: service.ot-builder
 
 on: push
 

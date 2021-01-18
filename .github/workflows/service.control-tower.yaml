@@ -1,4 +1,4 @@
-name: ci
+name: service.control-tower
 
 on: push
 
