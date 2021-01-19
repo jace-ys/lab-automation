@@ -29,8 +29,9 @@ class Watcher(threading.Thread):
 
     def run(self):
         while not self.done.is_set():
+            self.logger.info("runs.poll.started")
+
             try:
-                self.logger.info("runs.poll.started")
                 runs = self.__fetch_run_statuses()
 
                 for experiment_id, runs in runs.items():
@@ -49,18 +50,19 @@ class Watcher(threading.Thread):
                         self.logger.info("run.stopped", run_id=run.id)
                         self.redis.hdel(self.cache_key, run.id)
 
+                self.logger.info("runs.poll.finished")
+
             except riffyn.rest.ApiException as err:
                 self.logger.error(
                     "runs.poll.failed", status=err.status, error=err.reason
                 )
+                raise
 
             except Exception as err:
                 self.logger.error("runs.poll.failed", error=err)
                 raise
 
-            finally:
-                self.logger.info("runs.poll.finished")
-                self.done.wait(self.poll_interval)
+            self.done.wait(self.poll_interval)
 
     def __fetch_run_statuses(self):
         experiments = self.__fetch_experiments()
@@ -103,7 +105,7 @@ class Watcher(threading.Thread):
         data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
         datatable = data["datatables"][run.id]["datatable"][0]
 
-        # NOTE: Assume the first resource is the target
+        # NOTE: Assume the first input's resource is the target
         api_version = run.inputs[0].resource_name
         protocol = activity.name.replace(" ", "")
 
@@ -113,9 +115,9 @@ class Watcher(threading.Thread):
             properties = {}
             for property in input.properties:
                 header = f"{activity.id} | input | {input.id} | {property.id} | value"
-                properties[utils.to_camelcase(property.id)] = datatable[header]
+                properties[utils.str_to_camelcase(property.id)] = datatable[header]
 
-            cmd.spec[utils.to_camelcase(input.id)] = properties
+            cmd.spec[utils.str_to_camelcase(input.id)] = properties
 
         return cmd
 

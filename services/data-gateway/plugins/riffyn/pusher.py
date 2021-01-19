@@ -1,11 +1,13 @@
+from collections import defaultdict
+
 import swagger_client as riffyn
 
 from lib import utils
 from plugins.riffyn.config import PluginConfig
 
-EXPERIMENT_ID = "gRcE4bogh6T94cNJs"
-ACTIVITY_ID = "e6MDoEZjgw7GCytJx"
-RUN_ID = "uykxenRDCuvhxKLS8"
+EXPERIMENT_ID = "i3hoxbubYkvpGQaYc"
+ACTIVITY_ID = "jZYi3XYkQixxGM4x4"
+RUN_ID = "Bf5rTf7mw3xLxaMYw"
 
 cfg = PluginConfig()
 
@@ -15,7 +17,6 @@ class Pusher:
         super(Pusher, self).__init__()
 
         self.logger = logger
-        self.cache_key = cfg.CACHE_KEY
 
         riffyn.Configuration().api_key["api-key"] = cfg.API_KEY
         self.activity_api = riffyn.ProcessActivityApi()
@@ -23,63 +24,99 @@ class Pusher:
         self.run_api = riffyn.RunApi()
 
     def push(self, payload):
-        # TODO: find experiment, activity and run IDs from payload.uuid
-        activity = self.activity_api.get_activity(EXPERIMENT_ID, ACTIVITY_ID)
-        data_rows = self.__make_rows(payload.data)
+        try:
+            kv_data, rows = self.__merge_data(payload.data)
+            self.logger.info("data.push.started", uuid=payload.uuid, rows=rows)
 
-        output_pkeys = self.__populate_output_pkeys(activity, RUN_ID, data_rows)
-        output_rows = self.__add_batch_run_data(
-            EXPERIMENT_ID, ACTIVITY_ID, output_pkeys
-        )
+            # TODO: find experiment, activity and run IDs from payload.uuid
+            activity = self.activity_api.get_activity(EXPERIMENT_ID, ACTIVITY_ID)
 
-        output_data = self.__populate_output_data(
-            activity, RUN_ID, data_rows, output_rows
-        )
-        output_rows = self.__add_batch_run_data(EXPERIMENT_ID, ACTIVITY_ID, output_data)
+            output_pkeys = self.__populate_output_pkeys(activity, RUN_ID, kv_data)
+            output_rows = self.__add_batch_run_data(
+                EXPERIMENT_ID, ACTIVITY_ID, output_pkeys
+            )
 
-    def __make_rows(self, dataset):
-        if isinstance(dataset, list):
-            return dataset
+            output_data = self.__populate_output_data(
+                activity, RUN_ID, kv_data, output_rows
+            )
+            output_rows = self.__add_batch_run_data(
+                EXPERIMENT_ID, ACTIVITY_ID, output_data
+            )
+
+            self.logger.info("data.push.finished", uuid=payload.uuid, rows=rows)
+
+        except riffyn.rest.ApiException as err:
+            self.logger.error("data.push.failed", status=err.status, error=err.reason)
+            raise
+
+        except Exception as err:
+            self.logger.error("data.push.failed", error=err)
+            raise
+
+    def __merge_data(self, data):
+        if isinstance(data, list):
+            rows = data
         else:
-            return [dataset]
+            rows = [data]
 
-    def __populate_output_pkeys(self, activity, run_id, data_rows):
-        # Assume the activity only has a single output to be populated
+        properties = defaultdict(list)
+        for row in rows:
+            for key, value in row.items():
+                properties[key].append(value)
+
+        return dict(properties), len(rows)
+
+    def __populate_output_pkeys(self, activity, run_id, kv_data):
+        # NOTE: assume the activity only has a single output to be populated
         output = activity.outputs[0]
         output_pkeys = []
 
-        values = list(map(lambda row: next(iter(row.values())), data_rows))
+        pkey = next(iter(kv_data.keys()))
+        if pkey != utils.str_to_snakecase(output.properties[0].name):
+            raise ValueError(
+                f'primary key does not match: expected "{output.properties[0].name}", got "{pkey}"'
+            )
+
         output_pkeys.append(
             {
                 "resourceDefId": output.id,
                 "propertyTypeId": output.properties[0].id,
                 "runIds": [run_id],
-                "values": values,
+                "values": kv_data[pkey],
                 "append": True,
             }
         )
 
         return output_pkeys
 
-    def __populate_output_data(self, activity, run_id, data_rows, output_rows):
-        # Assume the activity only has a single output to be populated
+    def __populate_output_data(self, activity, run_id, kv_data, output_rows):
+        # NOTE: assume the activity only has a single output to be populated
         output = activity.outputs[0]
         output_data = []
 
-        for j, property in enumerate(output.properties[1:]):
-            values = list(map(lambda row: list(row.values())[j + 1], data_rows))
+        for property in output.properties[1:]:
+            property_name = utils.str_to_snakecase(property.name)
+
+            if property_name not in kv_data:
+                raise ValueError(f"could not find property with key: {property.name}")
+
+            if len(kv_data[property_name]) != len(output_rows["data"]):
+                raise ValueError(
+                    f'unexpected number of values for "{property.name}": expected {len(output_rows["data"])}, found {len(kv_data[property_name])}'
+                )
+
             output_data.append(
                 {
                     "resourceDefId": output.id,
                     "propertyTypeId": property.id,
-                    "eventGroupId": output_rows[0]["eventGroupId"],
+                    "eventGroupId": output_rows["eventGroupId"],
                     "runIds": [run_id],
                     "values": [
                         {
                             "eventId": str(row["eventId"]),
-                            "value": values[k],
+                            "value": kv_data[property_name][idx],
                         }
-                        for k, row in enumerate(output_rows[0]["data"])
+                        for idx, row in enumerate(output_rows["data"])
                     ],
                 }
             )
@@ -87,6 +124,9 @@ class Pusher:
         return output_data
 
     def __add_batch_run_data(self, experiment_id, activity_id, data):
-        return self.run_api.add_batch_run_data(
+        output_rows = self.run_api.add_batch_run_data(
             riffyn.AddBatchDataToInputBody(data), experiment_id, activity_id
         )
+
+        # NOTE: assume the activity only has a single output to be populated
+        return output_rows[0]

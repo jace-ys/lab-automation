@@ -2,7 +2,7 @@ from pydantic import BaseSettings
 
 
 class ForwarderConfig(BaseSettings):
-    BATCH_ENDPOINT: str
+    SERVICE_DATA_GATEWAY_ADDR: str
     CHECK_INTERVAL: int = 10
     DATA_DIR: str = "data"
 

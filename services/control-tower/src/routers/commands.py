@@ -5,13 +5,13 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, validator
 from fastapi.responses import Response
 
-from lib import logger
+from lib.logger import Logger
 from src.commands.command import Command
 from src.commands.publisher import CommandPublisher
 from src.config import config
 
 cfg = config.Config()
-logger = logger.Logger().get()
+logger = Logger.new()
 
 redis = Redis(host=cfg.redis.HOST, port=cfg.redis.PORT, decode_responses=True)
 publisher = CommandPublisher(logger, redis, None, None)
@@ -39,5 +39,4 @@ async def command(req: CommandRequest):
         return Response(status_code=status.HTTP_201_CREATED)
 
     except Exception as err:
-        logger.info("command.publish.failed", error=err)
         raise HTTPException(status_code=500, detail="failed to publish command")

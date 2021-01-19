@@ -45,8 +45,10 @@ services:
       context: .
       dockerfile: ./builds/service.chibio-relay/Dockerfile
     image: lab-automation-playground/service.chibio-relay:latest
+    depends_on:
+      - service.data-gateway
     environment:
       <<: *environment
-      FORWARDER_BATCH_ENDPOINT: http://service.data-gateway:8000/data/batch
+      FORWARDER_SERVICE_DATA_GATEWAY_ADDR: service.data-gateway:8000
     volumes:
       - ./services/chibio-relay/test/data:/usr/service/data

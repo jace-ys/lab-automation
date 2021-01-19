@@ -15,10 +15,12 @@ class BatchForwarder(threading.Thread):
         self.done = done
         self.check_interval = cfg.CHECK_INTERVAL
         self.data_dir = cfg.DATA_DIR
-        self.batch_endpoint = cfg.BATCH_ENDPOINT
+        self.data_gateway_addr = cfg.SERVICE_DATA_GATEWAY_ADDR
 
     def run(self):
         while not self.done.is_set():
+            self.logger.info("batch.poll.started")
+
             for f in glob.glob(f"{self.data_dir}/*.csv"):
                 try:
                     rows = self.__diff(f)
@@ -30,8 +32,8 @@ class BatchForwarder(threading.Thread):
 
                 except Exception as err:
                     self.logger.error("batch.forward.failed", file=f, error=err)
+                    raise
 
-            self.logger.info("batch.poll.finished")
             self.done.wait(self.check_interval)
 
     def __diff(self, csv):
@@ -44,7 +46,7 @@ class BatchForwarder(threading.Thread):
     def __forward(self, rows):
         data = list(map(lambda row: vars(DataRow(row)), rows))
         resp = requests.post(
-            self.batch_endpoint,
+            f"http://{self.data_gateway_addr}/data/batch",
             json={
                 "uuid": "",
                 "data": data,

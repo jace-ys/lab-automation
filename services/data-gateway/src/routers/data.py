@@ -1,12 +1,12 @@
 from typing import Any, Dict, List
 
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 
-from lib import logger
+from lib.logger import Logger
 from plugins.riffyn.pusher import Pusher
 
-logger = logger.Logger().get()
+logger = Logger.new()
 
 router = APIRouter()
 pusher = Pusher(logger)
@@ -24,7 +24,7 @@ async def receive_data(payload: DataPayload):
         return status.HTTP_202_ACCEPTED
 
     except Exception as err:
-        logger.error("data.push.failed", error=err)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
 
 
 class DataBatchPayload(BaseModel):
@@ -39,4 +39,4 @@ async def receive_batch(payload: DataBatchPayload):
         return status.HTTP_202_ACCEPTED
 
     except Exception as err:
-        logger.error("data.push.failed", error=err)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))

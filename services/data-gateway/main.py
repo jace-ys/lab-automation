@@ -4,12 +4,12 @@ import uvicorn
 from fastapi import FastAPI, Request, status
 from redis import Redis
 
-from lib import logger
+from lib.logger import Logger
 from src.config import config
 from src.routers import data
 
 cfg = config.Config()
-logger = logger.Logger().get()
+logger = Logger.new()
 
 redis = Redis(host=cfg.redis.HOST, port=cfg.redis.PORT, decode_responses=True)
 

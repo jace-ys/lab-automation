@@ -1,15 +1,6 @@
 from pydantic import BaseSettings
 
 
-class ForwarderConfig(BaseSettings):
-    DATA_DIR: str = "data"
-    FORWARD_ENDPOINT: str = "http://127.0.0.1:9000/data"
-    CHECK_INTERVAL: int = 10
-
-    class Config:
-        env_prefix = "FORWARDER_"
-
-
 class RedisConfig(BaseSettings):
     HOST: str = "127.0.0.1"
     PORT: int = 6379
@@ -27,7 +18,6 @@ class ServerConfig(BaseSettings):
 
 
 class Config(BaseSettings):
-    forwarder: ForwarderConfig = ForwarderConfig()
     redis: RedisConfig = RedisConfig()
     server: ServerConfig = ServerConfig()
 

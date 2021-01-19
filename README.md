@@ -38,7 +38,3 @@ To teardown the containers when you're done:
 ```
 docker-compose down -v
 ```
-
-## To-Do
-
-- [ ] Use OpenAPI for defining protocol schemas

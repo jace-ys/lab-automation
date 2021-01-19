@@ -1,8 +1,4 @@
 import json
-import uuid
-
-import jinja2
-from jinja2 import meta
 
 
 class ProtocolHandler:
@@ -15,12 +11,16 @@ class ProtocolHandler:
         if message["type"] != "message":
             return
 
-        command = json.loads(message["data"])
-        self.logger.info("command.received", protocol=command["protocol"])
+        try:
+            command = json.loads(message["data"])
+            self.logger.info("command.received", protocol=command["protocol"])
 
-        run = command
-        self.redis.hset(self.api_version, run["uuid"], json.dumps(run))
-        self.logger.info("run.created", id=run["uuid"])
+            self.redis.hset(self.api_version, command["uuid"], message["data"])
+            self.logger.info("run.created", id=command["uuid"])
+
+        except Exception as err:
+            self.logger.error("run.create.failed", error=err)
+            raise
 
     def build(self, protocol, spec):
         f = open(f"src/protocols/{protocol}/protocol.py", "r").read()
