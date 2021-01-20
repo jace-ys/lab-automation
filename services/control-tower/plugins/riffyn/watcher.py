@@ -41,8 +41,8 @@ class Watcher(threading.Thread):
                             self.cache.hset(self.cache_key, run.id, "")
                             self.logger.info("run.started", run_id=run.id)
 
-                        except command.Noop:
-                            pass
+                        except command.InvalidAPIVersion:
+                            pass  # No-op
 
                     for run in runs["stopped"]:
                         self.logger.info("run.stopped", run_id=run.id)
@@ -82,7 +82,6 @@ class Watcher(threading.Thread):
 
     def __fetch_experiments(self):
         experiments = self.experiment_api.list_experiments()
-
         return experiments.data
 
     def __fetch_runs(self, experiment_id):
@@ -93,7 +92,6 @@ class Watcher(threading.Thread):
                 groups.data,
             )
         )
-
         return utils.flatten(runs)
 
     def __build_command(self, experiment_id, run):
@@ -112,9 +110,9 @@ class Watcher(threading.Thread):
             properties = {}
             for property in input.properties:
                 header = f"{activity.id} | input | {input.id} | {property.id} | value"
-                properties[utils.str_to_camelcase(property.id)] = datatable[header]
+                properties[utils.str_to_camelcase(property.name)] = datatable[header]
 
-            cmd.spec[utils.str_to_camelcase(input.id)] = properties
+            cmd.spec[utils.str_to_camelcase(input.name)] = properties
 
         return cmd
 
@@ -128,6 +126,5 @@ class Watcher(threading.Thread):
                 "rnum": [run.num],
             },
         )
-
         resp.raise_for_status()
         return resp.json()

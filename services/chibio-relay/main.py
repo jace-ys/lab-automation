@@ -9,7 +9,7 @@ from src.forwarder.batch import BatchForwarder
 
 cfg = config.Config()
 logger = log.Logger.new()
-cache = redis.Cache.connect(cfg.cache.CONNECTION_URL)
+cache = redis.Client.connect(cfg.cache.CONNECTION_URL)
 
 app = FastAPI()
 

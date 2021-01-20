@@ -1,23 +1,23 @@
 import typing
 
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel, validator
 from fastapi.responses import Response
+from pydantic import BaseModel, validator
 
 from lib import log, redis
-from src.commands.command import Command
+from src.commands import command
 from src.commands.publisher import CommandPublisher
 from src.config import config
 
 cfg = config.Config()
 logger = log.Logger.new()
-pubsub = redis.PubSub.connect(cfg.pubsub.CONNECTION_URL)
+pubsub = redis.Client.connect(cfg.pubsub.CONNECTION_URL)
 publisher = CommandPublisher(logger, pubsub)
 
 router = APIRouter()
 
 
-class CommandRequest(BaseModel):
+class CommandPayload(BaseModel):
     apiVersion: str
     protocol: str
     spec: typing.Dict[str, typing.Any]
@@ -26,18 +26,25 @@ class CommandRequest(BaseModel):
     def spec_not_empty(cls, v):
         if not v:
             raise ValueError("spec must not be empty")
+
         return v
 
 
 @router.post("/commands")
-async def command(req: CommandRequest):
+async def publish_command(payload: CommandPayload):
     try:
-        cmd = Command(req.apiVersion, req.protocol, req.spec)
+        cmd = command.Command(payload.apiVersion, payload.protocol, payload.spec)
         publisher.publish(cmd)
-        logger.info("command.published", command=cmd)
+        return Response(status_code=status.HTTP_202_ACCEPTED)
 
-        return Response(status_code=status.HTTP_201_CREATED)
+    except command.InvalidAPIVersion:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"failed to publish command: invalid API version",
+        )
 
     except Exception as err:
-        logger.error("command.publish.failed", command=cmd, error=err)
-        raise HTTPException(status_code=500, detail="failed to publish command")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"failed to publish command: {str(err)}",
+        )

@@ -3,7 +3,7 @@ import threading
 
 
 class CommandPublisher(threading.Thread):
-    def __init__(self, logger, pubusb, queue=None, done=None):
+    def __init__(self, logger, pubsub, queue=None, done=None):
         super(CommandPublisher, self).__init__()
 
         self.logger = logger
@@ -17,18 +17,18 @@ class CommandPublisher(threading.Thread):
                 command = self.queue.get(block=False)
                 self.publish(command)
 
-                self.logger.info(
-                    "command.published",
-                    channel=command.apiVersion,
-                    command=command.json(),
-                )
-
             except queue.Empty:
                 pass
 
-            except Exception as err:
-                self.logger.error("command.publish.failed", error=err)
-                raise
-
     def publish(self, command):
-        self.pubsub.publish(command.apiVersion, command.json())
+        try:
+            self.pubsub.publish(command.apiVersion, command.json())
+            self.logger.info(
+                "command.published",
+                channel=command.apiVersion,
+                command=command.json(),
+            )
+
+        except Exception as err:
+            self.logger.error("command.publish.failed", error=err)
+            raise

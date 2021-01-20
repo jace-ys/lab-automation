@@ -1,6 +1,7 @@
 from typing import Any, Dict, List
 
 from fastapi import APIRouter, HTTPException, status
+from fastapi.responses import Response
 from pydantic import BaseModel
 
 from lib import log
@@ -18,14 +19,16 @@ class DataPayload(BaseModel):
 
 
 @router.post("/data")
-async def receive_data(payload: DataPayload):
+async def push_data(payload: DataPayload):
     try:
         pusher.push(payload)
-        # TODO: Add logging
-        return status.HTTP_202_ACCEPTED
+        return Response(status_code=status.HTTP_202_ACCEPTED)
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"failed to push data: {str(err)}",
+        )
 
 
 class DataBatchPayload(BaseModel):
@@ -34,10 +37,13 @@ class DataBatchPayload(BaseModel):
 
 
 @router.post("/data/batch")
-async def receive_batch(payload: DataBatchPayload):
+async def push_data_batch(payload: DataBatchPayload):
     try:
         pusher.push(payload)
-        return status.HTTP_202_ACCEPTED
+        return Response(status_code=status.HTTP_202_ACCEPTED)
 
     except Exception as err:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(err))
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"failed to push data: {str(err)}",
+        )

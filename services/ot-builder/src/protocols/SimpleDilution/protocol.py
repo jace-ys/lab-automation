@@ -8,23 +8,23 @@ metadata = {
 
 def run(protocol: protocol_api.ProtocolContext):
     tiprack = protocol.load_labware(
-        load_name=spec["tiprack"]["name"],
-        location=spec["tiprack"]["location"],
+        load_name=config["tiprack"]["name"],
+        location=config["tiprack"]["location"],
     )
 
     plate = protocol.load_labware(
-        load_name=spec["plate"]["name"],
-        location=spec["plate"]["location"],
+        load_name=config["plate"]["name"],
+        location=config["plate"]["location"],
     )
 
     reservoir = protocol.load_labware(
-        load_name=spec["reservoir"]["name"],
-        location=spec["reservoir"]["location"],
+        load_name=config["reservoir"]["name"],
+        location=config["reservoir"]["location"],
     )
 
     pipette = protocol.load_instrument(
-        instrument_name=spec["pipette"]["name"],
-        mount=spec["pipette"]["mount"],
+        instrument_name=config["pipette"]["name"],
+        mount=config["pipette"]["mount"],
         tip_racks=[tiprack],
     )
 

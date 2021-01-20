@@ -5,7 +5,7 @@ import uuid
 class Command:
     def __init__(self, api_version, protocol, spec={}):
         if len(api_version.split("/v")) != 2:
-            raise Noop
+            raise InvalidAPIVersion
 
         self.uuid = uuid.uuid4().hex[:16]
         self.apiVersion = api_version
@@ -21,5 +21,5 @@ class CommandEncoder(json.JSONEncoder):
         return o.__dict__
 
 
-class Noop(Exception):
+class InvalidAPIVersion(Exception):
     pass

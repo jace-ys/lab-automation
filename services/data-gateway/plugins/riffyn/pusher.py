@@ -46,11 +46,16 @@ class Pusher:
             self.logger.info("data.push.finished", uuid=payload.uuid, rows=rows)
 
         except riffyn.rest.ApiException as err:
-            self.logger.error("data.push.failed", status=err.status, error=err.reason)
+            self.logger.error(
+                "data.push.failed",
+                uuid=payload.uuid,
+                status=err.status,
+                error=err.reason,
+            )
             raise
 
         except Exception as err:
-            self.logger.error("data.push.failed", error=err)
+            self.logger.error("data.push.failed", uuid=payload.uuid, error=err)
             raise
 
     def __merge_data(self, data):
@@ -69,7 +74,6 @@ class Pusher:
     def __populate_output_pkeys(self, activity, run_id, kv_data):
         # NOTE: Assume the activity only has a single output to be populated
         output = activity.outputs[0]
-        output_pkeys = []
 
         pkey = next(iter(kv_data.keys()))
         if pkey.lower() != utils.str_to_snakecase(output.properties[0].name).lower():
@@ -77,7 +81,7 @@ class Pusher:
                 f'primary key does not match: expected "{output.properties[0].name}", got "{pkey}"'
             )
 
-        output_pkeys.append(
+        output_pkeys = [
             {
                 "resourceDefId": output.id,
                 "propertyTypeId": output.properties[0].id,
@@ -85,8 +89,7 @@ class Pusher:
                 "values": kv_data[pkey],
                 "append": True,
             }
-        )
-
+        ]
         return output_pkeys
 
     def __populate_output_data(self, activity, run_id, kv_data, output_rows):
@@ -127,6 +130,5 @@ class Pusher:
         output_rows = self.run_api.add_batch_run_data(
             riffyn.AddBatchDataToInputBody(data), experiment_id, activity_id
         )
-
         # NOTE: Assume the activity only has a single output to be populated
         return output_rows[0]

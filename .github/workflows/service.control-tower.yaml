@@ -16,8 +16,8 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-service.control-tower-${{ hashFiles('services/control-tower/poetry.lock') }}
-          restore-keys: ${{ runner.os }}-service.control-tower-
+          key: ${{ runner.os }}-service.control-tower-v1-${{ hashFiles('services/control-tower/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.control-tower-v1-
       - uses: snok/install-poetry@v1.1.1
       - name: Install dependencies
         working-directory: ${{ env.WORKDIR }}
@@ -34,8 +34,8 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-service.control-tower-${{ hashFiles('services/control-tower/poetry.lock') }}
-          restore-keys: ${{ runner.os }}-service.control-tower-
+          key: ${{ runner.os }}-service.control-tower-v1-${{ hashFiles('services/control-tower/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.control-tower-v1-
       - uses: snok/install-poetry@v1.1.1
       - name: Lint code
         working-directory: ${{ env.WORKDIR }}
@@ -52,8 +52,8 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-service.control-tower-${{ hashFiles('services/control-tower/poetry.lock') }}
-          restore-keys: ${{ runner.os }}-service.control-tower-
+          key: ${{ runner.os }}-service.control-tower-v1-${{ hashFiles('services/control-tower/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-service.control-tower-v1-
       - uses: snok/install-poetry@v1.1.1
       # - name: Run tests
       #   working-directory: ${{ env.WORKDIR }}

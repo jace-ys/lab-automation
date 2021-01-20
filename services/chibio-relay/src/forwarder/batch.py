@@ -26,15 +26,17 @@ class BatchForwarder(threading.Thread):
                 try:
                     rows = self.__diff(f)
                     if rows:
+                        count = len(rows)
+                        self.logger.info("batch.forward.started", file=f, rows=count)
                         self.__forward(rows)
-                        self.__seek(f, len(rows))
-
-                    self.logger.info("batch.forward.finished", file=f, count=len(rows))
+                        self.__seek(f, count)
+                        self.logger.info("batch.forward.finished", file=f, rows=count)
 
                 except Exception as err:
                     self.logger.error("batch.forward.failed", file=f, error=err)
                     raise
 
+            self.logger.info("batch.poll.finished")
             self.done.wait(self.check_interval)
 
     def __diff(self, csv):

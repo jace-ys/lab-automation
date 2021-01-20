@@ -1,28 +1,28 @@
 import uvicorn
 from fastapi import FastAPI
 
-from lib.logger import Logger
+from lib import log, redis
+from lib.commands.subscriber import Subscriber
 from src.config import config
-from src.protocols.handler import ProtocolHandler
-from src.routers import runs
+from src.protocols.builder import ProtocolBuilder
+from src.routers import builds
 
 cfg = config.Config()
-logger = Logger.new()
-
-redis = Redis(host=cfg.redis.HOST, port=cfg.redis.PORT, decode_responses=True)
-pubsub = redis.pubsub()
+logger = log.Logger.new()
+cache = redis.Client.connect(cfg.cache.CONNECTION_URL)
+pubsub = redis.Client.connect(cfg.pubsub.CONNECTION_URL).pubsub()
 
 app = FastAPI()
-app.include_router(runs.router)
+app.include_router(builds.router)
 
 
 if __name__ == "__main__":
-    handler = ProtocolHandler(logger, redis, cfg.API_VERSION)
+    subscriber = Subscriber(ProtocolBuilder(logger, cache, cfg.builder))
 
     try:
-        pubsub.subscribe(**{cfg.API_VERSION: handler.receive})
+        pubsub.subscribe(**{cfg.pubsub.SUBSCRIPTION_TOPIC: subscriber.receive})
         pubsub_thread = pubsub.run_in_thread()  # TODO: Handle exception in thread
-        logger.info("pubsub.listen.started", channel=cfg.API_VERSION)
+        logger.info("pubsub.listen.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
 
         logger.info("server.started", port=cfg.server.PORT)
         uvicorn.run(app, host=cfg.server.HOST, port=cfg.server.PORT)

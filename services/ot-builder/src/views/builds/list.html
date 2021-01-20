@@ -7,11 +7,11 @@
   <body>
     <div style="margin: 2em;">
       <h1>OT-2 Protocol Builder</h1>
-      <h2>Active Runs</h2>
+      <h2>Active Builds</h2>
       <div>
-        {% for run in runs %}
+        {% for build in builds %}
         <li>
-          <a href="/runs/{{ run.uuid }}">{{ run.protocol }} [{{ run.uuid }}]</a>
+          <a href="/builds/{{ build.uuid }}">{{ build.protocol }} [{{ build.uuid }}]</a>
         </li>
         {% endfor %}
       </div>
