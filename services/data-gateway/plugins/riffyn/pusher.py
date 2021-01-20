@@ -28,7 +28,7 @@ class Pusher:
             kv_data, rows = self.__merge_data(payload.data)
             self.logger.info("data.push.started", uuid=payload.uuid, rows=rows)
 
-            # TODO: find experiment, activity and run IDs from payload.uuid
+            # TODO: Find experiment, activity and run IDs from payload.uuid
             activity = self.activity_api.get_activity(EXPERIMENT_ID, ACTIVITY_ID)
 
             output_pkeys = self.__populate_output_pkeys(activity, RUN_ID, kv_data)
@@ -62,17 +62,17 @@ class Pusher:
         properties = defaultdict(list)
         for row in rows:
             for key, value in row.items():
-                properties[key].append(value)
+                properties[key.lower()].append(value)
 
         return dict(properties), len(rows)
 
     def __populate_output_pkeys(self, activity, run_id, kv_data):
-        # NOTE: assume the activity only has a single output to be populated
+        # NOTE: Assume the activity only has a single output to be populated
         output = activity.outputs[0]
         output_pkeys = []
 
         pkey = next(iter(kv_data.keys()))
-        if pkey != utils.str_to_snakecase(output.properties[0].name):
+        if pkey.lower() != utils.str_to_snakecase(output.properties[0].name).lower():
             raise ValueError(
                 f'primary key does not match: expected "{output.properties[0].name}", got "{pkey}"'
             )
@@ -90,12 +90,12 @@ class Pusher:
         return output_pkeys
 
     def __populate_output_data(self, activity, run_id, kv_data, output_rows):
-        # NOTE: assume the activity only has a single output to be populated
+        # NOTE: Assume the activity only has a single output to be populated
         output = activity.outputs[0]
         output_data = []
 
         for property in output.properties[1:]:
-            property_name = utils.str_to_snakecase(property.name)
+            property_name = utils.str_to_snakecase(property.name).lower()
 
             if property_name not in kv_data:
                 raise ValueError(f"could not find property with key: {property.name}")
@@ -128,5 +128,5 @@ class Pusher:
             riffyn.AddBatchDataToInputBody(data), experiment_id, activity_id
         )
 
-        # NOTE: assume the activity only has a single output to be populated
+        # NOTE: Assume the activity only has a single output to be populated
         return output_rows[0]

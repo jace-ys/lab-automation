@@ -3,7 +3,7 @@ from pydantic import BaseSettings
 
 class PluginConfig(BaseSettings):
     API_KEY: str
-    CACHE_KEY: str = "control-tower.plugins.riffyn"
+    CACHE_KEY: str = "service.control-tower.plugins.riffyn"
     POLL_INTERVAL: int = 10
 
     class Config:

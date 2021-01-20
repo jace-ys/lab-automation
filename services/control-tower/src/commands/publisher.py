@@ -3,11 +3,11 @@ import threading
 
 
 class CommandPublisher(threading.Thread):
-    def __init__(self, logger, redis, queue, done):
+    def __init__(self, logger, pubusb, queue=None, done=None):
         super(CommandPublisher, self).__init__()
 
         self.logger = logger
-        self.redis = redis
+        self.pubsub = pubsub
         self.queue = queue
         self.done = done
 
@@ -31,4 +31,4 @@ class CommandPublisher(threading.Thread):
                 raise
 
     def publish(self, command):
-        self.redis.publish(command.apiVersion, command.json())
+        self.pubsub.publish(command.apiVersion, command.json())

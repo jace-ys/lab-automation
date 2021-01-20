@@ -1,6 +1,5 @@
 import uvicorn
 from fastapi import FastAPI
-from redis import Redis
 
 from lib.logger import Logger
 from src.config import config

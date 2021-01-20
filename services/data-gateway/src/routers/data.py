@@ -3,13 +3,13 @@ from typing import Any, Dict, List
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 
-from lib.logger import Logger
+from lib import log
 from plugins.riffyn.pusher import Pusher
 
-logger = Logger.new()
+logger = log.Logger.new()
+pusher = Pusher(logger)
 
 router = APIRouter()
-pusher = Pusher(logger)
 
 
 class DataPayload(BaseModel):
@@ -21,6 +21,7 @@ class DataPayload(BaseModel):
 async def receive_data(payload: DataPayload):
     try:
         pusher.push(payload)
+        # TODO: Add logging
         return status.HTTP_202_ACCEPTED
 
     except Exception as err:

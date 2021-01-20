@@ -6,7 +6,6 @@ from fastapi import APIRouter, Form, Request, status
 from fastapi.responses import RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from opentrons import simulate
-from redis import Redis
 
 from lib.logger import Logger
 from src.config import config

@@ -1,4 +1,4 @@
-DEPENDENCIES = db.redis
+DEPENDENCIES = pubsub.redis db.redis
 
 .PHONY: run fmt test dependencies
 

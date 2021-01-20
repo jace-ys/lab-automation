@@ -1,17 +1,12 @@
-import threading
-
 import uvicorn
-from fastapi import FastAPI, Request, status
-from redis import Redis
+from fastapi import FastAPI
 
-from lib.logger import Logger
+from lib import log
 from src.config import config
 from src.routers import data
 
 cfg = config.Config()
-logger = Logger.new()
-
-redis = Redis(host=cfg.redis.HOST, port=cfg.redis.PORT, decode_responses=True)
+logger = log.Logger.new()
 
 app = FastAPI()
 app.include_router(data.router)

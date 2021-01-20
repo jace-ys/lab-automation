@@ -7,15 +7,16 @@ from src.forwarder.payload import DataRow
 
 
 class BatchForwarder(threading.Thread):
-    def __init__(self, logger, redis, done, cfg):
+    def __init__(self, logger, cache, done, cfg):
         super(BatchForwarder, self).__init__()
 
         self.logger = logger
-        self.redis = redis
+        self.cache = cache
         self.done = done
+        self.cache_key = cfg.CACHE_KEY
         self.check_interval = cfg.CHECK_INTERVAL
         self.data_dir = cfg.DATA_DIR
-        self.data_gateway_addr = cfg.SERVICE_DATA_GATEWAY_ADDR
+        self.data_gateway_addr = cfg.DATA_GATEWAY_ADDR
 
     def run(self):
         while not self.done.is_set():
@@ -40,7 +41,7 @@ class BatchForwarder(threading.Thread):
         with open(csv, "r") as f:
             lines = f.read().splitlines()[1:]
 
-        position = self.redis.hget("ChiBio/v1alpha1", csv) or 0
+        position = self.cache.hget(self.cache_key, csv) or 0
         return lines[int(position) :]
 
     def __forward(self, rows):
@@ -48,11 +49,11 @@ class BatchForwarder(threading.Thread):
         resp = requests.post(
             f"http://{self.data_gateway_addr}/data/batch",
             json={
-                "uuid": "",
+                "uuid": "",  # TODO: Use uuid from command
                 "data": data,
             },
         )
         resp.raise_for_status()
 
     def __seek(self, csv, rows):
-        self.redis.hincrby("ChiBio/v1alpha1", csv, rows)
+        self.cache.hincrby(self.cache_key, csv, rows)

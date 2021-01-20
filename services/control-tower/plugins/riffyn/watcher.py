@@ -1,4 +1,3 @@
-import random
 import threading
 
 import requests
@@ -12,11 +11,11 @@ cfg = PluginConfig()
 
 
 class Watcher(threading.Thread):
-    def __init__(self, logger, redis, queue, done):
+    def __init__(self, logger, cache, queue, done):
         super(Watcher, self).__init__()
 
         self.logger = logger
-        self.redis = redis
+        self.cache = cache
         self.queue = queue
         self.done = done
         self.cache_key = cfg.CACHE_KEY
@@ -33,14 +32,13 @@ class Watcher(threading.Thread):
 
             try:
                 runs = self.__fetch_run_statuses()
-
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
                         try:
                             cmd = self.__build_command(experiment_id, run)
                             self.queue.put(cmd)
 
-                            self.redis.hset(self.cache_key, run.id, "")
+                            self.cache.hset(self.cache_key, run.id, "")
                             self.logger.info("run.started", run_id=run.id)
 
                         except command.Noop:
@@ -48,7 +46,7 @@ class Watcher(threading.Thread):
 
                     for run in runs["stopped"]:
                         self.logger.info("run.stopped", run_id=run.id)
-                        self.redis.hdel(self.cache_key, run.id)
+                        self.cache.hdel(self.cache_key, run.id)
 
                 self.logger.info("runs.poll.finished")
 
@@ -66,12 +64,11 @@ class Watcher(threading.Thread):
 
     def __fetch_run_statuses(self):
         experiments = self.__fetch_experiments()
-        active_runs = self.redis.hgetall(self.cache_key)
+        active_runs = self.cache.hgetall(self.cache_key)
 
         runs = {}
         for experiment in experiments:
             status = {"started": [], "stopped": []}
-
             for run in self.__fetch_runs(experiment.id):
                 if run.status == "running" and run.id not in active_runs:
                     status["started"].append(run)

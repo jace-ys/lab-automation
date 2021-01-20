@@ -2,23 +2,21 @@ import threading
 
 import uvicorn
 from fastapi import FastAPI
-from redis import Redis
 
-from lib.logger import Logger
+from lib import log, redis
 from src.config import config
 from src.forwarder.batch import BatchForwarder
 
 cfg = config.Config()
-logger = Logger.new()
-
-redis = Redis(host=cfg.redis.HOST, port=cfg.redis.PORT, decode_responses=True)
+logger = log.Logger.new()
+cache = redis.Cache.connect(cfg.cache.CONNECTION_URL)
 
 app = FastAPI()
 
 
 if __name__ == "__main__":
     done = threading.Event()
-    forwarder = BatchForwarder(logger, redis, done, cfg.forwarder)
+    forwarder = BatchForwarder(logger, cache, done, cfg.forwarder)
 
     try:
         forwarder.start()

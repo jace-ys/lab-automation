@@ -2,20 +2,20 @@ from pydantic import BaseSettings
 
 
 class ForwarderConfig(BaseSettings):
-    SERVICE_DATA_GATEWAY_ADDR: str
+    CACHE_KEY: str = "service.chibio-relay"
     CHECK_INTERVAL: int = 10
     DATA_DIR: str = "data"
+    DATA_GATEWAY_ADDR: str
 
     class Config:
         env_prefix = "FORWARDER_"
 
 
-class RedisConfig(BaseSettings):
-    HOST: str = "127.0.0.1"
-    PORT: int = 6379
+class RedisCacheConfig(BaseSettings):
+    CONNECTION_URL: str = "redis://127.0.0.1:6379"
 
     class Config:
-        env_prefix = "REDIS_"
+        env_prefix = "REDIS_CACHE_"
 
 
 class ServerConfig(BaseSettings):
@@ -28,7 +28,7 @@ class ServerConfig(BaseSettings):
 
 class Config(BaseSettings):
     forwarder: ForwarderConfig = ForwarderConfig()
-    redis: RedisConfig = RedisConfig()
+    cache: RedisCacheConfig = RedisCacheConfig()
     server: ServerConfig = ServerConfig()
 
     class Config:

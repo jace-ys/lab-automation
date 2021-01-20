@@ -2,13 +2,19 @@ version: "3.8"
 
 x-environment: &environment
   SERVER_HOST: 0.0.0.0
-  REDIS_HOST: db.redis
+  REDIS_PUBSUB_CONNECTION_URL: redis://pubsub.redis:6378
+  REDIS_CACHE_CONNECTION_URL: redis://db.redis:6379
 
 services:
   db.redis:
     image: redis:6.0-alpine
     ports:
       - 6379:6379
+
+  pubsub.redis:
+    image: redis:6.0-alpine
+    ports:
+      - 6389:6379
 
   service.control-tower:
     build:
@@ -49,6 +55,6 @@ services:
       - service.data-gateway
     environment:
       <<: *environment
-      FORWARDER_SERVICE_DATA_GATEWAY_ADDR: service.data-gateway:8000
+      FORWARDER_DATA_GATEWAY_ADDR: service.data-gateway:8000
     volumes:
       - ./services/chibio-relay/test/data:/usr/service/data

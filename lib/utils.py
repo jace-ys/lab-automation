@@ -16,4 +16,4 @@ def str_to_camelcase(string):
 # Helper function for converting a string to snake case
 def str_to_snakecase(string):
     snake = string.replace(" ", "_")
-    return snake.lower()
+    return snake

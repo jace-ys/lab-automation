@@ -5,17 +5,16 @@ from queue import Queue
 
 import uvicorn
 from fastapi import FastAPI
-from redis import Redis
 
-from lib.logger import Logger
+from lib import log, redis
 from src.commands.publisher import CommandPublisher
 from src.config import config
 from src.routers import commands
 
 cfg = config.Config()
-logger = Logger.new()
-
-redis = Redis(host=cfg.redis.HOST, port=cfg.redis.PORT, decode_responses=True)
+logger = log.Logger.new()
+cache = redis.Cache.connect(cfg.cache.CONNECTION_URL)
+pubsub = redis.PubSub.connect(cfg.pubsub.CONNECTION_URL)
 queue = Queue()
 
 app = FastAPI()
@@ -24,7 +23,7 @@ app.include_router(commands.router)
 
 if __name__ == "__main__":
     done = threading.Event()
-    publisher = CommandPublisher(logger, redis, queue, done)
+    publisher = CommandPublisher(logger, pubsub, queue, done)
     watchers = {}
 
     try:
@@ -39,9 +38,8 @@ if __name__ == "__main__":
         )
 
         for plugin in plugins:
-            watcher = importlib.import_module(f"{plugin}.watcher").Watcher(
-                logger, redis, queue, done
-            )
+            module = importlib.import_module(f"{plugin}.watcher")
+            watcher = module.Watcher(logger, cache, queue, done)
             watcher.start()
             logger.info(f"{plugin}.watcher.started")
             watchers[plugin] = watcher

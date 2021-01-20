@@ -1,12 +1,11 @@
 from pydantic import BaseSettings
 
 
-class RedisConfig(BaseSettings):
-    HOST: str = "127.0.0.1"
-    PORT: int = 6379
+class RedisCacheConfig(BaseSettings):
+    CONNECTION_URL: str = "redis://127.0.0.1:6379"
 
     class Config:
-        env_prefix = "REDIS_"
+        env_prefix = "REDIS_CACHE_"
 
 
 class ServerConfig(BaseSettings):
@@ -18,7 +17,7 @@ class ServerConfig(BaseSettings):
 
 
 class Config(BaseSettings):
-    redis: RedisConfig = RedisConfig()
+    cache: RedisCacheConfig = RedisCacheConfig()
     server: ServerConfig = ServerConfig()
 
     class Config:
