@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+import typing
 
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import Response
@@ -13,15 +13,15 @@ pusher = Pusher(logger)
 router = APIRouter()
 
 
-class DataPayload(BaseModel):
+class DataPushRequest(BaseModel):
     uuid: str
-    data: Dict[Any, Any]
+    data: typing.Dict[typing.Any, typing.Any]
 
 
 @router.post("/data")
-async def push_data(payload: DataPayload):
+async def push_data(req: DataPushRequest):
     try:
-        pusher.push(payload)
+        pusher.push(req)
         return Response(status_code=status.HTTP_202_ACCEPTED)
 
     except Exception as err:
@@ -31,15 +31,15 @@ async def push_data(payload: DataPayload):
         )
 
 
-class DataBatchPayload(BaseModel):
+class DataBatchPushRequest(BaseModel):
     uuid: str
-    data: List[Dict[Any, Any]]
+    data: typing.List[typing.Dict[typing.Any, typing.Any]]
 
 
 @router.post("/data/batch")
-async def push_data_batch(payload: DataBatchPayload):
+async def push_data_batch(req: DataBatchPushRequest):
     try:
-        pusher.push(payload)
+        pusher.push(req)
         return Response(status_code=status.HTTP_202_ACCEPTED)
 
     except Exception as err:

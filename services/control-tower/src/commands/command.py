@@ -12,6 +12,10 @@ class Command:
         self.protocol = protocol
         self.spec = spec
 
+    def with_metadata(self, source, spec={}):
+        self.metadata = {"source": {"name": source, "spec": spec}}
+        return self
+
     def json(self):
         return json.dumps(self, cls=CommandEncoder)
 

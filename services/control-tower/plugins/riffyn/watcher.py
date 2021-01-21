@@ -104,7 +104,14 @@ class Watcher(threading.Thread):
         api_version = run.inputs[0].resource_name
         protocol = activity.name.replace(" ", "")
 
-        cmd = command.Command(api_version, protocol)
+        cmd = command.Command(api_version, protocol).with_metadata(
+            "service.control-tower.plugin.riffyn",
+            {
+                "experimentId": experiment_id,
+                "activityId": run.activity_id,
+                "runId": run.id,
+            },
+        )
 
         for input in activity.inputs:
             properties = {}

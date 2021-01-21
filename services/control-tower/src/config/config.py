@@ -1,6 +1,13 @@
 from pydantic import BaseSettings
 
 
+class CommandPublisherConfig(BaseSettings):
+    CACHE_KEY: str = "service.control-tower"
+
+    class Config:
+        env_prefix = "PUBLISHER_"
+
+
 class RedisCacheConfig(BaseSettings):
     CONNECTION_URL: str = "redis://127.0.0.1:6379"
 
@@ -24,6 +31,7 @@ class ServerConfig(BaseSettings):
 
 
 class Config(BaseSettings):
+    publisher: CommandPublisherConfig = CommandPublisherConfig()
     cache: RedisCacheConfig = RedisCacheConfig()
     pubsub: RedisPubSubConfig = RedisPubSubConfig()
     server: ServerConfig = ServerConfig()

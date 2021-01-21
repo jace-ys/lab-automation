@@ -23,7 +23,7 @@ app.include_router(commands.router)
 
 if __name__ == "__main__":
     done = threading.Event()
-    publisher = CommandPublisher(logger, pubsub, queue, done)
+    publisher = CommandPublisher(logger, cache, pubsub, cfg.publisher, queue, done)
     watchers = {}
 
     try:
