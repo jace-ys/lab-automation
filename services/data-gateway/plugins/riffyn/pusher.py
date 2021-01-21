@@ -1,15 +1,16 @@
 from collections import defaultdict
 
+import requests
 import swagger_client as riffyn
 
 from lib import utils
 from plugins.riffyn.config import PluginConfig
 
-EXPERIMENT_ID = "i3hoxbubYkvpGQaYc"
-ACTIVITY_ID = "jZYi3XYkQixxGM4x4"
-RUN_ID = "Bf5rTf7mw3xLxaMYw"
-
 cfg = PluginConfig()
+
+
+class UnprocessableSource(BaseException):
+    pass
 
 
 class Pusher:
@@ -17,6 +18,7 @@ class Pusher:
         super(Pusher, self).__init__()
 
         self.logger = logger
+        self.control_tower_addr = cfg.CONTROL_TOWER_ADDR
 
         riffyn.Configuration().api_key["api-key"] = cfg.API_KEY
         self.activity_api = riffyn.ProcessActivityApi()
@@ -28,22 +30,27 @@ class Pusher:
             kv_data, rows = self.__merge_data(payload.data)
             self.logger.info("data.push.started", uuid=payload.uuid, rows=rows)
 
-            # TODO: Find experiment, activity and run IDs from payload.uuid
-            activity = self.activity_api.get_activity(EXPERIMENT_ID, ACTIVITY_ID)
+            cmd = self.__get_command_metadata(payload.uuid)
+            experiment_id, activity_id, run_id = self.__parse_riffyn_metadata(cmd)
+            activity = self.activity_api.get_activity(experiment_id, activity_id)
 
-            output_pkeys = self.__populate_output_pkeys(activity, RUN_ID, kv_data)
+            output_pkeys = self.__populate_output_pkeys(activity, run_id, kv_data)
             output_rows = self.__add_batch_run_data(
-                EXPERIMENT_ID, ACTIVITY_ID, output_pkeys
+                experiment_id, activity_id, output_pkeys
             )
 
             output_data = self.__populate_output_data(
-                activity, RUN_ID, kv_data, output_rows
+                activity, run_id, kv_data, output_rows
             )
             output_rows = self.__add_batch_run_data(
-                EXPERIMENT_ID, ACTIVITY_ID, output_data
+                experiment_id, activity_id, output_data
             )
 
             self.logger.info("data.push.finished", uuid=payload.uuid, rows=rows)
+
+        except UnprocessableSource:
+            self.logger.error("data.push.skipped", uuid=payload.uuid)
+            return  # No-op
 
         except riffyn.rest.ApiException as err:
             self.logger.error(
@@ -70,6 +77,27 @@ class Pusher:
                 properties[key.lower()].append(value)
 
         return dict(properties), len(rows)
+
+    def __get_command_metadata(self, uuid):
+        resp = requests.get(f"http://{self.control_tower_addr}/commands/{uuid}")
+        resp.raise_for_status()
+        return resp.json()
+
+    def __parse_riffyn_metadata(self, command):
+        source = command["metadata"]["source"]
+        if source["name"] != "riffyn":
+            raise UnprocessableSource
+
+        spec = source["spec"]
+        experiment_id = spec["experimentId"]
+        activity_id = spec["activityId"]
+        run_id = spec["runId"]
+
+        # experiment_id = "i3hoxbubYkvpGQaYc"
+        # activity_id = "jZYi3XYkQixxGM4x4"
+        # run_id = "Bf5rTf7mw3xLxaMYw"
+
+        return experiment_id, activity_id, run_id
 
     def __populate_output_pkeys(self, activity, run_id, kv_data):
         # NOTE: Assume the activity only has a single output to be populated

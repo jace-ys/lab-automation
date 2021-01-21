@@ -32,16 +32,16 @@ if __name__ == "__main__":
 
         plugins = list(
             map(
-                lambda path: path.replace("/", ".")[:-1],
-                glob.glob("plugins/**/"),
+                lambda path: path.replace("/", ".")[:-3],
+                glob.glob("plugins/**/watcher.py"),
             )
         )
 
         for plugin in plugins:
-            module = importlib.import_module(f"{plugin}.watcher")
+            module = importlib.import_module(plugin)
             watcher = module.Watcher(logger, cache, queue, done)
             watcher.start()
-            logger.info(f"{plugin}.watcher.started")
+            logger.info(f"{plugin}.started")
             watchers[plugin] = watcher
 
         logger.info("server.started", port=cfg.server.PORT)
@@ -62,4 +62,4 @@ if __name__ == "__main__":
 
         for plugin, watcher in watchers.items():
             watcher.join()
-            logger.info(f"{plugin}.watcher.stopped")
+            logger.info(f"{plugin}.stopped")

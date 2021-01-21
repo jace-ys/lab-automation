@@ -5,10 +5,11 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 
 from lib import log
+from plugins import pushers
 from plugins.riffyn.pusher import Pusher
 
 logger = log.Logger.new()
-pusher = Pusher(logger)
+pushers = pushers.load(logger)
 
 router = APIRouter()
 
@@ -20,15 +21,17 @@ class DataPushRequest(BaseModel):
 
 @router.post("/data")
 async def push_data(req: DataPushRequest):
-    try:
-        pusher.push(req)
-        return Response(status_code=status.HTTP_202_ACCEPTED)
+    for plugin, pusher in pushers.items():
+        try:
+            pusher.push(req)
 
-    except Exception as err:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"failed to push data: {str(err)}",
-        )
+        except Exception as err:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"{plugin}: failed to push data: {str(err)}",
+            )
+
+    return Response(status_code=status.HTTP_202_ACCEPTED)
 
 
 class DataBatchPushRequest(BaseModel):
@@ -38,12 +41,14 @@ class DataBatchPushRequest(BaseModel):
 
 @router.post("/data/batch")
 async def push_data_batch(req: DataBatchPushRequest):
-    try:
-        pusher.push(req)
-        return Response(status_code=status.HTTP_202_ACCEPTED)
+    for plugin, pusher in pushers.items():
+        try:
+            pusher.push(req)
 
-    except Exception as err:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"failed to push data: {str(err)}",
-        )
+        except Exception as err:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"{plugin}: failed to push data: {str(err)}",
+            )
+
+    return Response(status_code=status.HTTP_202_ACCEPTED)

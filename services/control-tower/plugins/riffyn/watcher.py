@@ -105,7 +105,7 @@ class Watcher(threading.Thread):
         protocol = activity.name.replace(" ", "")
 
         cmd = command.Command(api_version, protocol).with_metadata(
-            "service.control-tower.plugin.riffyn",
+            "riffyn",
             {
                 "experimentId": experiment_id,
                 "activityId": run.activity_id,
