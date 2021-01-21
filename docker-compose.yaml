@@ -19,7 +19,7 @@ services:
   service.control-tower:
     build:
       context: .
-      dockerfile: ./builds/service.control-tower/Dockerfile
+      dockerfile: ./docker/service.control-tower/Dockerfile
     image: lab-automation-playground/service.control-tower:latest
     env_file:
       - ./services/control-tower/.env
@@ -29,7 +29,7 @@ services:
   service.data-gateway:
     build:
       context: .
-      dockerfile: ./builds/service.data-gateway/Dockerfile
+      dockerfile: ./docker/service.data-gateway/Dockerfile
     image: lab-automation-playground/service.data-gateway:latest
     env_file:
       - ./services/data-gateway/.env
@@ -40,7 +40,7 @@ services:
   service.ot-builder:
     build:
       context: .
-      dockerfile: ./builds/service.ot-builder/Dockerfile
+      dockerfile: ./docker/service.ot-builder/Dockerfile
     image: lab-automation-playground/service.ot-builder:latest
     ports:
       - 8000:8000
@@ -50,7 +50,7 @@ services:
   service.chibio-relay:
     build:
       context: .
-      dockerfile: ./builds/service.chibio-relay/Dockerfile
+      dockerfile: ./docker/service.chibio-relay/Dockerfile
     image: lab-automation-playground/service.chibio-relay:latest
     depends_on:
       - service.data-gateway
