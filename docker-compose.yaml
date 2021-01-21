@@ -35,6 +35,7 @@ services:
       - ./services/data-gateway/.env
     environment:
       <<: *environment
+      PLUGIN_RIFFYN_CONTROL_TOWER_ADDR: service.control-tower:8000
 
   service.ot-builder:
     build:

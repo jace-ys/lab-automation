@@ -93,10 +93,6 @@ class Pusher:
         activity_id = spec["activityId"]
         run_id = spec["runId"]
 
-        # experiment_id = "i3hoxbubYkvpGQaYc"
-        # activity_id = "jZYi3XYkQixxGM4x4"
-        # run_id = "Bf5rTf7mw3xLxaMYw"
-
         return experiment_id, activity_id, run_id
 
     def __populate_output_pkeys(self, activity, run_id, kv_data):

@@ -100,10 +100,17 @@ class Watcher(threading.Thread):
         data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
         datatable = data["datatables"][run.id]["datatable"][0]
 
-        # NOTE: Assume the first input's resource is the target
-        api_version = run.inputs[0].resource_name
-        protocol = activity.name.replace(" ", "")
+        if run.inputs:
+            # NOTE: Assume the first input's resource is the target
+            api_version = run.inputs[0].resource_name
+        elif run.outputs:
+            # NOTE: Assume the first output's resource is the target
+            api_version = run.outputs[0].resource_name
+        else:
+            # NOTE: Skip if no input or output, so set an invalid API version
+            api_version = ""
 
+        protocol = activity.name.replace(" ", "")
         cmd = command.Command(api_version, protocol).with_metadata(
             "riffyn",
             {

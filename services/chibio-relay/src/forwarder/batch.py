@@ -7,10 +7,11 @@ from src.forwarder.payload import DataRow
 
 
 class BatchForwarder(threading.Thread):
-    def __init__(self, logger, cache, done, cfg):
+    def __init__(self, logger, manager, cache, cfg, done):
         super(BatchForwarder, self).__init__()
 
         self.logger = logger
+        self.manager = manager
         self.cache = cache
         self.done = done
         self.cache_key = cfg.CACHE_KEY
@@ -28,13 +29,16 @@ class BatchForwarder(threading.Thread):
                     if rows:
                         count = len(rows)
                         self.logger.info("batch.forward.started", file=f, rows=count)
-                        self.__forward(rows)
+
+                        cmd = self.manager.get_command(f)
+                        self.__forward(cmd["uuid"], rows)
                         self.__seek(f, count)
+
                         self.logger.info("batch.forward.finished", file=f, rows=count)
 
                 except Exception as err:
                     self.logger.error("batch.forward.failed", file=f, error=err)
-                    raise
+                    # raise
 
             self.logger.info("batch.poll.finished")
             self.done.wait(self.check_interval)
@@ -46,12 +50,12 @@ class BatchForwarder(threading.Thread):
         position = self.cache.hget(self.cache_key, csv) or 0
         return lines[int(position) :]
 
-    def __forward(self, rows):
+    def __forward(self, uuid, rows):
         data = list(map(lambda row: vars(DataRow(row)), rows))
         resp = requests.post(
             f"http://{self.data_gateway_addr}/data/batch",
             json={
-                "uuid": "",  # TODO: Use uuid from command
+                "uuid": uuid,
                 "data": data,
             },
         )

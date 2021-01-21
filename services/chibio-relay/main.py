@@ -4,21 +4,31 @@ import uvicorn
 from fastapi import FastAPI
 
 from lib import log, redis
+from lib.commands.subscriber import Subscriber
 from src.config import config
 from src.forwarder.batch import BatchForwarder
+from src.system.manager import SystemManager
 
 cfg = config.Config()
 logger = log.Logger.new()
 cache = redis.Client.connect(cfg.cache.CONNECTION_URL)
+pubsub = redis.Client.connect(cfg.pubsub.CONNECTION_URL).pubsub()
 
 app = FastAPI()
 
 
 if __name__ == "__main__":
     done = threading.Event()
-    forwarder = BatchForwarder(logger, cache, done, cfg.forwarder)
+
+    manager = SystemManager(logger, cache, cfg.manager)
+    forwarder = BatchForwarder(logger, manager, cache, cfg.forwarder, done)
+    subscriber = Subscriber(manager)
 
     try:
+        pubsub.subscribe(**{cfg.pubsub.SUBSCRIPTION_TOPIC: subscriber.receive})
+        pubsub_thread = pubsub.run_in_thread()  # TODO: Handle exception in thread
+        logger.info("pubsub.listen.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
+
         forwarder.start()
         logger.error("data.forwarder.started")
 
@@ -34,6 +44,9 @@ if __name__ == "__main__":
 
     finally:
         done.set()
+
+        pubsub_thread.stop()
+        logger.info("pubsub.listen.stopped")
 
         forwarder.join()
         logger.error("data.forwarder.stopped")
