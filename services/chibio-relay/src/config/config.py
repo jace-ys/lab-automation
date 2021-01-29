@@ -13,9 +13,10 @@ class ForwarderConfig(BaseSettings):
 
 class ManagerConfig(BaseSettings):
     CACHE_KEY: str = "service.chibio-relay.manager"
+    CHIBIO_SERVER_ADDR: str
 
     class Config:
-        env_prefix = "SERVER_"
+        env_prefix = "MANAGER_"
 
 
 class RedisCacheConfig(BaseSettings):

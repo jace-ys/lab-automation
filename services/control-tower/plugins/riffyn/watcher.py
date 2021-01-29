@@ -54,11 +54,9 @@ class Watcher(threading.Thread):
                 self.logger.error(
                     "runs.poll.failed", status=err.status, error=err.reason
                 )
-                raise
 
             except Exception as err:
                 self.logger.error("runs.poll.failed", error=err)
-                raise
 
             self.done.wait(self.poll_interval)
 

@@ -19,23 +19,21 @@ class CommandPublisher(threading.Thread):
             try:
                 command = self.queue.get(block=False)
                 self.publish(command)
+                self.logger.info(
+                    "command.published",
+                    channel=command.apiVersion,
+                    command=command.json(),
+                )
 
             except queue.Empty:
                 pass
 
-    def publish(self, command):
-        try:
-            self.create(command)
-            self.pubsub.publish(command.apiVersion, command.json())
-            self.logger.info(
-                "command.published",
-                channel=command.apiVersion,
-                command=command.json(),
-            )
+            except Exception as err:
+                self.logger.error("command.publish.failed", error=err)
 
-        except Exception as err:
-            self.logger.error("command.publish.failed", error=err)
-            raise
+    def publish(self, command):
+        self.create(command)
+        self.pubsub.publish(command.apiVersion, command.json())
 
     def get(self, uuid):
         cmd = self.cache.hget(self.cache_key, uuid)

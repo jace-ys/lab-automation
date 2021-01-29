@@ -18,11 +18,15 @@ class ProtocolBuilder:
         self.cache_key = cfg.CACHE_KEY
 
     def handle_command(self, command):
-        build = Build(command)
-        self.create(build)
-        self.logger.info(
-            "build.created", uuid=build["uuid"], protocol=build["protocol"]
-        )
+        try:
+            build = Build(command)
+            self.create(build)
+            self.logger.info(
+                "build.created", uuid=build["uuid"], protocol=build["protocol"]
+            )
+
+        except Exception as err:
+            self.logger.error("build.failed", uuid=command["uuid"], error=err)
 
     def list(self):
         # TODO: Order builds by creation time

@@ -1,0 +1,12 @@
+{
+  "apiVersion": "ChiBio/v1alpha1",
+  "protocol": "Run",
+  "spec": {
+    "thermostat": {
+      "temperature": 40
+    },
+    "leds": {
+      "395Nm": 0.42
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import glob
+import os
 import threading
 
 import requests
@@ -23,31 +24,39 @@ class BatchForwarder(threading.Thread):
         while not self.done.is_set():
             self.logger.info("batch.poll.started")
 
-            for f in glob.glob(f"{self.data_dir}/*.csv"):
+            for csv in glob.glob(f"{self.data_dir}/*.csv"):
                 try:
-                    rows = self.__diff(f)
+                    filename = os.path.basename(csv)
+                    rows = self.__diff(filename)
                     if rows:
+                        try:
+                            uuid = self.manager.get(filename)
+                        except ValueError:
+                            continue  # No-op
+
                         count = len(rows)
-                        self.logger.info("batch.forward.started", file=f, rows=count)
+                        self.logger.info(
+                            "batch.forward.started", file=filename, rows=count
+                        )
 
-                        cmd = self.manager.get_command(f)
-                        self.__forward(cmd["uuid"], rows)
-                        self.__seek(f, count)
+                        self.__forward(uuid, rows)
+                        self.__seek(filename, count)
 
-                        self.logger.info("batch.forward.finished", file=f, rows=count)
+                        self.logger.info(
+                            "batch.forward.finished", file=filename, rows=count
+                        )
 
                 except Exception as err:
-                    self.logger.error("batch.forward.failed", file=f, error=err)
-                    # raise
+                    self.logger.error("batch.forward.failed", file=filename, error=err)
 
             self.logger.info("batch.poll.finished")
             self.done.wait(self.check_interval)
 
-    def __diff(self, csv):
-        with open(csv, "r") as f:
+    def __diff(self, filename):
+        with open(f"{self.data_dir}/{filename}", "r") as f:
             lines = f.read().splitlines()[1:]
 
-        position = self.cache.hget(self.cache_key, csv) or 0
+        position = self.cache.hget(self.cache_key, filename) or 0
         return lines[int(position) :]
 
     def __forward(self, uuid, rows):
@@ -61,5 +70,5 @@ class BatchForwarder(threading.Thread):
         )
         resp.raise_for_status()
 
-    def __seek(self, csv, rows):
-        self.cache.hincrby(self.cache_key, csv, rows)
+    def __seek(self, filename, rows):
+        self.cache.hincrby(self.cache_key, filename, rows)

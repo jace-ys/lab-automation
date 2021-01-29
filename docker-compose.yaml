@@ -20,7 +20,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/service.control-tower/Dockerfile
-    image: lab-automation-playground/service.control-tower:latest
+    image: lab-automation/service.control-tower:latest
     env_file:
       - ./services/control-tower/.env
     environment:
@@ -30,7 +30,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/service.data-gateway/Dockerfile
-    image: lab-automation-playground/service.data-gateway:latest
+    image: lab-automation/service.data-gateway:latest
     env_file:
       - ./services/data-gateway/.env
     environment:
@@ -41,7 +41,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/service.ot-builder/Dockerfile
-    image: lab-automation-playground/service.ot-builder:latest
+    image: lab-automation/service.ot-builder:latest
     ports:
       - 8000:8000
     environment:
@@ -51,11 +51,20 @@ services:
     build:
       context: .
       dockerfile: ./docker/service.chibio-relay/Dockerfile
-    image: lab-automation-playground/service.chibio-relay:latest
+    image: lab-automation/service.chibio-relay:latest
     depends_on:
       - service.data-gateway
+      - external.chibio-server
     environment:
       <<: *environment
       FORWARDER_DATA_GATEWAY_ADDR: service.data-gateway:8000
+      MANAGER_CHIBIO_SERVER_ADDR: external.chibio-server:5000
     volumes:
-      - ./services/chibio-relay/test/data:/usr/service/data
+      - ./data:/usr/service/data
+
+  external.chibio-server:
+    image: lab-automation/chibio:latest
+    ports:
+      - 5000:5000
+    volumes:
+      - ./data:/src/data
