@@ -1,6 +1,9 @@
 class DataRow:
-    def __init__(self, row):
-        data = row.split(",", 40)
+    def __init__(self, row=None):
+        if row:
+            data = row.split(",", 40)
+        else:
+            data = [""] * 40
 
         self.exp_time = data[0]
         self.od_measured = data[1]
@@ -42,3 +45,7 @@ class DataRow:
         self.custom_prog_status = data[37]
         self.zigzag_target = data[38]
         self.growth_rate = data[39]
+        self.error = ""
+
+    def error(self, msg):
+        self.error = msg

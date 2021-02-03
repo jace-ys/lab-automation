@@ -100,6 +100,7 @@ class Pusher:
         output = activity.outputs[0]
 
         pkey = next(iter(kv_data.keys()))
+        # NOTE: Assume keys in data are snake-cased
         if pkey.lower() != utils.str_to_snakecase(output.properties[0].name).lower():
             raise ValueError(
                 f'primary key does not match: expected "{output.properties[0].name}", got "{pkey}"'

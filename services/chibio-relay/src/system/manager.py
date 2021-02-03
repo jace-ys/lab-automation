@@ -2,6 +2,17 @@ import json
 
 import requests
 
+from src.config import config
+from src.forwarder.basic import BasicForwarder
+from src.forwarder.payload import DataRow
+
+cfg = config.Config()
+forwarder = BasicForwarder(cfg.forwarder)
+
+
+class ConfigureError(BaseException):
+    pass
+
 
 class Experiment:
     def __init__(self, uuid, csv):
@@ -18,12 +29,29 @@ class SystemManager:
 
     def handle_command(self, command):
         try:
-            device = self.__configure_chibio(command)
-            csv = self.__start_chibio(device)
+            device = self.__configure_experiment(command)
+            experiment_id = self.__start_experiment(device)
+            csv = f"{experiment_id}_data.csv"
 
             experiment = Experiment(command["uuid"], csv)
             self.create(experiment)
             self.logger.info("experiment.created", uuid=experiment.uuid)
+
+        except ConfigureError as err:
+            self.logger.error(
+                "experiment.create.failed", uuid=command["uuid"], error=err
+            )
+
+            try:
+                data = DataRow()
+                data.error = str(err)
+                forwarder.forward(command["uuid"], vars(data))
+                self.logger.info("configure.error.forwarded", uuid=command["uuid"])
+
+            except Exception as err:
+                self.logger.error(
+                    "configure.error.forward.failed", uuid=command["uuid"], error=err
+                )
 
         except Exception as err:
             self.logger.error(
@@ -40,35 +68,46 @@ class SystemManager:
 
         return uuid
 
-    def __configure_chibio(self, command):
+    def __configure_experiment(self, command):
         if "metadata" in command:
             source = command["metadata"]["source"]["name"]
         else:
             source = command["uuid"]
 
-        spec = command["spec"]
+        chibio = command["spec"]["chibio"]
         data = {}
 
         # TODO: Handle more cases
-        if "thermostat" in spec:
-            data["Thermostat"] = {"target": spec["thermostat"]["temperature"]}
+        if "od" in chibio:
+            data["OD"] = {"target": chibio["od"]}
 
-        if "leds" in spec:
-            if "395Nm" in spec["leds"]:
-                data["LEDA"] = {"target": spec["leds"]["395Nm"]}
+        if "volume" in chibio:
+            data["Volume"] = {"target": chibio["volume"]}
+
+        if "thermostat" in chibio:
+            data["Thermostat"] = {"target": chibio["thermostat"]}
 
         resp = requests.post(
             f"http://{self.chibio_server_addr}/sysData",
-            json={"source": source, "data": data},
+            json={
+                "source": source,
+                "device": {"M": chibio["devicePosition"], "name": chibio["deviceName"]},
+                "sysData": data,
+            },
         )
-        resp.raise_for_status()
+
+        if resp.status_code == 422:
+            body = resp.json()
+            raise ConfigureError(body["error"])
+        else:
+            resp.raise_for_status()
 
         body = resp.json()
-        return body["device"]
+        return body["device"]["M"]
 
-    def __start_chibio(self, device):
+    def __start_experiment(self, device):
         resp = requests.post(f"http://{self.chibio_server_addr}/Experiment/1/{device}")
         resp.raise_for_status()
 
         body = resp.json()
-        return body["csv_filename"]
+        return body["experimentID"]

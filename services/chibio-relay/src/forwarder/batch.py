@@ -39,7 +39,8 @@ class BatchForwarder(threading.Thread):
                             "batch.forward.started", file=filename, rows=count
                         )
 
-                        self.__forward(uuid, rows)
+                        data = list(map(lambda row: vars(DataRow(row)), rows))
+                        self.__forward(uuid, data)
                         self.__seek(filename, count)
 
                         self.logger.info(
@@ -59,8 +60,7 @@ class BatchForwarder(threading.Thread):
         position = self.cache.hget(self.cache_key, filename) or 0
         return lines[int(position) :]
 
-    def __forward(self, uuid, rows):
-        data = list(map(lambda row: vars(DataRow(row)), rows))
+    def __forward(self, uuid, data):
         resp = requests.post(
             f"http://{self.data_gateway_addr}/data/batch",
             json={

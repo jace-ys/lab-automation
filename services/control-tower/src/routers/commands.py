@@ -54,10 +54,8 @@ class PublishCommandRequest(BaseModel):
 @router.post("/commands")
 async def publish_command(req: PublishCommandRequest):
     try:
-        cmd = command.Command(req.apiVersion, req.protocol, req.spec).with_metadata(
-            "service.control-tower.api", {"endpoint": "/commands"}
-        )
-
+        cmd = command.Command(req.apiVersion, req.protocol, req.spec)
+        cmd.metadata("service.control-tower.api", {"endpoint": "/commands"})
         publisher.publish(cmd)
         return Response(status_code=status.HTTP_202_ACCEPTED)
 

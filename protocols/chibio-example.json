@@ -1,12 +1,13 @@
 {
   "apiVersion": "ChiBio/v1alpha1",
-  "protocol": "Run",
+  "protocol": "Bioreactor",
   "spec": {
-    "thermostat": {
-      "temperature": 40
-    },
-    "leds": {
-      "395Nm": 0.42
+    "chibio": {
+      "devicePosition": "M0",
+      "deviceName": "Hydrogen",
+      "od": 0.42,
+      "volume": 50,
+      "thermostat": 40
     }
   }
 }

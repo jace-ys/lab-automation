@@ -34,15 +34,11 @@ class Watcher(threading.Thread):
                 runs = self.__fetch_run_statuses()
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
-                        try:
-                            cmd = self.__build_command(experiment_id, run)
+                        for cmd in self.__build_commands(experiment_id, run):
                             self.queue.put(cmd)
 
-                            self.cache.hset(self.cache_key, run.id, "")
-                            self.logger.info("run.started", run_id=run.id)
-
-                        except command.InvalidAPIVersion:
-                            pass  # No-op
+                        self.cache.hset(self.cache_key, run.id, "")
+                        self.logger.info("run.started", run_id=run.id)
 
                     for run in runs["stopped"]:
                         self.logger.info("run.stopped", run_id=run.id)
@@ -92,41 +88,54 @@ class Watcher(threading.Thread):
         )
         return utils.flatten(runs)
 
-    def __build_command(self, experiment_id, run):
+    def __build_commands(self, experiment_id, run):
         activity = self.activity_api.get_activity(experiment_id, run.activity_id)
-
         data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
         datatable = data["datatables"][run.id]["datatable"][0]
 
-        if run.inputs:
-            # NOTE: Assume the first input's resource is the target
-            api_version = run.inputs[0].resource_name
-        elif run.outputs:
-            # NOTE: Assume the first output's resource is the target
-            api_version = run.outputs[0].resource_name
-        else:
-            # NOTE: Skip if no input or output, so set an invalid API version
-            api_version = ""
+        # Create a mapping of resource IDs -> names
+        resources = {}
+        # Create a mapping of API version -> command objects
+        commands = {}
 
-        protocol = activity.name.replace(" ", "")
-        cmd = command.Command(api_version, protocol).with_metadata(
-            "riffyn",
-            {
-                "experimentId": experiment_id,
-                "activityId": run.activity_id,
-                "runId": run.id,
-            },
-        )
+        # Iterate over each input in the run and populate the mappings
+        for input in run.inputs:
+            try:
+                api_version = input.resource_name
+                protocol = activity.name.replace(" ", "")
 
+                cmd = command.Command(api_version, protocol)
+                cmd.metadata(
+                    "riffyn",
+                    {
+                        "experimentId": experiment_id,
+                        "activityId": run.activity_id,
+                        "runId": run.id,
+                    },
+                )
+
+                resources[input.resource_def_id] = api_version
+                commands[api_version] = cmd
+
+            except command.InvalidAPIVersion:
+                continue
+
+        # Iterate over each input in the activity and populate the commands' spec
         for input in activity.inputs:
+            if input.id not in resources:
+                continue
+
+            # Get the name (API version) for this resource
+            api_version = resources[input.id]
             properties = {}
+
             for property in input.properties:
                 header = f"{activity.id} | input | {input.id} | {property.id} | value"
                 properties[utils.str_to_camelcase(property.name)] = datatable[header]
 
-            cmd.spec[utils.str_to_camelcase(input.name)] = properties
+            commands[api_version].spec[utils.str_to_camelcase(input.name)] = properties
 
-        return cmd
+        return list(commands.values())
 
     def __get_experiment_data_raw(self, experiment_id, activity_id, run):
         resp = requests.get(
