@@ -30,7 +30,7 @@ class SystemManager:
     def handle_command(self, command):
         try:
             device = self.__configure_experiment(command)
-            experiment_id = self.__start_experiment(device)
+            experiment_id = self.__create_experiment(device)
             csv = f"{experiment_id}_data.csv"
 
             experiment = Experiment(command["uuid"], csv)
@@ -105,8 +105,8 @@ class SystemManager:
         body = resp.json()
         return body["device"]["M"]
 
-    def __start_experiment(self, device):
-        resp = requests.post(f"http://{self.chibio_server_addr}/Experiment/1/{device}")
+    def __create_experiment(self, device):
+        resp = requests.post(f"http://{self.chibio_server_addr}/Experiment/{device}")
         resp.raise_for_status()
 
         body = resp.json()
