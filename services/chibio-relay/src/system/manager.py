@@ -21,6 +21,31 @@ class Experiment:
 
 
 class SystemManager:
+    FP1_EXCITE = {
+        "395/30": "LEDA",
+        "457/35": "LEDB",
+        "500/55": "LEDC",
+        "523/70": "LEDD",
+        "595/25": "LEDE",
+        "623/30": "LEDF",
+        "6500K": "LEDG",
+        "Laser": "LASER650",
+    }
+
+    FP1_GAIN = {
+        "0.5x": "x0",
+        "1x": "x1",
+        "2x": "x2",
+        "4x": "x3",
+        "8x": "x4",
+        "16x": "x5",
+        "32x": "x6",
+        "64x": "x7",
+        "128x": "x8",
+        "256x": "x9",
+        "512x": "x10",
+    }
+
     def __init__(self, logger, cache, cfg):
         self.logger = logger
         self.cache = cache
@@ -86,6 +111,28 @@ class SystemManager:
 
         if "thermostat" in chibio:
             data["Thermostat"] = {"target": chibio["thermostat"]}
+
+        if "fp1Excite" in chibio:
+            data["FP1"] = {"ON": 1}
+
+            led = SystemManager.FP1_EXCITE.get(chibio["fp1Excite"])
+            if led is None:
+                raise ConfigureError(
+                    f"invalid value for fp1Excite: {chibio['fp1Excite']}"
+                )
+
+            data["FP1"].update({"LED": led})
+
+            if "fp1Gain" in chibio:
+                gain = SystemManager.FP1_GAIN.get(chibio["fp1Gain"])
+                if gain is None:
+                    raise ConfigureError(
+                        f"invalid value for fp1gain: {chibio['fp1Gain']}"
+                    )
+            else:
+                raise ConfigureError("missing value for fp1Gain")
+
+            data["FP1"].update({"Gain": gain})
 
         resp = requests.post(
             f"http://{self.chibio_server_addr}/sysData",

@@ -131,7 +131,10 @@ class Watcher(threading.Thread):
 
             for property in input.properties:
                 header = f"{activity.id} | input | {input.id} | {property.id} | value"
-                properties[utils.str_to_camelcase(property.name)] = datatable[header]
+                if datatable[header] is not None:
+                    properties[utils.str_to_camelcase(property.name)] = datatable[
+                        header
+                    ]
 
             commands[api_version].spec[utils.str_to_camelcase(input.name)] = properties
 
