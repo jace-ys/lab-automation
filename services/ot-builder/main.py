@@ -9,8 +9,8 @@ from src.routers import builds
 
 cfg = config.Config()
 logger = log.Logger.new()
-cache = redis.Client.connect(cfg.cache.CONNECTION_URL)
-pubsub = redis.Client.connect(cfg.pubsub.CONNECTION_URL).pubsub()
+cache = redis.Client.connect(cfg.cache.ADDR)
+pubsub = redis.Client.connect(cfg.pubsub.ADDR).pubsub()
 
 app = FastAPI()
 app.include_router(builds.router)

@@ -1,8 +1,8 @@
 version: "3.8"
 
 x-environment: &environment
-  REDIS_CACHE_CONNECTION_URL: redis://db.redis:6379
-  REDIS_PUBSUB_CONNECTION_URL: redis://pubsub.redis:6379
+  REDIS_CACHE_ADDR: db.redis:6379
+  REDIS_PUBSUB_ADDR: pubsub.redis:6379
   SERVER_HOST: 0.0.0.0
 
 services:

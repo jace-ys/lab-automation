@@ -2,7 +2,7 @@ from pydantic import BaseSettings
 
 
 class RedisCacheConfig(BaseSettings):
-    CONNECTION_URL: str = "redis://127.0.0.1:6379"
+    ADDR: str = "127.0.0.1:6379"
 
     class Config:
         env_prefix = "REDIS_CACHE_"

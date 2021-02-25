@@ -9,15 +9,15 @@ class ProtocolBuilderConfig(BaseSettings):
 
 
 class RedisCacheConfig(BaseSettings):
-    CONNECTION_URL: str = "redis://127.0.0.1:6379"
+    ADDR: str = "127.0.0.1:6379"
 
     class Config:
         env_prefix = "REDIS_CACHE_"
 
 
 class RedisPubSubConfig(BaseSettings):
+    ADDR: str = "127.0.0.1:6389"
     SUBSCRIPTION_TOPIC: str = "OT-2/v1alpha1"
-    CONNECTION_URL: str = "redis://127.0.0.1:6389"
 
     class Config:
         env_prefix = "REDIS_PUBSUB_"

@@ -3,6 +3,7 @@
   "protocol": "Bioreactor",
   "spec": {
     "chibio": {
+      "machineName": "chiobio1",
       "devicePosition": "M0",
       "deviceName": "Hydrogen",
       "od": 0.42,

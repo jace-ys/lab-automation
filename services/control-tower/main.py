@@ -13,8 +13,8 @@ from src.routers import commands
 
 cfg = config.Config()
 logger = log.Logger.new()
-cache = redis.Client.connect(cfg.cache.CONNECTION_URL)
-pubsub = redis.Client.connect(cfg.pubsub.CONNECTION_URL)
+cache = redis.Client.connect(cfg.cache.ADDR)
+pubsub = redis.Client.connect(cfg.pubsub.ADDR)
 queue = Queue()
 
 app = FastAPI()

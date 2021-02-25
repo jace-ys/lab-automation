@@ -9,5 +9,9 @@
 __pycache__/
 dist/
 
+# CSharp
+bin/
+obj/
+
 # Data
 data
