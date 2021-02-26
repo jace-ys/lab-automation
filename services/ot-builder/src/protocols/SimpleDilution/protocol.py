@@ -1,5 +1,11 @@
 from opentrons import protocol_api
 
+# spec:
+#     water:
+#         volume
+#     reagent:
+#         volume
+
 metadata = {
     "protocolName": "OT-2/v1alpha1/SimpleDilution",
     "apiLevel": "2.7",
@@ -7,26 +13,10 @@ metadata = {
 
 
 def run(protocol: protocol_api.ProtocolContext):
-    tiprack = protocol.load_labware(
-        load_name=config["tiprack"]["name"],
-        location=config["tiprack"]["location"],
-    )
-
-    plate = protocol.load_labware(
-        load_name=config["plate"]["name"],
-        location=config["plate"]["location"],
-    )
-
-    reservoir = protocol.load_labware(
-        load_name=config["reservoir"]["name"],
-        location=config["reservoir"]["location"],
-    )
-
-    pipette = protocol.load_instrument(
-        instrument_name=config["pipette"]["name"],
-        mount=config["pipette"]["mount"],
-        tip_racks=[tiprack],
-    )
+    tiprack = protocol.load_labware(**config["tiprick"])
+    plate = protocol.load_labware(**config["plate"])
+    reservoir = protocol.load_labware(**config["reservoir"])
+    pipette = protocol.load_instrument(**config["pipette"], tip_racks=[tiprack])
 
     reagent = reservoir["A1"]
     water = reservoir["A12"]
