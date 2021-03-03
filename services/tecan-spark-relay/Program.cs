@@ -9,36 +9,28 @@ namespace TecanSparkRelay
 {
   class Program
   {
-
     static void Main(string[] args)
     {
       var cfg = new Config();
       var logger = new LoggerConfiguration().WriteTo.Console(new CompactJsonFormatter()).CreateLogger();
-      var context = new CancellationTokenSource();
 
-      var redis = new RedisClient(cfg.pubsubAddr);
+      var redis = new RedisClient(cfg.pubsub.ADDR);
+      System.AutomationInterface ai = new System.FakeAutomationInterface();
 
-      var manager = new Manager(logger, redis, cfg.pubsubSubscriptionTopic);
-      var forwarder = new Forwarder(logger, context.Token);
-
+      var manager = new System.Manager(logger, ai, redis, cfg.pubsub.SUBSCRIPTION_TOPIC, cfg.manager);
       var subscribe = new Thread(new ThreadStart(manager.Subscribe));
-      var forward = new Thread(new ThreadStart(forwarder.Run));
 
       subscribe.Start();
-      forward.Start();
+      logger.Information("manager.subscribe.started");
 
       Console.CancelKeyPress += new ConsoleCancelEventHandler((sender, e) =>
       {
         logger.Information("service.teardown");
-        context.Cancel();
         manager.Unsubscribe();
       });
 
       subscribe.Join();
-      logger.Information("pubsub.listen.stopped");
-
-      forward.Join();
-      logger.Information("data.forwarder.stopped");
+      logger.Information("managed.subscribe.stopped");
     }
   }
 }

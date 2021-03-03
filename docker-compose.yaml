@@ -62,6 +62,19 @@ services:
     volumes:
       - ./data:/usr/service/data
 
+  service.tecan-spark-relay:
+    build:
+      context: .
+      dockerfile: ./docker/service.tecan-spark-relay/Dockerfile
+    image: lab-automation/service.tecan-spark-relay:latest
+    depends_on:
+      - service.data-gateway
+      - external.chibio-server
+    environment:
+      <<: *environment
+    volumes:
+      - ./data:/usr/service/data
+
   external.chibio-server:
     image: lab-automation/chibio:latest
     ports:

@@ -1,0 +1,7 @@
+{
+  "apiVersion": "SparkControl/v1alpha1/GBSpark",
+  "protocol": "TestMethod",
+  "spec": {
+    "waitTime": "00:05:00"
+  }
+}
