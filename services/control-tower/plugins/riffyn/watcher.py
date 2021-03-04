@@ -136,7 +136,7 @@ class Watcher(threading.Thread):
                         header
                     ]
 
-            commands[api_version].spec[utils.str_to_camelcase(input.name)] = properties
+            commands[api_version].spec.update(properties)
 
         return list(commands.values())
 

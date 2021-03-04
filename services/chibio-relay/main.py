@@ -27,7 +27,7 @@ if __name__ == "__main__":
     try:
         pubsub.subscribe(**{cfg.pubsub.SUBSCRIPTION_TOPIC: subscriber.receive})
         pubsub_thread = pubsub.run_in_thread()  # TODO: Handle exception in thread
-        logger.info("pubsub.listen.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
+        logger.info("manager.subscribe.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
 
         forwarder.start()
         logger.error("data.forwarder.started")
@@ -46,7 +46,7 @@ if __name__ == "__main__":
         done.set()
 
         pubsub_thread.stop()
-        logger.info("pubsub.listen.stopped")
+        logger.info("manager.subscribe.stopped")
 
         forwarder.join()
         logger.error("data.forwarder.stopped")

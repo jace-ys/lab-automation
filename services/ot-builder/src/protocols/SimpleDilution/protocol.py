@@ -13,7 +13,7 @@ metadata = {
 
 
 def run(protocol: protocol_api.ProtocolContext):
-    tiprack = protocol.load_labware(**config["tiprick"])
+    tiprack = protocol.load_labware(**config["tiprack"])
     plate = protocol.load_labware(**config["plate"])
     reservoir = protocol.load_labware(**config["reservoir"])
     pipette = protocol.load_instrument(**config["pipette"], tip_racks=[tiprack])
@@ -22,10 +22,10 @@ def run(protocol: protocol_api.ProtocolContext):
     water = reservoir["A12"]
     dest = plate.rows()[0]
 
-    pipette.distribute(spec["reagent"]["volume"], reagent, dest)
+    pipette.distribute(spec["reagentVolume"], reagent, dest)
     pipette.distribute(
-        spec["water"]["volume"],
+        spec["waterVolume"],
         water,
         dest,
-        mix_after=(3, spec["water"]["volume"] / 2),
+        mix_after=(3, spec["waterVolume"] / 2),
     )

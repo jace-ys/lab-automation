@@ -14,10 +14,10 @@ metadata = {
 
 
 def run(protocol: protocol_api.ProtocolContext):
-    dilution_factor = spec["base"]["dilutionFactor"]
-    num_of_dilutions = spec["base"]["numOfDilutions"]
-    total_mixing_volume = spec["base"]["totalMixingVolume"]
-    initial_volume = spec["base"]["initialVolume"]
+    dilution_factor = spec["dilutionFactor"]
+    num_of_dilutions = spec["numOfDilutions"]
+    total_mixing_volume = spec["totalMixingVolume"]
+    initial_volume = spec["initialVolume"]
 
     # labware
     trough = protocol.load_labware(**config["trough"])

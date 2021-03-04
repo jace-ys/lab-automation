@@ -17,12 +17,13 @@ app.include_router(builds.router)
 
 
 if __name__ == "__main__":
-    subscriber = Subscriber(ProtocolBuilder(logger, cache, cfg.builder))
+    builder = ProtocolBuilder(logger, cache, cfg.builder)
+    subscriber = Subscriber(builder)
 
     try:
         pubsub.subscribe(**{cfg.pubsub.SUBSCRIPTION_TOPIC: subscriber.receive})
         pubsub_thread = pubsub.run_in_thread()  # TODO: Handle exception in thread
-        logger.info("pubsub.listen.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
+        logger.info("builder.subscribe.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
 
         logger.info("server.started", port=cfg.server.PORT)
         uvicorn.run(app, host=cfg.server.HOST, port=cfg.server.PORT)
@@ -36,4 +37,4 @@ if __name__ == "__main__":
 
     finally:
         pubsub_thread.stop()
-        logger.info("pubsub.listen.stopped")
+        logger.info("builder.subscribe.stopped")

@@ -99,35 +99,35 @@ class SystemManager:
         else:
             source = command["uuid"]
 
-        chibio = command["spec"]["chibio"]
+        spec = command["spec"]
         data = {}
 
         # TODO: Handle more cases
-        if "od" in chibio:
-            data["OD"] = {"target": chibio["od"]}
+        if "od" in spec:
+            data["OD"] = {"target": spec["od"]}
 
-        if "volume" in chibio:
-            data["Volume"] = {"target": chibio["volume"]}
+        if "volume" in spec:
+            data["Volume"] = {"target": spec["volume"]}
 
-        if "thermostat" in chibio:
-            data["Thermostat"] = {"target": chibio["thermostat"]}
+        if "thermostat" in spec:
+            data["Thermostat"] = {"target": spec["thermostat"]}
 
-        if "fp1Excite" in chibio:
+        if "fp1Excite" in spec:
             data["FP1"] = {"ON": 1}
 
-            led = SystemManager.FP1_EXCITE.get(chibio["fp1Excite"])
+            led = SystemManager.FP1_EXCITE.get(spec["fp1Excite"])
             if led is None:
                 raise ConfigureError(
-                    f"invalid value for fp1Excite: {chibio['fp1Excite']}"
+                    f"invalid value for fp1Excite: {spec['fp1Excite']}"
                 )
 
             data["FP1"].update({"LED": led})
 
-            if "fp1Gain" in chibio:
-                gain = SystemManager.FP1_GAIN.get(chibio["fp1Gain"])
+            if "fp1Gain" in spec:
+                gain = SystemManager.FP1_GAIN.get(spec["fp1Gain"])
                 if gain is None:
                     raise ConfigureError(
-                        f"invalid value for fp1gain: {chibio['fp1Gain']}"
+                        f"invalid value for fp1gain: {spec['fp1Gain']}"
                     )
             else:
                 raise ConfigureError("missing value for fp1Gain")
@@ -138,7 +138,7 @@ class SystemManager:
             f"http://{self.chibio_server_addr}/sysData",
             json={
                 "source": source,
-                "device": {"M": chibio["devicePosition"], "name": chibio["deviceName"]},
+                "device": {"M": spec["devicePosition"], "name": spec["deviceName"]},
                 "sysData": data,
             },
         )

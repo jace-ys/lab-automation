@@ -2,11 +2,9 @@
   "apiVersion": "OT-2/v1alpha1",
   "protocol": "SerialDilution",
   "spec": {
-    "base": {
-      "dilutionFactor": 1.5,
-      "numOfDilutions": 10,
-      "totalMixingVolume": 200,
-      "initialVolume": 200
-    }
+    "dilutionFactor": 1.5,
+    "numOfDilutions": 10,
+    "totalMixingVolume": 200,
+    "initialVolume": 200
   }
 }

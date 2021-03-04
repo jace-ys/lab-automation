@@ -5,7 +5,7 @@ class Config(BaseConfig):
     def schema():
         return {
             "tiprack": {
-                "name": {
+                "load_name": {
                     "type": ConfigType.labware,
                 },
                 "location": {
@@ -13,7 +13,7 @@ class Config(BaseConfig):
                 },
             },
             "plate": {
-                "name": {
+                "load_name": {
                     "type": ConfigType.labware,
                 },
                 "location": {
@@ -21,7 +21,7 @@ class Config(BaseConfig):
                 },
             },
             "reservoir": {
-                "name": {
+                "load_name": {
                     "type": ConfigType.labware,
                 },
                 "location": {
@@ -29,7 +29,7 @@ class Config(BaseConfig):
                 },
             },
             "pipette": {
-                "name": {
+                "instrument_name": {
                     "type": ConfigType.instrument,
                 },
                 "mount": {
