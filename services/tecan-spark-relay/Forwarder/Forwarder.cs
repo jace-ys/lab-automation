@@ -1,35 +1,38 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-
 using Newtonsoft.Json;
 
 namespace TecanSparkRelay.Forwarder
 {
-  public class Forwarder
-  {
-    private readonly HttpClient client = new HttpClient();
-    private readonly string dataGatewayAddr;
-
-    public Forwarder(ForwarderConfig cfg)
+    public class Forwarder
     {
-      this.dataGatewayAddr = cfg.DataGatewayAddr;
-    }
+        private readonly HttpClient client = new HttpClient();
+        private readonly string dataGatewayAddr;
 
-    public async Task Forward(string uuid, Data data)
-    {
-      var payload = JsonConvert.SerializeObject(new Dictionary<string, dynamic>{
-        {"uuid", uuid},
-        {"data", data}
-      });
-      Console.WriteLine(payload);
+        public Forwarder(ForwarderConfig cfg)
+        {
+            this.dataGatewayAddr = cfg.DataGatewayAddr;
+        }
 
-      var content = new StringContent(payload, Encoding.UTF8, "application/json");
-      var response = await this.client.PostAsync($"http://{this.dataGatewayAddr}/data", content);
-      var responseString = await response.Content.ReadAsStringAsync();
-      Console.WriteLine(responseString);
+        public async Task Forward(string uuid, Data data)
+        {
+            var payload = JsonConvert.SerializeObject(new Dictionary<string, dynamic>{
+                {"uuid", uuid},
+                {"data", data}
+            });
+
+            try
+            {
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                var response = await this.client.PostAsync($"http://{this.dataGatewayAddr}/data", content);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException(ex.Message);
+            }
+        }
     }
-  }
 }
