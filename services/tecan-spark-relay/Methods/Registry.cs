@@ -27,7 +27,7 @@ namespace TecanSparkRelay.Methods
 
   public class Registry
   {
-    private static Dictionary<string, SparkMethod> methods = new Dictionary<string, SparkMethod>
+    private readonly static Dictionary<string, SparkMethod> methods = new Dictionary<string, SparkMethod>
     {
       ["TestMethod"] = new TestMethod(),
     };

@@ -14,14 +14,15 @@ namespace TecanSparkRelay
       var cfg = new Config();
       var logger = new LoggerConfiguration().WriteTo.Console(new CompactJsonFormatter()).CreateLogger();
 
-      var redis = new RedisClient(cfg.pubsub.ADDR);
+      var redis = new RedisClient(cfg.pubsub.Addr);
+      var forwarder = new Forwarder.Forwarder(cfg.forwarder);
       System.AutomationInterface ai = new System.FakeAutomationInterface();
 
-      var manager = new System.Manager(logger, ai, redis, cfg.pubsub.SUBSCRIPTION_TOPIC, cfg.manager);
+      var manager = new System.Manager(logger, ai, forwarder, redis, cfg.pubsub.SubscriptionTopic, cfg.manager);
       var subscribe = new Thread(new ThreadStart(manager.Subscribe));
 
       subscribe.Start();
-      logger.Information("manager.subscribe.started");
+      logger.Information("manager.subscribe.started {channel}", cfg.pubsub.SubscriptionTopic);
 
       Console.CancelKeyPress += new ConsoleCancelEventHandler((sender, e) =>
       {

@@ -5,41 +5,53 @@ namespace TecanSparkRelay
 {
   public class Config
   {
-    public ManagerConfig manager;
-    public RedisPubSubConfig pubsub;
+    public readonly ForwarderConfig forwarder;
+    public readonly ManagerConfig manager;
+    public readonly RedisPubSubConfig pubsub;
 
     public Config()
     {
       IDictionary config = Environment.GetEnvironmentVariables();
 
+      this.forwarder = new ForwarderConfig(config);
       this.manager = new ManagerConfig(config);
       this.pubsub = new RedisPubSubConfig(config);
     }
   }
 
+  public class ForwarderConfig
+  {
+    public string DataGatewayAddr;
+
+    public ForwarderConfig(IDictionary config)
+    {
+      this.DataGatewayAddr = config["FORWARDER_DATA_GATEWAY_ADDR"]?.ToString() ?? this.DataGatewayAddr;
+    }
+  }
+
   public class ManagerConfig
   {
-    public int INSTRUMENT = 1910012500;
+    public int Instrument = 1910012500;
 
     public ManagerConfig(IDictionary config)
     {
       int instrument;
       if (Int32.TryParse(config["MANAGER_INSTRUMENT"]?.ToString(), out instrument))
       {
-        this.INSTRUMENT = instrument;
+        this.Instrument = instrument;
       }
     }
   }
 
   public class RedisPubSubConfig
   {
-    public string ADDR = "127.0.0.1:6389";
-    public string SUBSCRIPTION_TOPIC = "TecanSpark/v1alpha1";
+    public string Addr = "127.0.0.1:6389";
+    public string SubscriptionTopic = "TecanSpark/v1alpha1";
 
     public RedisPubSubConfig(IDictionary config)
     {
-      this.ADDR = config["REDIS_PUBSUB_ADDR"]?.ToString() ?? this.ADDR;
-      this.SUBSCRIPTION_TOPIC = config["REDIS_PUBSUB_SUBSCRIPTION_TOPIC"]?.ToString() ?? this.SUBSCRIPTION_TOPIC;
+      this.Addr = config["REDIS_PUBSUB_ADDR"]?.ToString() ?? this.Addr;
+      this.SubscriptionTopic = config["REDIS_PUBSUB_SUBSCRIPTION_TOPIC"]?.ToString() ?? this.SubscriptionTopic;
     }
   }
 }

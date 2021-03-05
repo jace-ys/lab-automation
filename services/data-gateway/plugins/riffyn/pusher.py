@@ -74,7 +74,7 @@ class Pusher:
         properties = defaultdict(list)
         for row in rows:
             for key, value in row.items():
-                properties[key.lower()].append(value)
+                properties[key].append(str(value))
 
         return dict(properties), len(rows)
 
@@ -100,13 +100,13 @@ class Pusher:
         output = activity.outputs[0]
 
         pkey = next(iter(kv_data.keys()))
-        # NOTE: Assume keys in data are snake-cased
-        if pkey.lower() != utils.str_to_snakecase(output.properties[0].name).lower():
+        # NOTE: Assume keys in data are camel-cased
+        if pkey != utils.str_to_camelcase(output.properties[0].name):
             raise ValueError(
                 f'primary key does not match: expected "{output.properties[0].name}", got "{pkey}"'
             )
 
-        output_pkeys = [
+        return [
             {
                 "resourceDefId": output.id,
                 "propertyTypeId": output.properties[0].id,
@@ -115,7 +115,6 @@ class Pusher:
                 "append": True,
             }
         ]
-        return output_pkeys
 
     def __populate_output_data(self, activity, run_id, kv_data, output_rows):
         # NOTE: Assume the activity only has a single output to be populated
@@ -123,7 +122,7 @@ class Pusher:
         output_data = []
 
         for property in output.properties[1:]:
-            property_name = utils.str_to_snakecase(property.name).lower()
+            property_name = utils.str_to_camelcase(property.name)
 
             if property_name not in kv_data:
                 raise ValueError(f"could not find property with key: {property.name}")

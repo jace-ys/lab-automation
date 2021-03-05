@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 using Serilog;
 using ServiceStack.Redis;
@@ -11,23 +12,25 @@ namespace TecanSparkRelay.System
 {
   public class Manager
   {
-    private ILogger logger;
-    private IRedisSubscription subscription;
-    private AutomationInterface ai;
+    private readonly ILogger logger;
+    private readonly AutomationInterface ai;
+    private readonly Forwarder.Forwarder forwarder;
+    private readonly IRedisSubscription subscription;
 
+    private readonly Object mutex = new Object();
+    private readonly string topic;
     private int instrument;
-    private string topic;
     private bool running = false;
-    private Object mutex = new Object();
 
-    public Manager(ILogger logger, AutomationInterface ai, RedisClient redis, string topic, ManagerConfig cfg)
+    public Manager(ILogger logger, AutomationInterface ai, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
     {
       this.logger = logger;
-      this.subscription = redis.CreateSubscription();
       this.ai = ai;
+      this.forwarder = forwarder;
+      this.subscription = redis.CreateSubscription();
       this.topic = topic;
 
-      this.SetInstrument(cfg.INSTRUMENT);
+      this.SetInstrument(cfg.Instrument);
 
       JsonConvert.DefaultSettings = () => new JsonSerializerSettings
       {
@@ -41,8 +44,11 @@ namespace TecanSparkRelay.System
       {
         this.logger.Information("command.received, {command}", message);
 
+        Command command = new Command();
         try
         {
+          command = JsonConvert.DeserializeObject<Command>(message);
+
           lock (mutex)
           {
             if (this.running)
@@ -51,11 +57,16 @@ namespace TecanSparkRelay.System
             }
           }
 
-          this.HandleCommand(message);
+          this.HandleCommand(command);
+        }
+        catch (ApplicationException ex)
+        {
+          this.logger.Error("[experiment.create.failed] {uuid} {error}", command.uuid, ex.Message);
+          this.ForwardError(command, ex);
         }
         catch (Exception ex)
         {
-          this.logger.Error("[experiment.create.failed] {error}", ex.Message);
+          this.logger.Error("[experiment.create.failed] {uuid} {error}", command.uuid, ex.Message);
         }
       };
 
@@ -78,10 +89,8 @@ namespace TecanSparkRelay.System
       }
     }
 
-    void HandleCommand(string message)
+    void HandleCommand(Command command)
     {
-      var command = JsonConvert.DeserializeObject<Command>(message);
-
       string methodXML;
       try
       {
@@ -102,6 +111,7 @@ namespace TecanSparkRelay.System
             {
               this.running = true;
             }
+            this.logger.Error("[experiment.execute.started] {uuid}", command.uuid);
             var (workspaceId, executionId) = this.ai.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
             lock (mutex)
             {
@@ -113,9 +123,24 @@ namespace TecanSparkRelay.System
           }
           catch (Exception ex)
           {
-            this.logger.Error("[experiment.execute.failed] {error}", ex.Message);
+            this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
           }
         }).Start();
+    }
+
+    async void ForwardError(Command command, Exception err)
+    {
+      try
+      {
+        var data = new Forwarder.Data();
+        data.Error(err);
+        await this.forwarder.Forward(command.uuid, data);
+        this.logger.Error("[configure.error.forwarded {uuid}", command.uuid);
+      }
+      catch (HttpRequestException ex)
+      {
+        this.logger.Error("[configure.error.forward.failed {uuid} {error}", command.uuid, ex.Message);
+      }
     }
   }
 }

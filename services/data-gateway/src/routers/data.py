@@ -25,11 +25,8 @@ async def push_data(req: DataPushRequest):
         try:
             pusher.push(req)
 
-        except Exception as err:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"{plugin}: failed to push data: {str(err)}",
-            )
+        except Exception:
+            pass
 
     return Response(status_code=status.HTTP_202_ACCEPTED)
 
@@ -45,10 +42,7 @@ async def push_data_batch(req: DataBatchPushRequest):
         try:
             pusher.push(req)
 
-        except Exception as err:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"{plugin}: failed to push data: {str(err)}",
-            )
+        except Exception:
+            pass
 
     return Response(status_code=status.HTTP_202_ACCEPTED)
