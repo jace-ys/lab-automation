@@ -25,21 +25,17 @@ namespace TecanSparkRelay
 
         public ForwarderConfig(IDictionary config)
         {
-            this.DataGatewayAddr = config["FORWARDER_DATA_GATEWAY_ADDR"]?.ToString() ?? this.DataGatewayAddr;
+            this.DataGatewayAddr = config["FORWARDER_DATA_GATEWAY_ADDR"].ToString() ?? this.DataGatewayAddr;
         }
     }
 
     public class ManagerConfig
     {
-        public int Instrument = 1910012500;
+        public string Instrument = "1910012500";
 
         public ManagerConfig(IDictionary config)
         {
-            int instrument;
-            if (Int32.TryParse(config["MANAGER_INSTRUMENT"]?.ToString(), out instrument))
-            {
-                this.Instrument = instrument;
-            }
+            this.Instrument = config["MANAGER_INSTRUMENT"]?.ToString() ?? this.Instrument;
         }
     }
 

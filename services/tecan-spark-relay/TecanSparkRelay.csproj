@@ -14,4 +14,10 @@
     <PackageReference Include="ServiceStack.Redis" Version="5.10.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AutomationInterface">
+      <HintPath>./ref/Tecan.At.Dragonfly.AutomationInterface.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

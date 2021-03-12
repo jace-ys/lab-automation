@@ -16,9 +16,8 @@ namespace TecanSparkRelay
 
             var redis = new RedisClient(cfg.pubsub.Addr);
             var forwarder = new Forwarder.Forwarder(cfg.forwarder);
-            System.AutomationInterface ai = new System.FakeAutomationInterface();
 
-            var manager = new System.Manager(logger, ai, forwarder, redis, cfg.pubsub.SubscriptionTopic, cfg.manager);
+            var manager = new System.Manager(logger, forwarder, redis, cfg.pubsub.SubscriptionTopic, cfg.manager);
             var subscribe = new Thread(new ThreadStart(manager.Subscribe));
 
             subscribe.Start();
@@ -26,12 +25,11 @@ namespace TecanSparkRelay
 
             Console.CancelKeyPress += new ConsoleCancelEventHandler((sender, e) =>
             {
-                logger.Information("service.teardown");
-                manager.Unsubscribe();
+                manager.Shutdown();
+                logger.Information("managed.subscribe.stopped");
             });
 
             subscribe.Join();
-            logger.Information("managed.subscribe.stopped");
         }
     }
 }

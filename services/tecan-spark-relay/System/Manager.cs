@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,25 +7,24 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Serilog;
 using ServiceStack.Redis;
+using Tecan.At.Dragonfly.AutomationInterface.Data;
 
 namespace TecanSparkRelay.System
 {
     public class Manager
     {
         private readonly ILogger logger;
-        private readonly AutomationInterface ai;
         private readonly Forwarder.Forwarder forwarder;
         private readonly IRedisSubscription subscription;
-
-        private readonly Object mutex = new Object();
         private readonly string topic;
-        private int instrument;
+        private readonly AutomationInterface ai = new FakeAutomationInterface();
+
+        private Instrument instrument;
         private bool running = false;
 
-        public Manager(ILogger logger, AutomationInterface ai, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
+        public Manager(ILogger logger, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
         {
             this.logger = logger;
-            this.ai = ai;
             this.forwarder = forwarder;
             this.subscription = redis.CreateSubscription();
             this.topic = topic;
@@ -48,12 +48,9 @@ namespace TecanSparkRelay.System
                 {
                     command = JsonConvert.DeserializeObject<Command>(message);
 
-                    lock (mutex)
+                    if (this.running)
                     {
-                        if (this.running)
-                        {
-                            throw new ApplicationException("An existing experiment is already running");
-                        }
+                        throw new ApplicationException("An existing experiment is already running");
                     }
 
                     this.HandleCommand(command);
@@ -69,73 +66,94 @@ namespace TecanSparkRelay.System
                 }
             };
 
-            this.subscription.SubscribeToChannels(new string[] { this.topic
-  });
-            return;
+            this.subscription.SubscribeToChannels(new string[] { this.topic });
         }
 
-        public void Unsubscribe()
+        public void Shutdown()
         {
             this.subscription.UnSubscribeFromAllChannels();
         }
 
-        void SetInstrument(int selectedInstrument)
+        void SetInstrument(string selectedInstrument)
         {
-            this.instrument = this.ai.GetInstruments().FirstOrDefault(i => i == selectedInstrument);
-            if (this.instrument == 0)
+            this.instrument = this.ai.GetInstruments().FirstOrDefault(i => i.SerialNumber == selectedInstrument);
+            if (this.instrument == null)
             {
                 throw new ApplicationException($"Could not find an instrument with serial {selectedInstrument}");
+            }
+
+            if (this.instrument.State != InstrumentState.FullyOperational)
+            {
+                throw new ApplicationException($"Instrument with serial {selectedInstrument} is not fully operational");
             }
         }
 
         void HandleCommand(Command command)
         {
-            string methodXML;
+            string methodXML = "";
             try
             {
                 command.spec.Validate();
                 methodXML = command.spec.GenerateMethodXML();
-                Console.WriteLine(methodXML);
+
+                IEnumerable<string> messages;
+                if (!this.ai.CheckMethod(this.instrument, methodXML, command.protocol, out messages))
+                {
+                    string msg = string.Join(", ", messages);
+                    throw new ApplicationException(msg);
+                }
             }
             catch (Exception ex)
             {
                 throw new ApplicationException($"Error generating method XML for {command.protocol}: {ex.Message}");
             }
 
-            new Task(() =>
-              {
-                  try
-                  {
-                      lock (mutex)
-                      {
-                          this.running = true;
-                      }
-                      this.logger.Error("[experiment.execute.started] {uuid}", command.uuid);
-                      var (workspaceId, executionId) = this.ai.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
-                      this.logger.Error("[experiment.execute.finished] {uuid} {workspace} {exeution}", command.uuid, workspaceId, executionId);
-                      lock (mutex)
-                      {
-                          this.running = false;
-                      }
+            new Task(async () =>
+                {
+                    this.running = true;
 
-                      var resultsXML = File.ReadAllText(this.ai.GetResults(workspaceId, executionId));
-                      Console.WriteLine($"Results:\n{resultsXML}");
-                  }
-                  catch (Exception ex)
-                  {
-                      this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
-                  }
-              }).Start();
+                    MethodExecutionResult result = null;
+                    try
+                    {
+                        this.logger.Information("[experiment.execute.started] {uuid}", command.uuid);
+                        result = this.ai.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
+                        this.logger.Information("[experiment.execute.finished] {uuid} {workspace} {execution}", command.uuid, result.WorkspaceId, result.ExecutionId);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
+                        this.ForwardError(command, ex);
+                        return;
+                    }
+                    finally
+                    {
+                        this.running = false;
+                    }
+
+                    try
+                    {
+                        var resultsXML = File.ReadAllText(this.ai.GetResults(result.WorkspaceId, result.ExecutionId));
+                        var rows = this.forwarder.ParseResults(resultsXML);
+
+                        this.logger.Information("[batch.forward.started] {uuid} {rows}", command.uuid, rows.Count);
+                        await this.forwarder.BatchForward(command.uuid, rows);
+                        this.logger.Information("[batch.forward.finished] {uuid} {rows}", command.uuid, rows.Count);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logger.Error("[batch.forward.failed] {uuid} {error}", command.uuid, ex.Message);
+                    }
+                }).Start();
         }
 
         async void ForwardError(Command command, Exception err)
         {
             try
             {
-                var data = new Forwarder.Data();
+                var data = new Forwarder.DataRow();
                 data.Error(err);
                 await this.forwarder.Forward(command.uuid, data);
-                this.logger.Error("[configure.error.forwarded {uuid}", command.uuid);
+                this.logger.Information("[configure.error.forwarded {uuid}", command.uuid);
             }
             catch (ApplicationException ex)
             {

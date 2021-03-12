@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -22,14 +23,17 @@ namespace TecanSparkRelay.Methods
             return templateXML.Render(context);
         }
 
-        public abstract void Validate();
+        public virtual void Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Registry
     {
         private readonly static Dictionary<string, SparkMethod> methods = new Dictionary<string, SparkMethod>
         {
-            ["TestMethod"] = new TestMethod(),
+            ["TestOD"] = new TestOD(),
         };
 
         static Registry()
