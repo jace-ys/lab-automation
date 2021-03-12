@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,22 +7,24 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Serilog;
 using ServiceStack.Redis;
+using Tecan.At.Dragonfly.AutomationInterface;
+using Tecan.At.Dragonfly.AutomationInterface.Data;
 
 namespace TecanSparkRelay.System
 {
     public class Manager
     {
         private readonly ILogger logger;
-        private readonly AutomationInterface ai;
+        private readonly IAutomationInterface ai;
         private readonly Forwarder.Forwarder forwarder;
         private readonly IRedisSubscription subscription;
 
         private readonly Object mutex = new Object();
         private readonly string topic;
-        private int instrument;
+        private IInstrument instrument;
         private bool running = false;
 
-        public Manager(ILogger logger, AutomationInterface ai, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
+        public Manager(ILogger logger, IAutomationInterface ai, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
         {
             this.logger = logger;
             this.ai = ai;
@@ -69,9 +72,7 @@ namespace TecanSparkRelay.System
                 }
             };
 
-            this.subscription.SubscribeToChannels(new string[] { this.topic
-  });
-            return;
+            this.subscription.SubscribeToChannels(new string[] { this.topic });
         }
 
         public void Unsubscribe()
@@ -79,12 +80,17 @@ namespace TecanSparkRelay.System
             this.subscription.UnSubscribeFromAllChannels();
         }
 
-        void SetInstrument(int selectedInstrument)
+        void SetInstrument(string selectedInstrument)
         {
-            this.instrument = this.ai.GetInstruments().FirstOrDefault(i => i == selectedInstrument);
-            if (this.instrument == 0)
+            this.instrument = this.ai.InstrumentManagement.GetInstruments().FirstOrDefault(i => i.SerialNumber == selectedInstrument);
+            if (this.instrument == null)
             {
                 throw new ApplicationException($"Could not find an instrument with serial {selectedInstrument}");
+            }
+
+            if (this.instrument.State != InstrumentState.FullyOperational)
+            {
+                throw new ApplicationException($"Instrument with serial {selectedInstrument} is not fully operational");
             }
         }
 
@@ -95,7 +101,13 @@ namespace TecanSparkRelay.System
             {
                 command.spec.Validate();
                 methodXML = command.spec.GenerateMethodXML();
-                Console.WriteLine(methodXML);
+
+                IEnumerable<string> messages;
+                if (!this.ai.MethodExecution.CheckMethod(this.instrument, methodXML, command.protocol, out messages))
+                {
+                    string msg = string.Join(", ", messages);
+                    throw new ApplicationException(msg);
+                }
             }
             catch (Exception ex)
             {
@@ -111,14 +123,14 @@ namespace TecanSparkRelay.System
                           this.running = true;
                       }
                       this.logger.Error("[experiment.execute.started] {uuid}", command.uuid);
-                      var (workspaceId, executionId) = this.ai.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
-                      this.logger.Error("[experiment.execute.finished] {uuid} {workspace} {exeution}", command.uuid, workspaceId, executionId);
+                      var result = this.ai.MethodExecution.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
+                      this.logger.Error("[experiment.execute.finished] {uuid} {workspace} {exeution}", command.uuid, result.WorkspaceId, result.ExecutionId);
                       lock (mutex)
                       {
                           this.running = false;
                       }
 
-                      var resultsXML = File.ReadAllText(this.ai.GetResults(workspaceId, executionId));
+                      var resultsXML = File.ReadAllText(this.ai.MethodExecution.GetResults(result.WorkspaceId, result.ExecutionId));
                       Console.WriteLine($"Results:\n{resultsXML}");
                   }
                   catch (Exception ex)

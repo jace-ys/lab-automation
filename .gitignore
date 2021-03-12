@@ -12,6 +12,7 @@ dist/
 # CSharp
 bin/
 obj/
+ref/
 
 # Data
 data

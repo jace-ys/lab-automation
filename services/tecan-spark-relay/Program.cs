@@ -4,6 +4,7 @@ using System.Threading;
 using Serilog;
 using Serilog.Formatting.Compact;
 using ServiceStack.Redis;
+using Tecan.At.Dragonfly.AutomationInterface;
 
 namespace TecanSparkRelay
 {
@@ -14,9 +15,11 @@ namespace TecanSparkRelay
             var cfg = new Config();
             var logger = new LoggerConfiguration().WriteTo.Console(new CompactJsonFormatter()).CreateLogger();
 
+            AutomationInterfaceFactory.Start();
+            IAutomationInterface ai = AutomationInterfaceFactory.Build();
+
             var redis = new RedisClient(cfg.pubsub.Addr);
             var forwarder = new Forwarder.Forwarder(cfg.forwarder);
-            System.AutomationInterface ai = new System.FakeAutomationInterface();
 
             var manager = new System.Manager(logger, ai, forwarder, redis, cfg.pubsub.SubscriptionTopic, cfg.manager);
             var subscribe = new Thread(new ThreadStart(manager.Subscribe));
@@ -28,6 +31,8 @@ namespace TecanSparkRelay
             {
                 logger.Information("service.teardown");
                 manager.Unsubscribe();
+
+                AutomationInterfaceFactory.Stop();
             });
 
             subscribe.Join();

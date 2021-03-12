@@ -30,6 +30,7 @@ namespace TecanSparkRelay.Methods
         private readonly static Dictionary<string, SparkMethod> methods = new Dictionary<string, SparkMethod>
         {
             ["TestMethod"] = new TestMethod(),
+            ["TestOD"] = new TestOD(),
         };
 
         static Registry()
