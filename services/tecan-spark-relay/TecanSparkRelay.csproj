@@ -197,13 +197,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="Forwarder\Data.cs" />
     <Compile Include="Forwarder\Forwarder.cs" />
+    <Compile Include="Forwarder\Payload.cs" />
     <Compile Include="Methods\Registry.cs" />
-    <Compile Include="Methods\TestMethod\Method.cs" />
     <Compile Include="Methods\TestOD\Method.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="System\Command.cs" />
+    <Compile Include="System\Export.cs" />
     <Compile Include="System\Manager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,8 +211,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Methods\TestMethod\Export.xml" />
-    <Content Include="Methods\TestMethod\Method.xml" />
     <Content Include="Methods\TestOD\Export.xml" />
     <Content Include="Methods\TestOD\Method.xml" />
   </ItemGroup>

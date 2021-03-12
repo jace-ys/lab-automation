@@ -25,7 +25,7 @@ namespace TecanSparkRelay
 
         public ForwarderConfig(IDictionary config)
         {
-            this.DataGatewayAddr = config["FORWARDER_DATA_GATEWAY_ADDR"]?.ToString() ?? this.DataGatewayAddr;
+            this.DataGatewayAddr = config["FORWARDER_DATA_GATEWAY_ADDR"].ToString() ?? this.DataGatewayAddr;
         }
     }
 

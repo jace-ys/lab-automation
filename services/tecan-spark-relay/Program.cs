@@ -4,7 +4,6 @@ using System.Threading;
 using Serilog;
 using Serilog.Formatting.Compact;
 using ServiceStack.Redis;
-using Tecan.At.Dragonfly.AutomationInterface;
 
 namespace TecanSparkRelay
 {
@@ -26,14 +25,11 @@ namespace TecanSparkRelay
 
             Console.CancelKeyPress += new ConsoleCancelEventHandler((sender, e) =>
             {
-                logger.Information("service.teardown");
-                manager.Unsubscribe();
-
-                AutomationInterfaceFactory.Stop();
+                manager.Shutdown();
+                logger.Information("managed.subscribe.stopped");
             });
 
             subscribe.Join();
-            logger.Information("managed.subscribe.stopped");
         }
     }
 }

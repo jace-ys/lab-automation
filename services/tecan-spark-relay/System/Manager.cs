@@ -17,9 +17,8 @@ namespace TecanSparkRelay.System
         private readonly ILogger logger;
         private readonly Forwarder.Forwarder forwarder;
         private readonly IRedisSubscription subscription;
-
-        private readonly Object mutex = new Object();
         private readonly string topic;
+
         private IInstrument instrument;
         private bool running = false;
 
@@ -50,12 +49,9 @@ namespace TecanSparkRelay.System
                 {
                     command = JsonConvert.DeserializeObject<Command>(message);
 
-                    lock (mutex)
+                    if (this.running)
                     {
-                        if (this.running)
-                        {
-                            throw new ApplicationException("An existing experiment is already running");
-                        }
+                        throw new ApplicationException("An existing experiment is already running");
                     }
 
                     this.HandleCommand(command);
@@ -74,9 +70,10 @@ namespace TecanSparkRelay.System
             this.subscription.SubscribeToChannels(new string[] { this.topic });
         }
 
-        public void Unsubscribe()
+        public void Shutdown()
         {
             this.subscription.UnSubscribeFromAllChannels();
+            AutomationInterfaceFactory.Stop();
         }
 
         void SetInstrument(string selectedInstrument)
@@ -98,7 +95,7 @@ namespace TecanSparkRelay.System
 
         void HandleCommand(Command command)
         {
-            string methodXML;
+            string methodXML = "";
             try
             {
                 command.spec.Validate();
@@ -119,48 +116,55 @@ namespace TecanSparkRelay.System
                 throw new ApplicationException($"Error generating method XML for {command.protocol}: {ex.Message}");
             }
 
-            new Task(() =>
-              {
-                  try
-                  {
-                      using (var ai = AutomationInterfaceFactory.Build())
-                      {
-                          this.logger.Information("[experiment.execute.started] {uuid}", command.uuid);
-                          lock (mutex)
-                          {
-                              this.running = true;
-                          }
-                          var result = ai.MethodExecution.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
-                          lock (mutex)
-                          {
-                              this.running = false;
-                          }
-                          this.logger.Information("[experiment.execute.finished] {uuid} {workspace} {exeution}", command.uuid, result.WorkspaceId, result.ExecutionId);
+            new Task(async () =>
+                {
+                    this.running = true;
 
-                          var resultsXML = File.ReadAllText(ai.MethodExecution.GetResults(result.WorkspaceId, result.ExecutionId));
-                          Console.WriteLine($"Results:\n{resultsXML}");
-                      }
-                  }
-                  catch (Exception ex)
-                  {
-                      this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
-                      this.ForwardError(command, ex);
-                  }
-                  finally
-                  {
-                      lock (mutex)
-                      {
-                          this.running = false;
-                      }
-                  }
-              }).Start();
+                    IMethodExecutionResult result = null;
+                    try
+                    {
+                        using (var ai = AutomationInterfaceFactory.Build())
+                        {
+                            this.logger.Information("[experiment.execute.started] {uuid}", command.uuid);
+                            result = ai.MethodExecution.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
+                            this.logger.Information("[experiment.execute.finished] {uuid} {workspace} {execution}", command.uuid, result.WorkspaceId, result.ExecutionId);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
+                        this.ForwardError(command, ex);
+                    }
+                    finally
+                    {
+                        this.running = false;
+                    }
+
+                    try
+                    {
+                        using (var ai = AutomationInterfaceFactory.Build())
+                        {
+                            var resultsXML = File.ReadAllText(ai.MethodExecution.GetResults(result.WorkspaceId, result.ExecutionId));
+                            var rows = this.forwarder.ParseResults(resultsXML);
+
+                            this.logger.Information("[batch.forward.started] {uuid} {rows}", command.uuid, rows.Count);
+                            await this.forwarder.BatchForward(command.uuid, rows);
+                            this.logger.Information("[batch.forward.finished] {uuid} {rows}", command.uuid, rows.Count);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logger.Error("[batch.forward.failed] {uuid} {error}", command.uuid, ex.Message);
+                    }
+                }).Start();
         }
 
         async void ForwardError(Command command, Exception err)
         {
             try
             {
-                var data = new Forwarder.Data();
+                var data = new Forwarder.DataRow();
                 data.Error(err);
                 await this.forwarder.Forward(command.uuid, data);
                 this.logger.Information("[configure.error.forwarded {uuid}", command.uuid);

@@ -6,8 +6,8 @@
     "deviceName": "Hydrogen",
     "od": 0.42,
     "volume": 50,
-    "thermostat": 40,
-    "fp1Excite": "Laser",
-    "fp1Gain": "128x"
+    "thermostat": 38.8,
+    "fp1Excite": "6500K",
+    "fp1Gain": "8x"
   }
 }

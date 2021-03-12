@@ -1,7 +1,7 @@
 {
   "apiVersion": "SparkControl/v1alpha1/GBSpark",
-  "protocol": "TestMethod",
+  "protocol": "TestOD",
   "spec": {
-    "waitTime": "00:05:00"
+    "shakingDuration": "10"
   }
 }

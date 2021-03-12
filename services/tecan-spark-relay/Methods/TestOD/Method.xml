@@ -146,7 +146,7 @@
             <DataLabel InternalSuffix="{x:Null}" x:Name="__ReferenceID3" Index="0" MeasureMode="SinglePoint" OutputName="OD600" Type="Measurement" Unit="OpticalDensity" />
           </AbsorbanceStrip.DataLabels>
         </AbsorbanceStrip>
-        <ShakingStrip DisplayedAmplitude="1.5" Id="bf7dd749-ad24-4928-8049-328b7ee0e258" SelectedAmplitude="1500" SelectedDuration="10" SelectedDurationMode="Time" SelectedFrequency="30" SelectedMode="Double" SelectedPosition="Incubation" SelectedVentingDuration="10" SelectedVentingInterval="10">
+        <ShakingStrip DisplayedAmplitude="1.5" Id="bf7dd749-ad24-4928-8049-328b7ee0e258" SelectedAmplitude="1500" SelectedDuration="{{ shakingDuration }}" SelectedDurationMode="Time" SelectedFrequency="30" SelectedMode="Double" SelectedPosition="Incubation" SelectedVentingDuration="10" SelectedVentingInterval="10">
           <ShakingStrip.DataLabels>
             <DataLabel InternalSuffix="{x:Null}" x:Name="__ReferenceID4" Index="1" MeasureMode="None" OutputName="ShakingStrip_6d63c612-6d61-40fa-a9e1-32a7633e3b14" Type="Undefined" Unit="Unknown" />
           </ShakingStrip.DataLabels>

@@ -1,4 +1,4 @@
-DEPENDENCIES = db.redis pubsub.redis
+DEPENDENCIES = db.redis pubsub.redis external.chibio-server
 
 .PHONY: run fmt test dependencies
 

@@ -32,6 +32,12 @@ services:
       context: .
       dockerfile: ./docker/service.data-gateway/Dockerfile
     image: lab-automation/service.data-gateway:latest
+    ports:
+      - 9000:8000
+    depends_on:
+      - db.redis
+      - pubsub.redis
+      - service.control-tower
     env_file:
       - ./services/data-gateway/.env
     environment:
@@ -59,19 +65,6 @@ services:
     environment:
       <<: *environment
       MANAGER_CHIBIO_SERVER_ADDR: external.chibio-server:5000
-    volumes:
-      - ./data:/usr/service/data
-
-  service.tecan-spark-relay:
-    build:
-      context: .
-      dockerfile: ./docker/service.tecan-spark-relay/Dockerfile
-    image: lab-automation/service.tecan-spark-relay:latest
-    depends_on:
-      - service.data-gateway
-      - external.chibio-server
-    environment:
-      <<: *environment
     volumes:
       - ./data:/usr/service/data
 
