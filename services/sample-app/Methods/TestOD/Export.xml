@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MeasurementResultData Date="03/12/2021 05:44:00">
+  <Absorbance StripIndex="5">
+    <Summary>
+      <SummaryRow SettingName="Mode" Value="Absorbance" />
+      <SummaryRow SettingName="Measurement wavelength" Value="600" Unit="[nm]" />
+      <SummaryRow SettingName="Number of flashes" Value="10" />
+      <SummaryRow SettingName="SettleTime" Value="50" Unit="[ms]" />
+    </Summary>
+    <DataLabel Name="OD600">
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="0">
+        <MeasurementResult Validation="0" TimeStamp="3617" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="0">
+        <MeasurementResult Validation="0" TimeStamp="35966" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="1">
+        <MeasurementResult Validation="0" TimeStamp="3822" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="1">
+        <MeasurementResult Validation="0" TimeStamp="36169" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="2">
+        <MeasurementResult Validation="0" TimeStamp="4026" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="2">
+        <MeasurementResult Validation="0" TimeStamp="36372" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="3">
+        <MeasurementResult Validation="0" TimeStamp="4230" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="3">
+        <MeasurementResult Validation="0" TimeStamp="36575" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="4">
+        <MeasurementResult Validation="0" TimeStamp="4434" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="4">
+        <MeasurementResult Validation="0" TimeStamp="36778" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="5">
+        <MeasurementResult Validation="0" TimeStamp="4638" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="5">
+        <MeasurementResult Validation="0" TimeStamp="36981" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="6">
+        <MeasurementResult Validation="0" TimeStamp="4842" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="6">
+        <MeasurementResult Validation="0" TimeStamp="37184" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="7">
+        <MeasurementResult Validation="0" TimeStamp="5046" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="7">
+        <MeasurementResult Validation="0" TimeStamp="37387" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="8">
+        <MeasurementResult Validation="0" TimeStamp="5250" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="8">
+        <MeasurementResult Validation="0" TimeStamp="37590" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="9">
+        <MeasurementResult Validation="0" TimeStamp="5454" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="9">
+        <MeasurementResult Validation="0" TimeStamp="37793" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="10">
+        <MeasurementResult Validation="0" TimeStamp="5658" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="10">
+        <MeasurementResult Validation="0" TimeStamp="37996" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="11">
+        <MeasurementResult Validation="0" TimeStamp="5862" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="11">
+        <MeasurementResult Validation="0" TimeStamp="38199" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="12">
+        <MeasurementResult Validation="0" TimeStamp="8321" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="12">
+        <MeasurementResult Validation="0" TimeStamp="40646" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="13">
+        <MeasurementResult Validation="0" TimeStamp="8117" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="13">
+        <MeasurementResult Validation="0" TimeStamp="40443" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="14">
+        <MeasurementResult Validation="0" TimeStamp="7913" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="14">
+        <MeasurementResult Validation="0" TimeStamp="40240" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="15">
+        <MeasurementResult Validation="0" TimeStamp="7709" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="15">
+        <MeasurementResult Validation="0" TimeStamp="40037" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="16">
+        <MeasurementResult Validation="0" TimeStamp="7505" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="16">
+        <MeasurementResult Validation="0" TimeStamp="39834" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="17">
+        <MeasurementResult Validation="0" TimeStamp="7301" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="17">
+        <MeasurementResult Validation="0" TimeStamp="39631" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="18">
+        <MeasurementResult Validation="0" TimeStamp="7097" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="18">
+        <MeasurementResult Validation="0" TimeStamp="39428" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="19">
+        <MeasurementResult Validation="0" TimeStamp="6893" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="19">
+        <MeasurementResult Validation="0" TimeStamp="39225" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="20">
+        <MeasurementResult Validation="0" TimeStamp="6689" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="20">
+        <MeasurementResult Validation="0" TimeStamp="39022" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="21">
+        <MeasurementResult Validation="0" TimeStamp="6485" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="21">
+        <MeasurementResult Validation="0" TimeStamp="38819" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="22">
+        <MeasurementResult Validation="0" TimeStamp="6281" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="22">
+        <MeasurementResult Validation="0" TimeStamp="38616" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="23">
+        <MeasurementResult Validation="0" TimeStamp="6076" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="23">
+        <MeasurementResult Validation="0" TimeStamp="38413" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="24">
+        <MeasurementResult Validation="0" TimeStamp="8536" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="24">
+        <MeasurementResult Validation="0" TimeStamp="40866" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="25">
+        <MeasurementResult Validation="0" TimeStamp="8740" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="25">
+        <MeasurementResult Validation="0" TimeStamp="41069" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="26">
+        <MeasurementResult Validation="0" TimeStamp="8944" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="26">
+        <MeasurementResult Validation="0" TimeStamp="41272" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="27">
+        <MeasurementResult Validation="0" TimeStamp="9148" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="27">
+        <MeasurementResult Validation="0" TimeStamp="41475" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="28">
+        <MeasurementResult Validation="0" TimeStamp="9352" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="28">
+        <MeasurementResult Validation="0" TimeStamp="41678" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="29">
+        <MeasurementResult Validation="0" TimeStamp="9556" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="29">
+        <MeasurementResult Validation="0" TimeStamp="41881" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="30">
+        <MeasurementResult Validation="0" TimeStamp="9760" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="30">
+        <MeasurementResult Validation="0" TimeStamp="42084" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="31">
+        <MeasurementResult Validation="0" TimeStamp="9965" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="31">
+        <MeasurementResult Validation="0" TimeStamp="42287" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="32">
+        <MeasurementResult Validation="0" TimeStamp="10169" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="32">
+        <MeasurementResult Validation="0" TimeStamp="42490" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="33">
+        <MeasurementResult Validation="0" TimeStamp="10373" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="33">
+        <MeasurementResult Validation="0" TimeStamp="42693" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="34">
+        <MeasurementResult Validation="0" TimeStamp="10577" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="34">
+        <MeasurementResult Validation="0" TimeStamp="42896" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="35">
+        <MeasurementResult Validation="0" TimeStamp="10781" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="35">
+        <MeasurementResult Validation="0" TimeStamp="43099" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="36">
+        <MeasurementResult Validation="0" TimeStamp="13239" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="36">
+        <MeasurementResult Validation="0" TimeStamp="45550" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="37">
+        <MeasurementResult Validation="0" TimeStamp="13035" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="37">
+        <MeasurementResult Validation="0" TimeStamp="45347" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="38">
+        <MeasurementResult Validation="0" TimeStamp="12831" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="38">
+        <MeasurementResult Validation="0" TimeStamp="45144" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="39">
+        <MeasurementResult Validation="0" TimeStamp="12627" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="39">
+        <MeasurementResult Validation="0" TimeStamp="44941" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="40">
+        <MeasurementResult Validation="0" TimeStamp="12423" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="40">
+        <MeasurementResult Validation="0" TimeStamp="44738" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="41">
+        <MeasurementResult Validation="0" TimeStamp="12219" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="41">
+        <MeasurementResult Validation="0" TimeStamp="44535" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="42">
+        <MeasurementResult Validation="0" TimeStamp="12015" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="42">
+        <MeasurementResult Validation="0" TimeStamp="44332" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="43">
+        <MeasurementResult Validation="0" TimeStamp="11811" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="43">
+        <MeasurementResult Validation="0" TimeStamp="44129" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="44">
+        <MeasurementResult Validation="0" TimeStamp="11607" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="44">
+        <MeasurementResult Validation="0" TimeStamp="43926" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="45">
+        <MeasurementResult Validation="0" TimeStamp="11403" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="45">
+        <MeasurementResult Validation="0" TimeStamp="43722" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="46">
+        <MeasurementResult Validation="0" TimeStamp="11199" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="46">
+        <MeasurementResult Validation="0" TimeStamp="43519" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="47">
+        <MeasurementResult Validation="0" TimeStamp="10995" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="47">
+        <MeasurementResult Validation="0" TimeStamp="43314" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="48">
+        <MeasurementResult Validation="0" TimeStamp="13454" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="48">
+        <MeasurementResult Validation="0" TimeStamp="45764" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="49">
+        <MeasurementResult Validation="0" TimeStamp="13659" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="49">
+        <MeasurementResult Validation="0" TimeStamp="45967" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="50">
+        <MeasurementResult Validation="0" TimeStamp="13863" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="50">
+        <MeasurementResult Validation="0" TimeStamp="46170" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="51">
+        <MeasurementResult Validation="0" TimeStamp="14067" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="51">
+        <MeasurementResult Validation="0" TimeStamp="46373" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="52">
+        <MeasurementResult Validation="0" TimeStamp="14271" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="52">
+        <MeasurementResult Validation="0" TimeStamp="46576" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="53">
+        <MeasurementResult Validation="0" TimeStamp="14475" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="53">
+        <MeasurementResult Validation="0" TimeStamp="46779" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="54">
+        <MeasurementResult Validation="0" TimeStamp="14679" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="54">
+        <MeasurementResult Validation="0" TimeStamp="46982" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="55">
+        <MeasurementResult Validation="0" TimeStamp="14883" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="55">
+        <MeasurementResult Validation="0" TimeStamp="47185" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="56">
+        <MeasurementResult Validation="0" TimeStamp="15087" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="56">
+        <MeasurementResult Validation="0" TimeStamp="47388" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="57">
+        <MeasurementResult Validation="0" TimeStamp="15291" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="57">
+        <MeasurementResult Validation="0" TimeStamp="47591" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="58">
+        <MeasurementResult Validation="0" TimeStamp="15495" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="58">
+        <MeasurementResult Validation="0" TimeStamp="47794" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="59">
+        <MeasurementResult Validation="0" TimeStamp="15699" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="59">
+        <MeasurementResult Validation="0" TimeStamp="47997" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="60">
+        <MeasurementResult Validation="0" TimeStamp="18159" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="60">
+        <MeasurementResult Validation="0" TimeStamp="50444" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="61">
+        <MeasurementResult Validation="0" TimeStamp="17955" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="61">
+        <MeasurementResult Validation="0" TimeStamp="50241" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="62">
+        <MeasurementResult Validation="0" TimeStamp="17751" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="62">
+        <MeasurementResult Validation="0" TimeStamp="50038" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="63">
+        <MeasurementResult Validation="0" TimeStamp="17547" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="63">
+        <MeasurementResult Validation="0" TimeStamp="49835" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="64">
+        <MeasurementResult Validation="0" TimeStamp="17343" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="64">
+        <MeasurementResult Validation="0" TimeStamp="49632" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="65">
+        <MeasurementResult Validation="0" TimeStamp="17139" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="65">
+        <MeasurementResult Validation="0" TimeStamp="49429" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="66">
+        <MeasurementResult Validation="0" TimeStamp="16935" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="66">
+        <MeasurementResult Validation="0" TimeStamp="49226" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="67">
+        <MeasurementResult Validation="0" TimeStamp="16731" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="67">
+        <MeasurementResult Validation="0" TimeStamp="49023" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="68">
+        <MeasurementResult Validation="0" TimeStamp="16527" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="68">
+        <MeasurementResult Validation="0" TimeStamp="48820" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="69">
+        <MeasurementResult Validation="0" TimeStamp="16323" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="69">
+        <MeasurementResult Validation="0" TimeStamp="48617" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="70">
+        <MeasurementResult Validation="0" TimeStamp="16119" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="70">
+        <MeasurementResult Validation="0" TimeStamp="48414" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="71">
+        <MeasurementResult Validation="0" TimeStamp="15914" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="71">
+        <MeasurementResult Validation="0" TimeStamp="48211" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="72">
+        <MeasurementResult Validation="0" TimeStamp="18385" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="72">
+        <MeasurementResult Validation="0" TimeStamp="50664" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="73">
+        <MeasurementResult Validation="0" TimeStamp="18589" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="73">
+        <MeasurementResult Validation="0" TimeStamp="50867" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="74">
+        <MeasurementResult Validation="0" TimeStamp="18793" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="74">
+        <MeasurementResult Validation="0" TimeStamp="51070" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="75">
+        <MeasurementResult Validation="0" TimeStamp="18997" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="75">
+        <MeasurementResult Validation="0" TimeStamp="51273" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="76">
+        <MeasurementResult Validation="0" TimeStamp="19201" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="76">
+        <MeasurementResult Validation="0" TimeStamp="51476" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="77">
+        <MeasurementResult Validation="0" TimeStamp="19405" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="77">
+        <MeasurementResult Validation="0" TimeStamp="51679" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="78">
+        <MeasurementResult Validation="0" TimeStamp="19609" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="78">
+        <MeasurementResult Validation="0" TimeStamp="51882" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="79">
+        <MeasurementResult Validation="0" TimeStamp="19813" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="79">
+        <MeasurementResult Validation="0" TimeStamp="52085" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="80">
+        <MeasurementResult Validation="0" TimeStamp="20017" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="80">
+        <MeasurementResult Validation="0" TimeStamp="52288" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="81">
+        <MeasurementResult Validation="0" TimeStamp="20221" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="81">
+        <MeasurementResult Validation="0" TimeStamp="52491" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="82">
+        <MeasurementResult Validation="0" TimeStamp="20425" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="82">
+        <MeasurementResult Validation="0" TimeStamp="52694" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="83">
+        <MeasurementResult Validation="0" TimeStamp="20629" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="83">
+        <MeasurementResult Validation="0" TimeStamp="52897" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="84">
+        <MeasurementResult Validation="0" TimeStamp="23088" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="84">
+        <MeasurementResult Validation="0" TimeStamp="55349" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="85">
+        <MeasurementResult Validation="0" TimeStamp="22884" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="85">
+        <MeasurementResult Validation="0" TimeStamp="55145" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="86">
+        <MeasurementResult Validation="0" TimeStamp="22680" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="86">
+        <MeasurementResult Validation="0" TimeStamp="54941" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="87">
+        <MeasurementResult Validation="0" TimeStamp="22476" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="87">
+        <MeasurementResult Validation="0" TimeStamp="54737" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="88">
+        <MeasurementResult Validation="0" TimeStamp="22272" Value="-0.0002" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="88">
+        <MeasurementResult Validation="0" TimeStamp="54534" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="89">
+        <MeasurementResult Validation="0" TimeStamp="22068" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="89">
+        <MeasurementResult Validation="0" TimeStamp="54330" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="90">
+        <MeasurementResult Validation="0" TimeStamp="21864" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="90">
+        <MeasurementResult Validation="0" TimeStamp="54127" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="91">
+        <MeasurementResult Validation="0" TimeStamp="21660" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="91">
+        <MeasurementResult Validation="0" TimeStamp="53923" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="92">
+        <MeasurementResult Validation="0" TimeStamp="21456" Value="-0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="92">
+        <MeasurementResult Validation="0" TimeStamp="53721" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="93">
+        <MeasurementResult Validation="0" TimeStamp="21252" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="93">
+        <MeasurementResult Validation="0" TimeStamp="53517" Value="0.0001" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="94">
+        <MeasurementResult Validation="0" TimeStamp="21048" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="94">
+        <MeasurementResult Validation="0" TimeStamp="53314" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="1" WellIndex="95">
+        <MeasurementResult Validation="0" TimeStamp="20844" Value="0" />
+      </ResultContext>
+      <ResultContext PlateIndex="0" CycleIndex="2" WellIndex="95">
+        <MeasurementResult Validation="0" TimeStamp="53111" Value="0.0001" />
+      </ResultContext>
+    </DataLabel>
+  </Absorbance>
+</MeasurementResultData>
