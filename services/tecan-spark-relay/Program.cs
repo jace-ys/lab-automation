@@ -15,13 +15,10 @@ namespace TecanSparkRelay
             var cfg = new Config();
             var logger = new LoggerConfiguration().WriteTo.Console(new CompactJsonFormatter()).CreateLogger();
 
-            AutomationInterfaceFactory.Start();
-            IAutomationInterface ai = AutomationInterfaceFactory.Build();
-
             var redis = new RedisClient(cfg.pubsub.Addr);
             var forwarder = new Forwarder.Forwarder(cfg.forwarder);
 
-            var manager = new System.Manager(logger, ai, forwarder, redis, cfg.pubsub.SubscriptionTopic, cfg.manager);
+            var manager = new System.Manager(logger, forwarder, redis, cfg.pubsub.SubscriptionTopic, cfg.manager);
             var subscribe = new Thread(new ThreadStart(manager.Subscribe));
 
             subscribe.Start();

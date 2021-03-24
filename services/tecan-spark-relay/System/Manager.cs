@@ -15,7 +15,6 @@ namespace TecanSparkRelay.System
     public class Manager
     {
         private readonly ILogger logger;
-        private readonly IAutomationInterface ai;
         private readonly Forwarder.Forwarder forwarder;
         private readonly IRedisSubscription subscription;
 
@@ -24,14 +23,14 @@ namespace TecanSparkRelay.System
         private IInstrument instrument;
         private bool running = false;
 
-        public Manager(ILogger logger, IAutomationInterface ai, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
+        public Manager(ILogger logger, Forwarder.Forwarder forwarder, RedisClient redis, string topic, ManagerConfig cfg)
         {
             this.logger = logger;
-            this.ai = ai;
             this.forwarder = forwarder;
             this.subscription = redis.CreateSubscription();
             this.topic = topic;
 
+            AutomationInterfaceFactory.Start();
             this.SetInstrument(cfg.Instrument);
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -82,10 +81,13 @@ namespace TecanSparkRelay.System
 
         void SetInstrument(string selectedInstrument)
         {
-            this.instrument = this.ai.InstrumentManagement.GetInstruments().FirstOrDefault(i => i.SerialNumber == selectedInstrument);
-            if (this.instrument == null)
+            using (var ai = AutomationInterfaceFactory.Build())
             {
-                throw new ApplicationException($"Could not find an instrument with serial {selectedInstrument}");
+                this.instrument = ai.InstrumentManagement.GetInstruments().FirstOrDefault(i => i.SerialNumber == selectedInstrument);
+                if (this.instrument == null)
+                {
+                    throw new ApplicationException($"Could not find an instrument with serial {selectedInstrument}");
+                }
             }
 
             if (this.instrument.State != InstrumentState.FullyOperational)
@@ -103,10 +105,13 @@ namespace TecanSparkRelay.System
                 methodXML = command.spec.GenerateMethodXML();
 
                 IEnumerable<string> messages;
-                if (!this.ai.MethodExecution.CheckMethod(this.instrument, methodXML, command.protocol, out messages))
+                using (var ai = AutomationInterfaceFactory.Build())
                 {
-                    string msg = string.Join(", ", messages);
-                    throw new ApplicationException(msg);
+                    if (!ai.MethodExecution.CheckMethod(this.instrument, methodXML, command.protocol, out messages))
+                    {
+                        string msg = string.Join(", ", messages);
+                        throw new ApplicationException(msg);
+                    }
                 }
             }
             catch (Exception ex)
@@ -118,24 +123,35 @@ namespace TecanSparkRelay.System
               {
                   try
                   {
-                      lock (mutex)
+                      using (var ai = AutomationInterfaceFactory.Build())
                       {
-                          this.running = true;
-                      }
-                      this.logger.Error("[experiment.execute.started] {uuid}", command.uuid);
-                      var result = this.ai.MethodExecution.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
-                      this.logger.Error("[experiment.execute.finished] {uuid} {workspace} {exeution}", command.uuid, result.WorkspaceId, result.ExecutionId);
-                      lock (mutex)
-                      {
-                          this.running = false;
-                      }
+                          this.logger.Information("[experiment.execute.started] {uuid}", command.uuid);
+                          lock (mutex)
+                          {
+                              this.running = true;
+                          }
+                          var result = ai.MethodExecution.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
+                          lock (mutex)
+                          {
+                              this.running = false;
+                          }
+                          this.logger.Information("[experiment.execute.finished] {uuid} {workspace} {exeution}", command.uuid, result.WorkspaceId, result.ExecutionId);
 
-                      var resultsXML = File.ReadAllText(this.ai.MethodExecution.GetResults(result.WorkspaceId, result.ExecutionId));
-                      Console.WriteLine($"Results:\n{resultsXML}");
+                          var resultsXML = File.ReadAllText(ai.MethodExecution.GetResults(result.WorkspaceId, result.ExecutionId));
+                          Console.WriteLine($"Results:\n{resultsXML}");
+                      }
                   }
                   catch (Exception ex)
                   {
                       this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
+                      this.ForwardError(command, ex);
+                  }
+                  finally
+                  {
+                      lock (mutex)
+                      {
+                          this.running = false;
+                      }
                   }
               }).Start();
         }
@@ -147,7 +163,7 @@ namespace TecanSparkRelay.System
                 var data = new Forwarder.Data();
                 data.Error(err);
                 await this.forwarder.Forward(command.uuid, data);
-                this.logger.Error("[configure.error.forwarded {uuid}", command.uuid);
+                this.logger.Information("[configure.error.forwarded {uuid}", command.uuid);
             }
             catch (ApplicationException ex)
             {

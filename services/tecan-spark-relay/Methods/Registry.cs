@@ -35,9 +35,9 @@ namespace TecanSparkRelay.Methods
 
         static Registry()
         {
-            foreach (var (methodName, method) in methods)
+            foreach (KeyValuePair<string, SparkMethod> kvp in methods)
             {
-                method.Register(methodName);
+                kvp.Value.Register(kvp.Key);
             }
         }
 
