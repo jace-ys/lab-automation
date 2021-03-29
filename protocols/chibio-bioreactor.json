@@ -1,5 +1,5 @@
 {
-  "apiVersion": "ChiBio/v1alpha1/chiobio1",
+  "apiVersion": "ChiBio/v1alpha1",
   "protocol": "Bioreactor",
   "spec": {
     "devicePosition": "M0",

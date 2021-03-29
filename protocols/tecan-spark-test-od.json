@@ -1,5 +1,5 @@
 {
-  "apiVersion": "SparkControl/v1alpha1/GBSpark",
+  "apiVersion": "TecanSpark/v1alpha1",
   "protocol": "TestOD",
   "spec": {
     "shakingDuration": "10"
