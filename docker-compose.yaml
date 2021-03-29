@@ -22,6 +22,9 @@ services:
       context: .
       dockerfile: ./docker/service.control-tower/Dockerfile
     image: lab-automation/service.control-tower:latest
+    depends_on:
+      - db.redis
+      - pubsub.redis
     env_file:
       - ./services/control-tower/.env
     environment:
@@ -49,6 +52,10 @@ services:
       context: .
       dockerfile: ./docker/service.ot-builder/Dockerfile
     image: lab-automation/service.ot-builder:latest
+    depends_on:
+      - db.redis
+      - pubsub.redis
+      - service.control-tower
     ports:
       - 8000:8000
     environment:
@@ -60,6 +67,9 @@ services:
       dockerfile: ./docker/service.chibio-relay/Dockerfile
     image: lab-automation/service.chibio-relay:latest
     depends_on:
+      - db.redis
+      - pubsub.redis
+      - service.control-tower
       - service.data-gateway
       - external.chibio-server
     environment:

@@ -4,7 +4,7 @@
   "spec": {
     "dilutionFactor": 1.5,
     "numOfDilutions": 10,
-    "totalMixingVolume": 200,
-    "initialVolume": 200
+    "totalMixingVolume": 50,
+    "initialVolume": 50
   }
 }
