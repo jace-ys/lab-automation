@@ -1,8 +1,38 @@
 {
   "apiVersion": "OT-2/v1alpha1",
   "protocol": "SimpleDilution",
-  "spec": {
+  "spec": [
+    {
+    "waterVolume": 25,
+    "reagentVolume": 50
+    },
+    {
+    "waterVolume": 25,
+    "reagentVolume": 50
+    },
+    {
+    "waterVolume": 25,
+    "reagentVolume": 50
+    },
+    {
+    "waterVolume": 25,
+    "reagentVolume": 50
+    },
+    {
     "waterVolume": 50,
-    "reagentVolume": 25
-  }
+    "reagentVolume": 50
+    },
+    {
+    "waterVolume": 50,
+    "reagentVolume": 50
+    },
+    {
+    "waterVolume": 50,
+    "reagentVolume": 50
+    },
+    {
+    "waterVolume": 50,
+    "reagentVolume": 50
+    }
+  ]
 }

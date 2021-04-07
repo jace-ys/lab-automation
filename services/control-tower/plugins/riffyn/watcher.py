@@ -1,3 +1,4 @@
+import re
 import threading
 
 import requests
@@ -26,6 +27,8 @@ class Watcher(threading.Thread):
         self.experiment_api = riffyn.ExperimentApi()
         self.run_api = riffyn.RunApi()
 
+        self.partials = {}
+
     def run(self):
         while not self.done.is_set():
             self.logger.info("runs.poll.started")
@@ -34,14 +37,32 @@ class Watcher(threading.Thread):
                 runs = self.__fetch_run_statuses()
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
-                        for cmd in self.__build_commands(experiment_id, run):
-                            self.queue.put(cmd)
+                        complete = self.__aggregate(run)
+                        if len(complete) > 0:
+                            for cmd in self.__build_commands(experiment_id, complete):
+                                self.queue.put(cmd)
 
                         self.cache.hset(self.cache_key, run.id, "")
-                        self.logger.info("run.started", run_id=run.id)
+                        self.logger.info(
+                            "run.started",
+                            experiment_id=experiment_id,
+                            run_id=run.id,
+                            run_name=run.name,
+                        )
 
                     for run in runs["stopped"]:
-                        self.logger.info("run.stopped", run_id=run.id)
+                        partial = self.__is_partial(run)
+                        if partial:
+                            key, rows, cols, idx = partial
+                            if key in self.partials:
+                                self.partials[key][idx] = None
+
+                        self.logger.info(
+                            "run.stopped",
+                            experiment_id=experiment_id,
+                            run_id=run.id,
+                            run_name=run.name,
+                        )
                         self.cache.hdel(self.cache_key, run.id)
 
                 self.logger.info("runs.poll.finished")
@@ -67,7 +88,9 @@ class Watcher(threading.Thread):
                 if run.status == "running" and run.id not in active_runs:
                     status["started"].append(run)
 
-                elif run.status == "stopped" and run.id in active_runs:
+                elif (
+                    run.status == "stopped" or run.status == "new"
+                ) and run.id in active_runs:
                     status["stopped"].append(run)
 
             runs[experiment.id] = status
@@ -88,55 +111,109 @@ class Watcher(threading.Thread):
         )
         return utils.flatten(runs)
 
-    def __build_commands(self, experiment_id, run):
-        activity = self.activity_api.get_activity(experiment_id, run.activity_id)
-        data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
-        datatable = data["datatables"][run.id]["datatable"][0]
+    def __aggregate(self, run):
+        partial = self.__is_partial(run)
+        if not partial:
+            return [run]
 
+        key, rows, cols, idx = partial
+        if key not in self.partials:
+            # Pre-fill an array equal to the number of expected partials
+            self.partials[key] = [None] * (rows * cols)
+        self.partials[key][idx] = run
+
+        # Check that all partial runs in the aggregated set have been populated
+        if all(partial is not None for partial in self.partials[key]):
+            return self.partials[key]
+
+        return []
+
+    def __is_partial(self, run):
+        partial = re.search(r"(.*) \[([1-9])+x([1-9])+\] ([1-9])+$", run.name)
+        if not partial:
+            return False
+
+        name, rows, cols, idx = partial.group(1, 2, 3, 4)
+        key = f"{self.cache_key}/{run.activity_id}/{name}"
+        return (key, int(rows), int(cols), int(idx) - 1)
+
+    def __build_commands(self, experiment_id, runs):
         # Create a mapping of resource IDs -> names
         resources = {}
         # Create a mapping of API version -> command objects
         commands = {}
 
-        # Iterate over each input in the run and populate the mappings
-        for input in run.inputs:
-            try:
-                api_version = input.resource_name
-                protocol = activity.name.replace(" ", "")
+        for idx, run in enumerate(runs):
+            activity = self.activity_api.get_activity(experiment_id, run.activity_id)
 
-                cmd = command.Command(api_version, protocol)
-                cmd.metadata(
-                    "riffyn",
-                    {
-                        "experimentId": experiment_id,
-                        "activityId": run.activity_id,
-                        "runId": run.id,
-                    },
-                )
+            # All runs in an aggregated shape should have the same shape so use the first
+            # in each set as the command template
+            if idx == 0:
+                # Iterate over each input in the run and populate the mappings
+                for input in run.inputs:
+                    try:
+                        api_version = input.resource_name
+                        protocol = activity.name.replace(" ", "")
 
-                resources[input.resource_def_id] = api_version
-                commands[api_version] = cmd
+                        cmd = command.Command(api_version, protocol)
+                        if len(runs) > 1:
+                            # Pre-fill the spec with an array equal to the number of runs
+                            cmd.spec = [{}] * len(runs)
+                            cmd.metadata(
+                                "riffyn",
+                                list(
+                                    map(
+                                        lambda run: {
+                                            "experimentId": experiment_id,
+                                            "activityId": run.activity_id,
+                                            "runId": run.id,
+                                        },
+                                        runs,
+                                    )
+                                ),
+                            )
+                            commands[api_version] = cmd
+                        else:
+                            cmd.metadata(
+                                "riffyn",
+                                {
+                                    "experimentId": experiment_id,
+                                    "activityId": run.activity_id,
+                                    "runId": run.id,
+                                },
+                            )
 
-            except command.InvalidAPIVersion:
-                continue
+                        # Track created command and its associated API version
+                        commands[api_version] = cmd
+                        resources[input.resource_def_id] = api_version
 
-        # Iterate over each input in the activity and populate the commands' spec
-        for input in activity.inputs:
-            if input.id not in resources:
-                continue
+                    except command.InvalidAPIVersion:
+                        continue
 
-            # Get the name (API version) for this resource
-            api_version = resources[input.id]
-            properties = {}
+            data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
+            datatable = data["datatables"][run.id]["datatable"][0]
 
-            for property in input.properties:
-                header = f"{activity.id} | input | {input.id} | {property.id} | value"
-                if datatable[header] is not None:
-                    properties[utils.str_to_camelcase(property.name)] = datatable[
-                        header
-                    ]
+            # Iterate over each input in the activity and populate the commands' spec
+            for input in activity.inputs:
+                properties = {}
+                if input.id in resources:
+                    # Get the API version for the resource
+                    api_version = resources[input.id]
 
-            commands[api_version].spec.update(properties)
+                    for property in input.properties:
+                        header = f"{activity.id} | input | {input.id} | {property.id} | value"
+                        if datatable[header] is not None:
+                            properties[
+                                utils.str_to_camelcase(property.name)
+                            ] = datatable[header]
+
+                if isinstance(commands[api_version].spec, list):
+                    commands[api_version].spec[idx] = {
+                        **commands[api_version].spec[idx],
+                        **properties,
+                    }
+                else:
+                    commands[api_version].spec.update(properties)
 
         return list(commands.values())
 
