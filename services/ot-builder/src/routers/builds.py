@@ -27,7 +27,10 @@ def parse_form(form_data):
             if i < len(parts) - 1:
                 nested = nested.setdefault(part, {})
             else:
-                nested.setdefault(part, value)
+                if part == "location":
+                    nested.setdefault(part, int(value))
+                else:
+                    nested.setdefault(part, value)
 
     return spec
 

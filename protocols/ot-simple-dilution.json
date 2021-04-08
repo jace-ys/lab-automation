@@ -3,36 +3,28 @@
   "protocol": "SimpleDilution",
   "spec": [
     {
-    "waterVolume": 25,
-    "reagentVolume": 50
+      "waterVolume": 25
     },
     {
-    "waterVolume": 25,
-    "reagentVolume": 50
+      "waterVolume": 25
     },
     {
-    "waterVolume": 25,
-    "reagentVolume": 50
+      "waterVolume": 25
     },
     {
-    "waterVolume": 25,
-    "reagentVolume": 50
+      "waterVolume": 25
     },
     {
-    "waterVolume": 50,
-    "reagentVolume": 50
+      "waterVolume": 50
     },
     {
-    "waterVolume": 50,
-    "reagentVolume": 50
+      "waterVolume": 50
     },
     {
-    "waterVolume": 50,
-    "reagentVolume": 50
+      "waterVolume": 50
     },
     {
-    "waterVolume": 50,
-    "reagentVolume": 50
+      "waterVolume": 50
     }
   ]
 }
