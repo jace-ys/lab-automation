@@ -1,11 +1,10 @@
 from opentrons import protocol_api
 
 # spec:
-#     base:
-#         dilutionFactor
-#         numOfDilutions
-#         totalMixingVolume
-#         initialVolume
+#     dilutionFactor
+#     numOfDilutions
+#     totalMixingVolume
+#     initialVolume
 
 metadata = {
     "protocolName": "OT-2/v1alpha1/SerialDilution",
@@ -24,8 +23,9 @@ def run(protocol: protocol_api.ProtocolContext):
     liquid_trash = trough.wells()[0]
     plate = protocol.load_labware(**config["plate"])
     tipracks = [
-        protocol.load_labware(config["tiprack"]["load_name"], slot)
-        for slot in config["tiprack"]["location"]
+        protocol.load_labware(
+            config["tiprack"]["load_name"], config["tiprack"]["location"]
+        )
     ]
 
     sample_tubes = protocol.load_labware(**config["tube_rack"])

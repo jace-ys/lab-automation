@@ -19,45 +19,45 @@
             <select name="{{ resource }}.{{ property }}" id="{{ resource }}.{{ property }}">
             {% if spec.type.name == "location" %}
               {% for i in range(1, 13) -%}
-              <option value="{{ i }}"{% if build.spec.get(resource, {}).get(property) == i %} selected{% endif -%}>
+              <option value="{{ i }}"{% if build.config.get(resource, {}).get(property) == i %} selected{% endif -%}>
                 {{ i }}
               </option>
               {% endfor -%}
             {% elif spec.type.name == "labware" %}
-              <option value="corning_96_wellplate_360ul_flat"{% if build.spec.get(resource, {}).get(property) == "corning_96_wellplate_360ul_flat" %} selected{% endif -%}>
+              <option value="corning_96_wellplate_360ul_flat"{% if build.config.get(resource, {}).get(property) == "corning_96_wellplate_360ul_flat" %} selected{% endif -%}>
                 corning_96_wellplate_360ul_flat
               </option>
-              <option value="opentrons_96_tiprack_300ul"{% if build.spec.get(resource, {}).get(property) == "opentrons_96_tiprack_300ul" %} selected{% endif -%}>
+              <option value="opentrons_96_tiprack_300ul"{% if build.config.get(resource, {}).get(property) == "opentrons_96_tiprack_300ul" %} selected{% endif -%}>
                 opentrons_96_tiprack_300ul
               </option>
-              <option value="usascientific_12_reservoir_22ml"{% if build.spec.get(resource, {}).get(property) == "usascientific_12_reservoir_22ml" %} selected{% endif -%}>
+              <option value="usascientific_12_reservoir_22ml"{% if build.config.get(resource, {}).get(property) == "usascientific_12_reservoir_22ml" %} selected{% endif -%}>
                 usascientific_12_reservoir_22ml
               </option>
-              <option value="nest_12_reservoir_15ml"{% if build.spec.get(resource, {}).get(property) == "nest_12_reservoir_15ml" %} selected{% endif -%}>
+              <option value="nest_12_reservoir_15ml"{% if build.config.get(resource, {}).get(property) == "nest_12_reservoir_15ml" %} selected{% endif -%}>
                 nest_12_reservoir_15ml
               </option>
-              <option value="opentrons_6_tuberack_falcon_50ml_conical"{% if build.spec.get(resource, {}).get(property) == "opentrons_6_tuberack_falcon_50ml_conical" %} selected{% endif -%}>
+              <option value="opentrons_6_tuberack_falcon_50ml_conical"{% if build.config.get(resource, {}).get(property) == "opentrons_6_tuberack_falcon_50ml_conical" %} selected{% endif -%}>
                 opentrons_6_tuberack_falcon_50ml_conical
               </option>
             {% elif spec.type.name == "instrument" %}
-              <option value="p300_single"{% if build.spec.get(resource, {}).get(property) == "p300_single" %} selected{% endif -%}>
+              <option value="p300_single"{% if build.config.get(resource, {}).get(property) == "p300_single" %} selected{% endif -%}>
                 p300_single
               </option>
-              <option value="p300_multi"{% if build.spec.get(resource, {}).get(property) == "p300_multi" %} selected{% endif -%}>
+              <option value="p300_multi"{% if build.config.get(resource, {}).get(property) == "p300_multi" %} selected{% endif -%}>
                 p300_multi
               </option>
-              <option value="p300_multi_gen2"{% if build.spec.get(resource, {}).get(property) == "p300_multi_gen2" %} selected{% endif -%}>
+              <option value="p300_multi_gen2"{% if build.config.get(resource, {}).get(property) == "p300_multi_gen2" %} selected{% endif -%}>
                 p300_multi_gen2
               </option>
             {% elif spec.type.name == "mount" %}
-              <option value="left"{% if build.spec.get(resource, {}).get(property) == "left" %} selected{% endif -%}>
+              <option value="left"{% if build.config.get(resource, {}).get(property) == "left" %} selected{% endif -%}>
                 left
               </option>
-              <option value="right"{% if build.spec.get(resource, {}).get(property) == "right" %} selected{% endif -%}>
+              <option value="right"{% if build.config.get(resource, {}).get(property) == "right" %} selected{% endif -%}>
                 right
               </option>
             {% elif spec.type.name == "strategy" %}
-            <option value="never" {% if build.spec.get(resource, {}).get(property)=="never" %} selected{% endif -%}>
+            <option value="never" {% if build.config.get(resource, {}).get(property)=="never" %} selected{% endif -%}>
               never
             </option>
             {% endif  %}
