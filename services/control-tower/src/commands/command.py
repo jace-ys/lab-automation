@@ -13,6 +13,9 @@ class Command:
         self.protocol = protocol
         self.spec = spec or {}
 
+    def plate(self, rows, cols):
+        self.plate = {"rows": rows, "columns": cols}
+
     def metadata(self, source, spec=None):
         self.metadata = {"source": {"name": source, "spec": spec or {}}}
 
