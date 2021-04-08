@@ -37,9 +37,18 @@ class Watcher(threading.Thread):
                 runs = self.__fetch_run_statuses()
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
-                        complete = self.__aggregate(run)
+                        complete, plate = self.__aggregate(run)
                         if len(complete) > 0:
-                            for cmd in self.__build_commands(experiment_id, complete):
+                            if plate:
+                                commands = self.__build_commands(
+                                    experiment_id, complete, plate
+                                )
+                            else:
+                                commands = self.__build_commands(
+                                    experiment_id, complete
+                                )
+
+                            for cmd in commands:
                                 self.queue.put(cmd)
 
                         self.cache.hset(self.cache_key, run.id, "")
@@ -114,7 +123,7 @@ class Watcher(threading.Thread):
     def __aggregate(self, run):
         partial = self.__is_partial(run)
         if not partial:
-            return [run]
+            return [run], None
 
         key, rows, cols, idx = partial
         if key not in self.partials:
@@ -124,9 +133,9 @@ class Watcher(threading.Thread):
 
         # Check that all partial runs in the aggregated set have been populated
         if all(partial is not None for partial in self.partials[key]):
-            return self.partials[key]
+            return self.partials[key], (rows, cols)
 
-        return []
+        return [], None
 
     def __is_partial(self, run):
         partial = re.search(r"(.*) \[([1-9])+x([1-9])+\] ([1-9])+$", run.name)
@@ -137,7 +146,7 @@ class Watcher(threading.Thread):
         key = f"{self.cache_key}/{run.activity_id}/{name}"
         return (key, int(rows), int(cols), int(idx) - 1)
 
-    def __build_commands(self, experiment_id, runs):
+    def __build_commands(self, experiment_id, runs, plate=None):
         # Create a mapping of resource IDs -> names
         resources = {}
         # Create a mapping of API version -> command objects
@@ -157,6 +166,7 @@ class Watcher(threading.Thread):
 
                         cmd = command.Command(api_version, protocol)
                         if len(runs) > 1:
+                            cmd.plate(*plate)
                             # Pre-fill the spec with an array equal to the number of runs
                             cmd.spec = [{}] * len(runs)
                             cmd.metadata(

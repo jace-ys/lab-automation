@@ -1,6 +1,10 @@
 {
   "apiVersion": "OT-2/v1alpha1",
   "protocol": "SimpleDilution",
+  "plate": {
+    "rows": 8,
+    "columns": 1
+  },
   "spec": [
     {
       "waterVolume": 25
