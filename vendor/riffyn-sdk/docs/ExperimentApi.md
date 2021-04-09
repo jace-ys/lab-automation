@@ -1,54 +1,54 @@
-# swagger_client.ExperimentApi
+# riffyn_nexus_sdk_v1.ExperimentApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_comment_to_experiment**](ExperimentApi.md#add_comment_to_experiment) | **POST** /experiment/{id}/comment | 
-[**add_component_to_resource_type**](ExperimentApi.md#add_component_to_resource_type) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | 
-[**add_property_type_to_experiment**](ExperimentApi.md#add_property_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | 
-[**add_resource_type_to_experiment**](ExperimentApi.md#add_resource_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type | 
-[**add_summary_to_experiment**](ExperimentApi.md#add_summary_to_experiment) | **POST** /experiment/{id}/summary | 
-[**add_tag_to_experiment**](ExperimentApi.md#add_tag_to_experiment) | **POST** /experiment/{id}/tag | 
-[**apply_upload_config**](ExperimentApi.md#apply_upload_config) | **PUT** /experiment/{id}/activity/{activityId}/apply-config | 
-[**apply_upload_config_collection**](ExperimentApi.md#apply_upload_config_collection) | **PUT** /experiment/{id}/apply-config-collection | 
-[**clone_experiment**](ExperimentApi.md#clone_experiment) | **POST** /experiment/{id}/clone | 
-[**create_experiment**](ExperimentApi.md#create_experiment) | **POST** /experiment | 
-[**delete_component_from_resource_type**](ExperimentApi.md#delete_component_from_resource_type) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | 
-[**delete_experiment**](ExperimentApi.md#delete_experiment) | **DELETE** /experiment/{id} | 
-[**delete_experiment_comment**](ExperimentApi.md#delete_experiment_comment) | **DELETE** /experiment/{id}/comment/{commentId} | 
-[**delete_experiment_summary**](ExperimentApi.md#delete_experiment_summary) | **DELETE** /experiment/{id}/summary/{summaryId} | 
-[**delete_property_type_from_experiment**](ExperimentApi.md#delete_property_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-[**delete_resource_type_from_experiment**](ExperimentApi.md#delete_resource_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-[**delete_tag_from_experiment**](ExperimentApi.md#delete_tag_from_experiment) | **DELETE** /experiment/{id}/tag/{tagId} | 
-[**export_experiment_data**](ExperimentApi.md#export_experiment_data) | **PUT** /experiment/{id}/export/data | 
-[**export_experiment_data_status**](ExperimentApi.md#export_experiment_data_status) | **GET** /experiment/{id}/export/data/status | 
-[**get_experiment**](ExperimentApi.md#get_experiment) | **GET** /experiment/{id} | 
-[**get_experiment_comment**](ExperimentApi.md#get_experiment_comment) | **GET** /experiment/{id}/comment/{commentId} | 
-[**get_experiment_data_clean**](ExperimentApi.md#get_experiment_data_clean) | **GET** /experiment/{id}/step/{activityId}/data/clean | 
-[**get_experiment_data_raw**](ExperimentApi.md#get_experiment_data_raw) | **GET** /experiment/{id}/step/{activityId}/data/raw | 
-[**get_experiment_summary**](ExperimentApi.md#get_experiment_summary) | **GET** /experiment/{id}/summary | 
-[**get_role_for_experiment**](ExperimentApi.md#get_role_for_experiment) | **GET** /experiment/{id}/role/{userId} | 
-[**list_experiment_activities**](ExperimentApi.md#list_experiment_activities) | **GET** /experiment/{id}/activities | 
-[**list_experiment_comments**](ExperimentApi.md#list_experiment_comments) | **GET** /experiment/{id}/comments | 
-[**list_experiment_tags**](ExperimentApi.md#list_experiment_tags) | **GET** /experiment/{id}/tags | 
-[**list_experiments**](ExperimentApi.md#list_experiments) | **GET** /experiments | 
-[**list_replies_to_experiment_comment**](ExperimentApi.md#list_replies_to_experiment_comment) | **GET** /experiment/{id}/comment/{commentId}/replies | 
-[**reply_to_expriment_comment**](ExperimentApi.md#reply_to_expriment_comment) | **POST** /experiment/{id}/comment/{commentId}/reply | 
-[**share_experiment**](ExperimentApi.md#share_experiment) | **POST** /experiment/{id}/accessible-to | 
-[**unshare_experiment**](ExperimentApi.md#unshare_experiment) | **PATCH** /experiment/{id}/accessible-to/{principalId} | 
-[**update_experiment**](ExperimentApi.md#update_experiment) | **PATCH** /experiment/{id} | 
-[**update_experiment_comment**](ExperimentApi.md#update_experiment_comment) | **PATCH** /experiment/{id}/comment/{commentId} | 
-[**update_experiment_summary**](ExperimentApi.md#update_experiment_summary) | **PATCH** /experiment/{id}/summary/{summaryId} | 
-[**update_property_type_on_experiment**](ExperimentApi.md#update_property_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-[**update_resource_type_on_experiment**](ExperimentApi.md#update_resource_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-[**upload_config_status**](ExperimentApi.md#upload_config_status) | **GET** /experiment/{id}/activity/{activityId}/apply-config/{taskId} | 
-[**upload_data_file**](ExperimentApi.md#upload_data_file) | **POST** /experiment/{id}/activity/{activityId}/upload | 
+[**add_comment_to_experiment**](ExperimentApi.md#add_comment_to_experiment) | **POST** /experiment/{id}/comment | addCommentToExperiment
+[**add_component_to_resource_type**](ExperimentApi.md#add_component_to_resource_type) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | addComponentToResourceType
+[**add_property_type_to_experiment**](ExperimentApi.md#add_property_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | addPropertyTypeToExperiment
+[**add_resource_type_to_experiment**](ExperimentApi.md#add_resource_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type | addResourceTypeToExperiment
+[**add_summary_to_experiment**](ExperimentApi.md#add_summary_to_experiment) | **POST** /experiment/{id}/summary | addSummaryToExperiment
+[**add_tag_to_experiment**](ExperimentApi.md#add_tag_to_experiment) | **POST** /experiment/{id}/tag | addTagToExperiment
+[**apply_upload_config**](ExperimentApi.md#apply_upload_config) | **PUT** /experiment/{id}/activity/{activityId}/apply-config | applyUploadConfig
+[**apply_upload_config_collection**](ExperimentApi.md#apply_upload_config_collection) | **PUT** /experiment/{id}/apply-config-collection | applyUploadConfigCollection
+[**clone_experiment**](ExperimentApi.md#clone_experiment) | **POST** /experiment/{id}/clone | cloneExperiment
+[**create_experiment**](ExperimentApi.md#create_experiment) | **POST** /experiment | createExperiment
+[**delete_component_from_resource_type**](ExperimentApi.md#delete_component_from_resource_type) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | deleteComponentFromResourceType
+[**delete_experiment**](ExperimentApi.md#delete_experiment) | **DELETE** /experiment/{id} | deleteExperiment
+[**delete_experiment_comment**](ExperimentApi.md#delete_experiment_comment) | **DELETE** /experiment/{id}/comment/{commentId} | deleteExperimentComment
+[**delete_experiment_summary**](ExperimentApi.md#delete_experiment_summary) | **DELETE** /experiment/{id}/summary/{summaryId} | deleteExperimentSummary
+[**delete_property_type_from_experiment**](ExperimentApi.md#delete_property_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | deletePropertyTypeFromExperiment
+[**delete_resource_type_from_experiment**](ExperimentApi.md#delete_resource_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | deleteResourceTypeFromExperiment
+[**delete_tag_from_experiment**](ExperimentApi.md#delete_tag_from_experiment) | **DELETE** /experiment/{id}/tag/{tagId} | deleteTagFromExperiment
+[**export_experiment_data**](ExperimentApi.md#export_experiment_data) | **PUT** /experiment/{id}/export/data | exportExperimentData
+[**export_experiment_data_status**](ExperimentApi.md#export_experiment_data_status) | **GET** /experiment/{id}/export/data/status | exportExperimentDataStatus
+[**get_experiment**](ExperimentApi.md#get_experiment) | **GET** /experiment/{id} | getExperiment
+[**get_experiment_comment**](ExperimentApi.md#get_experiment_comment) | **GET** /experiment/{id}/comment/{commentId} | getExperimentComment
+[**get_experiment_data_clean**](ExperimentApi.md#get_experiment_data_clean) | **GET** /experiment/{id}/step/{activityId}/data/clean | getExperimentDataClean
+[**get_experiment_data_raw**](ExperimentApi.md#get_experiment_data_raw) | **GET** /experiment/{id}/step/{activityId}/data/raw | getExperimentDataRaw
+[**get_experiment_summary**](ExperimentApi.md#get_experiment_summary) | **GET** /experiment/{id}/summary | getExperimentSummary
+[**get_role_for_experiment**](ExperimentApi.md#get_role_for_experiment) | **GET** /experiment/{id}/role/{userId} | getRoleForExperiment
+[**list_experiment_activities**](ExperimentApi.md#list_experiment_activities) | **GET** /experiment/{id}/activities | listExperimentActivities
+[**list_experiment_comments**](ExperimentApi.md#list_experiment_comments) | **GET** /experiment/{id}/comments | listExperimentComments
+[**list_experiment_tags**](ExperimentApi.md#list_experiment_tags) | **GET** /experiment/{id}/tags | listExperimentTags
+[**list_experiments**](ExperimentApi.md#list_experiments) | **GET** /experiments | listExperiments
+[**list_replies_to_experiment_comment**](ExperimentApi.md#list_replies_to_experiment_comment) | **GET** /experiment/{id}/comment/{commentId}/replies | listRepliesToExperimentComment
+[**reply_to_expriment_comment**](ExperimentApi.md#reply_to_expriment_comment) | **POST** /experiment/{id}/comment/{commentId}/reply | replyToExprimentComment
+[**share_experiment**](ExperimentApi.md#share_experiment) | **POST** /experiment/{id}/accessible-to | shareExperiment
+[**unshare_experiment**](ExperimentApi.md#unshare_experiment) | **PATCH** /experiment/{id}/accessible-to/{principalId} | unshareExperiment
+[**update_experiment**](ExperimentApi.md#update_experiment) | **PATCH** /experiment/{id} | updateExperiment
+[**update_experiment_comment**](ExperimentApi.md#update_experiment_comment) | **PATCH** /experiment/{id}/comment/{commentId} | updateExperimentComment
+[**update_experiment_summary**](ExperimentApi.md#update_experiment_summary) | **PATCH** /experiment/{id}/summary/{summaryId} | updateExperimentSummary
+[**update_property_type_on_experiment**](ExperimentApi.md#update_property_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | updatePropertyTypeOnExperiment
+[**update_resource_type_on_experiment**](ExperimentApi.md#update_resource_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | updateResourceTypeOnExperiment
+[**upload_config_status**](ExperimentApi.md#upload_config_status) | **GET** /experiment/{id}/activity/{activityId}/apply-config/{taskId} | uploadConfigStatus
+[**upload_data_file**](ExperimentApi.md#upload_data_file) | **POST** /experiment/{id}/activity/{activityId}/upload | uploadDataFile
 
 # **add_comment_to_experiment**
 > CommentResponse add_comment_to_experiment(body, id)
 
-
+addCommentToExperiment
 
 Adds a comment (or observation) to an experiment.
 
@@ -56,25 +56,26 @@ Adds a comment (or observation) to an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.CommentBody() # CommentBody | A JSON object containing the options for creating the comment.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.CommentBody() # CommentBody | A JSON object containing the options for creating the comment.
 id = 'id_example' # str | The `_id` of the experiment you would like to add the comment to.
 
 try:
+    # addCommentToExperiment
     api_response = api_instance.add_comment_to_experiment(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -106,7 +107,7 @@ Name | Type | Description  | Notes
 # **add_component_to_resource_type**
 > InlineResponse2003 add_component_to_resource_type(body, id, activity_id, resource_def_id)
 
-
+addComponentToResourceType
 
 Ad hoc addition of a component to a resource type on the `input` or `output` of an activity on an experiment. Only ad hoc added components can be deleted from the experiment.
 
@@ -114,27 +115,28 @@ Ad hoc addition of a component to a resource type on the `input` or `output` of 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Body3() # Body3 | A JSON object containing the options for adding the component.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.Body3() # Body3 | A JSON object containing the options for adding the component.
 id = 'id_example' # str | The `_id` of the experiment the component is being added to.
 activity_id = 'activity_id_example' # str | The `_id` of the activity the component is being added to. Refers to the Process Activity `_id` from the `listActivities` endpoint.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the component being added.
 
 try:
+    # addComponentToResourceType
     api_response = api_instance.add_component_to_resource_type(body, id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:
@@ -168,7 +170,7 @@ Name | Type | Description  | Notes
 # **add_property_type_to_experiment**
 > InlineResponse2005 add_property_type_to_experiment(body, id, activity_id, resource_def_id)
 
-
+addPropertyTypeToExperiment
 
 Ad hoc addition of a property type to a resource type on the `input` or `output` of an activity of a experiment. Only ad hoc added property types can be deleted from the experiment. Will be created with default unit for the property type.
 
@@ -176,27 +178,28 @@ Ad hoc addition of a property type to a resource type on the `input` or `output`
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Body4() # Body4 | A JSON object containing the options for adding the property type.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.Body4() # Body4 | A JSON object containing the options for adding the property type.
 id = 'id_example' # str | The `_id` of the experiment.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type the property type will be added to.
 
 try:
+    # addPropertyTypeToExperiment
     api_response = api_instance.add_property_type_to_experiment(body, id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:
@@ -230,7 +233,7 @@ Name | Type | Description  | Notes
 # **add_resource_type_to_experiment**
 > InlineResponse200 add_resource_type_to_experiment(body, id, activity_id)
 
-
+addResourceTypeToExperiment
 
 Ad hoc addition of a resource type to the `input` or `output` of an activity on an experiment. Default components and properties of the resource type will be included. Only ad hoc resource types can be deleted from the experiment.
 
@@ -238,26 +241,27 @@ Ad hoc addition of a resource type to the `input` or `output` of an activity on 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddResourceDefBody() # AddResourceDefBody | A JSON object containing the options for adding the resource type.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddResourceDefBody() # AddResourceDefBody | A JSON object containing the options for adding the resource type.
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of the activity the resource type is being added to. Refers to the Process Activity `_id` from the `listActivities` endpoint.
 
 try:
+    # addResourceTypeToExperiment
     api_response = api_instance.add_resource_type_to_experiment(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -290,7 +294,7 @@ Name | Type | Description  | Notes
 # **add_summary_to_experiment**
 > SummaryResponse add_summary_to_experiment(body, id)
 
-
+addSummaryToExperiment
 
 Adds a summary and a purpose for the specified experiment.
 
@@ -298,25 +302,26 @@ Adds a summary and a purpose for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.SummaryBody() # SummaryBody | A JSON object containing the options for creating the summary.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.SummaryBody() # SummaryBody | A JSON object containing the options for creating the summary.
 id = 'id_example' # str | The `_id` of the experiment you would like to add the summary to.
 
 try:
+    # addSummaryToExperiment
     api_response = api_instance.add_summary_to_experiment(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -348,7 +353,7 @@ Name | Type | Description  | Notes
 # **add_tag_to_experiment**
 > Tag add_tag_to_experiment(body, id)
 
-
+addTagToExperiment
 
 Adds a tag to an experiment. If the tag doesn't exist, it will create it and add it to the experiment.
 
@@ -356,25 +361,26 @@ Adds a tag to an experiment. If the tag doesn't exist, it will create it and add
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Body() # Body | A JSON object containing the options for creating the tag.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.Body() # Body | A JSON object containing the options for creating the tag.
 id = 'id_example' # str | The `_id` of the experiment you would like to add the tag to.
 
 try:
+    # addTagToExperiment
     api_response = api_instance.add_tag_to_experiment(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -406,7 +412,7 @@ Name | Type | Description  | Notes
 # **apply_upload_config**
 > ApplyConfigResponse apply_upload_config(body, id, activity_id)
 
-
+applyUploadConfig
 
 Apply an upload configuration (or parseConfig) to an uploaded dataFile to add data to an activity. Manual data is required if it exists for the upload configuration. Excess manual data is ignored.  To find upload configurations: `/process/:id/upload-configs`.  Retrieve `_id` returned when uploading dataFile:  `/experiment/:id/activity/:activityId/upload`. 
 
@@ -414,26 +420,27 @@ Apply an upload configuration (or parseConfig) to an uploaded dataFile to add da
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ApplyConfigBody() # ApplyConfigBody | A JSON object containing the ids required for applying the configuration.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ApplyConfigBody() # ApplyConfigBody | A JSON object containing the ids required for applying the configuration.
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 
 try:
+    # applyUploadConfig
     api_response = api_instance.apply_upload_config(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -466,7 +473,7 @@ Name | Type | Description  | Notes
 # **apply_upload_config_collection**
 > ApplyConfigCollectionResponse apply_upload_config_collection(body, id)
 
-
+applyUploadConfigCollection
 
 Apply an upload configuration (or parseConfig) to an uploaded dataFile to add data to an experiment. A collection will apply all the upload configuration it contains. A collection may contain configurations for more than one activity. Manual data is required for each configuration where it exists. Excess manual data is ignored. 
 
@@ -474,25 +481,26 @@ Apply an upload configuration (or parseConfig) to an uploaded dataFile to add da
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ApplyConfigCollectionBody() # ApplyConfigCollectionBody | A JSON object containing the ids required for applying the configuration collection.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ApplyConfigCollectionBody() # ApplyConfigCollectionBody | A JSON object containing the ids required for applying the configuration collection.
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 
 try:
+    # applyUploadConfigCollection
     api_response = api_instance.apply_upload_config_collection(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -524,7 +532,7 @@ Name | Type | Description  | Notes
 # **clone_experiment**
 > Experiment clone_experiment(body, id)
 
-
+cloneExperiment
 
 Creates a new experiment, using an existing experiment as a template. Any run groups or runs that are associated. with the source experiment `_id` will also be cloned. Run data will not be cloned. 
 
@@ -532,25 +540,26 @@ Creates a new experiment, using an existing experiment as a template. Any run gr
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Body1() # Body1 | A JSON object containing the options for creating the clone.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.Body1() # Body1 | A JSON object containing the options for creating the clone.
 id = 'id_example' # str | The `_id` of the experiment you would like to clone.
 
 try:
+    # cloneExperiment
     api_response = api_instance.clone_experiment(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -582,7 +591,7 @@ Name | Type | Description  | Notes
 # **create_experiment**
 > Experiment create_experiment(body)
 
-
+createExperiment
 
 Creates a new experiment for a process. Not specifying a `version` value will create the new experiment from the current (working) version of the specified process. 
 
@@ -590,24 +599,25 @@ Creates a new experiment for a process. Not specifying a `version` value will cr
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewExperimentBody() # NewExperimentBody | A JSON object containing the necessary properties to create a new experiment.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewExperimentBody() # NewExperimentBody | A JSON object containing the necessary properties to create a new experiment.
 
 try:
+    # createExperiment
     api_response = api_instance.create_experiment(body)
     pprint(api_response)
 except ApiException as e:
@@ -638,7 +648,7 @@ Name | Type | Description  | Notes
 # **delete_component_from_resource_type**
 > InlineResponse2004 delete_component_from_resource_type(id, activity_id, resource_def_id, component_id)
 
-
+deleteComponentFromResourceType
 
 Ad hoc removal of a component on a resource type from the `input` or `output` of an activity on an experiment. Only ad hoc added components can be deleted from the experiment.
 
@@ -646,27 +656,28 @@ Ad hoc removal of a component on a resource type from the `input` or `output` of
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment the resource type.
 activity_id = 'activity_id_example' # str | The `_id` of the activity the resource type. Refers to the Process Activity `_id` from the `listActivities` endpoint.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the the resource type.
 component_id = 'component_id_example' # str | The resource type `_id` of the component being removed from a resource type on the `input` or `output` on the activity.
 
 try:
+    # deleteComponentFromResourceType
     api_response = api_instance.delete_component_from_resource_type(id, activity_id, resource_def_id, component_id)
     pprint(api_response)
 except ApiException as e:
@@ -700,7 +711,7 @@ Name | Type | Description  | Notes
 # **delete_experiment**
 > SuccessfullyDelete delete_experiment(id)
 
-
+deleteExperiment
 
 Performs a 'soft delete' on an existing experiment. The experiment will still be accessible through the api when searching by `_id` on `getExperiment` endpoint or with the query parameter `deleted` on `listExperiments` endpoint. A deleted experiment will be marked as purged and remain in the database for 7 days. The experiment will then be permanently deleted. 
 
@@ -708,24 +719,25 @@ Performs a 'soft delete' on an existing experiment. The experiment will still be
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # deleteExperiment
     api_response = api_instance.delete_experiment(id)
     pprint(api_response)
 except ApiException as e:
@@ -756,7 +768,7 @@ Name | Type | Description  | Notes
 # **delete_experiment_comment**
 > CommentDeleted delete_experiment_comment(id, comment_id)
 
-
+deleteExperimentComment
 
 Deletes the specific comment (or observation) associated with an experiment.
 
@@ -764,25 +776,26 @@ Deletes the specific comment (or observation) associated with an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 comment_id = 'comment_id_example' # str | The `_id` of the comment.
 
 try:
+    # deleteExperimentComment
     api_response = api_instance.delete_experiment_comment(id, comment_id)
     pprint(api_response)
 except ApiException as e:
@@ -814,7 +827,7 @@ Name | Type | Description  | Notes
 # **delete_experiment_summary**
 > SummaryDeleted delete_experiment_summary(id, summary_id)
 
-
+deleteExperimentSummary
 
 Deletes the summary and purpose for the specified experiment.
 
@@ -822,25 +835,26 @@ Deletes the summary and purpose for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 summary_id = 'summary_id_example' # str | The `_id` of the summary to be removed.
 
 try:
+    # deleteExperimentSummary
     api_response = api_instance.delete_experiment_summary(id, summary_id)
     pprint(api_response)
 except ApiException as e:
@@ -872,7 +886,7 @@ Name | Type | Description  | Notes
 # **delete_property_type_from_experiment**
 > SuccessfullyDelete delete_property_type_from_experiment(id, activity_id, resource_def_id, property_type_id)
 
-
+deletePropertyTypeFromExperiment
 
 Performs a 'soft delete' on an existing experiment. The experiment will still be accessible through the api when searching by `_id` on `getExperiment` endpoint or with the query parameter `deleted` on `listExperiments` endpoint. A deleted experiment will be marked as purged and remain in the database for 7 days. The experiment will then be permanently deleted. 
 
@@ -880,27 +894,28 @@ Performs a 'soft delete' on an existing experiment. The experiment will still be
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type.
 property_type_id = 'property_type_id_example' # str | The `_id` of the property type.
 
 try:
+    # deletePropertyTypeFromExperiment
     api_response = api_instance.delete_property_type_from_experiment(id, activity_id, resource_def_id, property_type_id)
     pprint(api_response)
 except ApiException as e:
@@ -934,7 +949,7 @@ Name | Type | Description  | Notes
 # **delete_resource_type_from_experiment**
 > InlineResponse2001 delete_resource_type_from_experiment(id, activity_id, resource_def_id)
 
-
+deleteResourceTypeFromExperiment
 
 Ad hoc removal of a resource type from the `input` or `output` of an activity on an experiment. Only ad hoc added resource types can be deleted from the experiment.
 
@@ -942,26 +957,27 @@ Ad hoc removal of a resource type from the `input` or `output` of an activity on
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment the resource type is being deleted from.
 activity_id = 'activity_id_example' # str | The `_id` of the activity the resource type is being deleted from. Refers to the Process Activity `_id` from the `listActivities` endpoint.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the the resource type.
 
 try:
+    # deleteResourceTypeFromExperiment
     api_response = api_instance.delete_resource_type_from_experiment(id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:
@@ -994,7 +1010,7 @@ Name | Type | Description  | Notes
 # **delete_tag_from_experiment**
 > TagRemove delete_tag_from_experiment(id, tag_id)
 
-
+deleteTagFromExperiment
 
 Removes a tag from an experiment.
 
@@ -1002,25 +1018,26 @@ Removes a tag from an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 tag_id = 'tag_id_example' # str | The `_id` of the tag to be removed from the experiment.
 
 try:
+    # deleteTagFromExperiment
     api_response = api_instance.delete_tag_from_experiment(id, tag_id)
     pprint(api_response)
 except ApiException as e:
@@ -1052,7 +1069,7 @@ Name | Type | Description  | Notes
 # **export_experiment_data**
 > Task export_experiment_data(id, filename=filename, file_type=file_type, refresh=refresh)
 
-
+exportExperimentData
 
 Triggers the export of experiment data or returns the latest exported data.
 
@@ -1060,27 +1077,28 @@ Triggers the export of experiment data or returns the latest exported data.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 filename = 'filename_example' # str | The desired name to be given to downloadable file. (optional)
 file_type = 'file_type_example' # str | The desired data format type (defaults to `text/csv`) to be given to downloadable file. Can be one of `text/csv`, `binary/parquet`. (optional)
 refresh = true # bool | If set to true forces a regeneration of all datatables regardless of being stale or not. (optional)
 
 try:
+    # exportExperimentData
     api_response = api_instance.export_experiment_data(id, filename=filename, file_type=file_type, refresh=refresh)
     pprint(api_response)
 except ApiException as e:
@@ -1114,7 +1132,7 @@ Name | Type | Description  | Notes
 # **export_experiment_data_status**
 > Task export_experiment_data_status(id, filename=filename, file_type=file_type)
 
-
+exportExperimentDataStatus
 
 Returns the status of the exported experiment data for the specified experiment.
 
@@ -1122,26 +1140,27 @@ Returns the status of the exported experiment data for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment that has been exported.
 filename = 'filename_example' # str | The desired name to be given to downloadable file. (optional)
 file_type = 'file_type_example' # str | The desired data format type (defaults to `text/csv`) to be given to downloadable file. Can be one of `text/csv`, `binary/parquet`. (optional)
 
 try:
+    # exportExperimentDataStatus
     api_response = api_instance.export_experiment_data_status(id, filename=filename, file_type=file_type)
     pprint(api_response)
 except ApiException as e:
@@ -1174,7 +1193,7 @@ Name | Type | Description  | Notes
 # **get_experiment**
 > Experiment get_experiment(id)
 
-
+getExperiment
 
 Returns the detail for the specified experiment.
 
@@ -1182,24 +1201,25 @@ Returns the detail for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # getExperiment
     api_response = api_instance.get_experiment(id)
     pprint(api_response)
 except ApiException as e:
@@ -1230,7 +1250,7 @@ Name | Type | Description  | Notes
 # **get_experiment_comment**
 > Comment get_experiment_comment(id, comment_id)
 
-
+getExperimentComment
 
 Returns the specific comment (or observation) associated with an experiment.
 
@@ -1238,25 +1258,26 @@ Returns the specific comment (or observation) associated with an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 comment_id = 'comment_id_example' # str | The `_id` of the comment.
 
 try:
+    # getExperimentComment
     api_response = api_instance.get_experiment_comment(id, comment_id)
     pprint(api_response)
 except ApiException as e:
@@ -1288,7 +1309,7 @@ Name | Type | Description  | Notes
 # **get_experiment_data_clean**
 > DataTables get_experiment_data_clean(id, activity_id, rgid=rgid, rid=rid, rdid=rdid, vt=vt, rl=rl)
 
-
+getExperimentDataClean
 
 Returns the clean data tables for an activity (step). Data Cleaning transforms raw data tables that is collected onto runs into a more uniform and structured form.  Raw data is any data that is uploaded, acquired via the data agent, or manually entered. Each time one or more values of raw data are loaded onto a property on a run, that data is stored as a separate data group.  The relationship between data in separate groups is not made explicit until a Data Cleaning method is applied. For more information regarding data cleaning, please our article [Working with Data Cleanup Procedures](https://riffyn.zendesk.com/hc/en-us/articles/225456227-Working-with-Data-Cleanup-Procedures) 
 
@@ -1296,21 +1317,21 @@ Returns the clean data tables for an activity (step). Data Cleaning transforms r
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 activity_id = 'activity_id_example' # str | The `_id` of the activity (step). Refers to the Process level Activity `_id`.
 rgid = ['rgid_example'] # list[str] | A comma spearated list of run group ids. The `runMap` and `datatables` objects will be filtered to only include data from runs in these run groups. E.g. `?rgid=PEHYK7LzGpqEWuNPQ,ypPdk7K5Hrai9djNi`  (optional)
@@ -1320,6 +1341,7 @@ vt = 'vt_example' # str | Filters columns returned in the datatables to the spec
 rl = 'rl_example' # str | Filter runs to only those that contain a resource with the specified resource label. You may look up the resource label using the `getResource` method.  (optional)
 
 try:
+    # getExperimentDataClean
     api_response = api_instance.get_experiment_data_clean(id, activity_id, rgid=rgid, rid=rid, rdid=rdid, vt=vt, rl=rl)
     pprint(api_response)
 except ApiException as e:
@@ -1356,7 +1378,7 @@ Name | Type | Description  | Notes
 # **get_experiment_data_raw**
 > DataTables get_experiment_data_raw(id, activity_id, rgid=rgid, rid=rid, rnum=rnum, rdid=rdid, vt=vt, rl=rl)
 
-
+getExperimentDataRaw
 
 Returns the raw data tables for an activity (step). Raw data is any data that is uploaded, acquired via the data agent, or manually entered. Each time one or more values of raw data are loaded onto a property on a run, that data is stored as a separate data group.  The relationship between data in separate groups is not made explicit until a Data Cleaning method is applied. 
 
@@ -1364,21 +1386,21 @@ Returns the raw data tables for an activity (step). Raw data is any data that is
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 activity_id = 'activity_id_example' # str | The `_id` of the activity (step). Refers to the Process level Activity `_id`.
 rgid = ['rgid_example'] # list[str] | A comma spearated list of run group ids. The `runMap` and `datatables` objects will be filtered to only include data from runs in these run groups. E.g. `?rgid=PEHYK7LzGpqEWuNPQ,ypPdk7K5Hrai9djNi`  (optional)
@@ -1389,6 +1411,7 @@ vt = 'vt_example' # str | Filters columns returned in the datatables to the spec
 rl = 'rl_example' # str | Filter runs to only those that contain a resource with the specified resource label. You may look up the resource label using the `getResource` method.  (optional)
 
 try:
+    # getExperimentDataRaw
     api_response = api_instance.get_experiment_data_raw(id, activity_id, rgid=rgid, rid=rid, rnum=rnum, rdid=rdid, vt=vt, rl=rl)
     pprint(api_response)
 except ApiException as e:
@@ -1426,7 +1449,7 @@ Name | Type | Description  | Notes
 # **get_experiment_summary**
 > ExperimentSummary get_experiment_summary(id)
 
-
+getExperimentSummary
 
 Returns the summary and purpose for the specified experiment.
 
@@ -1434,24 +1457,25 @@ Returns the summary and purpose for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # getExperimentSummary
     api_response = api_instance.get_experiment_summary(id)
     pprint(api_response)
 except ApiException as e:
@@ -1482,7 +1506,7 @@ Name | Type | Description  | Notes
 # **get_role_for_experiment**
 > Role get_role_for_experiment(id, user_id)
 
-
+getRoleForExperiment
 
 Returns the highest role for the specified user for the specific experiment.
 
@@ -1490,25 +1514,26 @@ Returns the highest role for the specified user for the specific experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 user_id = 'user_id_example' # str | The `_id` of the user.
 
 try:
+    # getRoleForExperiment
     api_response = api_instance.get_role_for_experiment(id, user_id)
     pprint(api_response)
 except ApiException as e:
@@ -1540,7 +1565,7 @@ Name | Type | Description  | Notes
 # **list_experiment_activities**
 > Activities list_experiment_activities(id, sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public)
 
-
+listExperimentActivities
 
 List or search the activities (steps) associated with an experiment. When using `activityId`, use `objectId` or refer to the `_id` on the Process level activity (`listActivities` endpoint).
 
@@ -1548,21 +1573,21 @@ List or search the activities (steps) associated with an experiment. When using 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash(`-`). A comma separated list may be used to sort by more than one field (e.g. `name,-label`).  (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
@@ -1575,6 +1600,7 @@ creator = 'creator_example' # str | Limits the result set to items created by th
 public = true # bool | Toggles the result set between public and private data. Default value is `false` (optional)
 
 try:
+    # listExperimentActivities
     api_response = api_instance.list_experiment_activities(id, sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public)
     pprint(api_response)
 except ApiException as e:
@@ -1614,7 +1640,7 @@ Name | Type | Description  | Notes
 # **list_experiment_comments**
 > Comments list_experiment_comments(id, activity_id=activity_id, group_id=group_id, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, fields=fields, creator=creator)
 
-
+listExperimentComments
 
 Lists the comments (or observations) associated with an experiment. Includes activity, and group comments.
 
@@ -1622,21 +1648,21 @@ Lists the comments (or observations) associated with an experiment. Includes act
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 activity_id = 'activity_id_example' # str | Limits the result set to items associated with the `_id` of the specified activity. Refers to the Process level Activity `_id`. (optional)
 group_id = 'group_id_example' # str | Limits the result set to items associated with the `_id` of the specified group. The process `_id` is the `topGroupId`. (optional)
@@ -1650,6 +1676,7 @@ fields = 'fields_example' # str | Modifies the result set to exclude or include 
 creator = 'creator_example' # str | Limits the result set to items created by the user with this username. (optional)
 
 try:
+    # listExperimentComments
     api_response = api_instance.list_experiment_comments(id, activity_id=activity_id, group_id=group_id, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, fields=fields, creator=creator)
     pprint(api_response)
 except ApiException as e:
@@ -1690,7 +1717,7 @@ Name | Type | Description  | Notes
 # **list_experiment_tags**
 > Tags list_experiment_tags(id, name=name, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, fields=fields, creator=creator)
 
-
+listExperimentTags
 
 Returns the tags for the specified experiment.
 
@@ -1698,21 +1725,21 @@ Returns the tags for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 name = 'name_example' # str | Limits the result set to items with this exact name (case insensitive). (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
@@ -1725,6 +1752,7 @@ fields = 'fields_example' # str | Modifies the result set to exclude or include 
 creator = 'creator_example' # str | Limits the result set to items created by the user with this username. (optional)
 
 try:
+    # listExperimentTags
     api_response = api_instance.list_experiment_tags(id, name=name, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, fields=fields, creator=creator)
     pprint(api_response)
 except ApiException as e:
@@ -1764,7 +1792,7 @@ Name | Type | Description  | Notes
 # **list_experiments**
 > Experiments list_experiments(sort=sort, top_group_id=top_group_id, limit=limit, modified_before=modified_before, modified_after=modified_after, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public, deleted=deleted)
 
-
+listExperiments
 
 List or search the user's experiments.
 
@@ -1772,21 +1800,21 @@ List or search the user's experiments.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `process_name,-label`).  (optional)
 top_group_id = 'top_group_id_example' # str | Limits the result set to items associated with the `_id` of the specified process (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
@@ -1802,6 +1830,7 @@ public = true # bool | Toggles the result set between public and private data. D
 deleted = true # bool | Limits the results to deleted items, excludes them, or returns both deleted and non-deleted items if set to `all `. Default value       is `false`, to only show non-deleted items.  (optional)
 
 try:
+    # listExperiments
     api_response = api_instance.list_experiments(sort=sort, top_group_id=top_group_id, limit=limit, modified_before=modified_before, modified_after=modified_after, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public, deleted=deleted)
     pprint(api_response)
 except ApiException as e:
@@ -1844,7 +1873,7 @@ Name | Type | Description  | Notes
 # **list_replies_to_experiment_comment**
 > Comments list_replies_to_experiment_comment(id, comment_id, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, fields=fields, creator=creator)
 
-
+listRepliesToExperimentComment
 
 Lists replies to a specific comment (or observation) associated with an experiment.
 
@@ -1852,21 +1881,21 @@ Lists replies to a specific comment (or observation) associated with an experime
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 comment_id = 'comment_id_example' # str | The `_id` of the comment.
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
@@ -1879,6 +1908,7 @@ fields = 'fields_example' # str | Modifies the result set to exclude or include 
 creator = 'creator_example' # str | Limits the result set to items created by the user with this username. (optional)
 
 try:
+    # listRepliesToExperimentComment
     api_response = api_instance.list_replies_to_experiment_comment(id, comment_id, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, fields=fields, creator=creator)
     pprint(api_response)
 except ApiException as e:
@@ -1918,7 +1948,7 @@ Name | Type | Description  | Notes
 # **reply_to_expriment_comment**
 > CommentResponse reply_to_expriment_comment(body, id, comment_id)
 
-
+replyToExprimentComment
 
 Replies to a specific comment (or observation) associated with an experiment.
 
@@ -1926,26 +1956,27 @@ Replies to a specific comment (or observation) associated with an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.CommentMessageBody() # CommentMessageBody | A JSON object containing the necessary properties to reply to a comment.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.CommentMessageBody() # CommentMessageBody | A JSON object containing the necessary properties to reply to a comment.
 id = 'id_example' # str | The `_id` of the experiment.
 comment_id = 'comment_id_example' # str | The `_id` of the comment.
 
 try:
+    # replyToExprimentComment
     api_response = api_instance.reply_to_expriment_comment(body, id, comment_id)
     pprint(api_response)
 except ApiException as e:
@@ -1978,7 +2009,7 @@ Name | Type | Description  | Notes
 # **share_experiment**
 > SuccessShared share_experiment(body, id)
 
-
+shareExperiment
 
 Share an existing experiment with a user, team, or organization.
 
@@ -1986,25 +2017,26 @@ Share an existing experiment with a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ShareExperimentBody() # ShareExperimentBody | A JSON object containing the necessary properties to share the property.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ShareExperimentBody() # ShareExperimentBody | A JSON object containing the necessary properties to share the property.
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # shareExperiment
     api_response = api_instance.share_experiment(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -2036,7 +2068,7 @@ Name | Type | Description  | Notes
 # **unshare_experiment**
 > SuccessfullyUnshared unshare_experiment(body, id, principal_id)
 
-
+unshareExperiment
 
 Revoke access to an existing experiment from a user, team, or organization.
 
@@ -2044,26 +2076,27 @@ Revoke access to an existing experiment from a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UnshareExperimentBody() # UnshareExperimentBody | A JSON object containing the necessary properties to revoke access to the experiment.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UnshareExperimentBody() # UnshareExperimentBody | A JSON object containing the necessary properties to revoke access to the experiment.
 id = 'id_example' # str | The `_id` of the experiment.
 principal_id = 'principal_id_example' # str | The `_id` of the entity being revoked access to the experiment.
 
 try:
+    # unshareExperiment
     api_response = api_instance.unshare_experiment(body, id, principal_id)
     pprint(api_response)
 except ApiException as e:
@@ -2096,7 +2129,7 @@ Name | Type | Description  | Notes
 # **update_experiment**
 > Experiment update_experiment(body, id)
 
-
+updateExperiment
 
 Updates an existing experiment.
 
@@ -2104,25 +2137,26 @@ Updates an existing experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdateExperimentBody() # UpdateExperimentBody | A JSON object containing the properties of the experiment you would like to update.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdateExperimentBody() # UpdateExperimentBody | A JSON object containing the properties of the experiment you would like to update.
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # updateExperiment
     api_response = api_instance.update_experiment(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -2154,7 +2188,7 @@ Name | Type | Description  | Notes
 # **update_experiment_comment**
 > CommentUpdated update_experiment_comment(body, id, comment_id)
 
-
+updateExperimentComment
 
 Updates the specific comment (or observation) associated with an experiment.
 
@@ -2162,26 +2196,27 @@ Updates the specific comment (or observation) associated with an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.CommentMessageBody() # CommentMessageBody | A JSON object containing the necessary properties to create a new comment (or observation).
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.CommentMessageBody() # CommentMessageBody | A JSON object containing the necessary properties to create a new comment (or observation).
 id = 'id_example' # str | The `_id` of the experiment.
 comment_id = 'comment_id_example' # str | The `_id` of the comment.
 
 try:
+    # updateExperimentComment
     api_response = api_instance.update_experiment_comment(body, id, comment_id)
     pprint(api_response)
 except ApiException as e:
@@ -2214,7 +2249,7 @@ Name | Type | Description  | Notes
 # **update_experiment_summary**
 > ExperimentSummary update_experiment_summary(body, id, summary_id)
 
-
+updateExperimentSummary
 
 Updates the summary and purpose for the specified experiment.
 
@@ -2222,26 +2257,27 @@ Updates the summary and purpose for the specified experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.SummaryBody() # SummaryBody | A JSON object containing the options for creating the summary.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.SummaryBody() # SummaryBody | A JSON object containing the options for creating the summary.
 id = 'id_example' # str | The `_id` of the experiment.
 summary_id = 'summary_id_example' # str | The `_id` of the summary.
 
 try:
+    # updateExperimentSummary
     api_response = api_instance.update_experiment_summary(body, id, summary_id)
     pprint(api_response)
 except ApiException as e:
@@ -2274,7 +2310,7 @@ Name | Type | Description  | Notes
 # **update_property_type_on_experiment**
 > InlineResponse2006 update_property_type_on_experiment(id, activity_id, resource_def_id, property_type_id, body=body)
 
-
+updatePropertyTypeOnExperiment
 
 Ad hoc update of a property type on a resource type on the `input` or `output` of an activity on a experiment. Both ad hoc and process design property types can be updated from the experiment but changes will not appear in process design. Allows for setting a different unit than the default unit for the property.
 
@@ -2282,28 +2318,29 @@ Ad hoc update of a property type on a resource type on the `input` or `output` o
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type.
 property_type_id = 'property_type_id_example' # str | The `_id` of the property type.
-body = swagger_client.Body5() # Body5 | A JSON object containing the options for removing the property type. (optional)
+body = riffyn_nexus_sdk_v1.Body5() # Body5 | A JSON object containing the options for removing the property type. (optional)
 
 try:
+    # updatePropertyTypeOnExperiment
     api_response = api_instance.update_property_type_on_experiment(id, activity_id, resource_def_id, property_type_id, body=body)
     pprint(api_response)
 except ApiException as e:
@@ -2338,7 +2375,7 @@ Name | Type | Description  | Notes
 # **update_resource_type_on_experiment**
 > InlineResponse2002 update_resource_type_on_experiment(body, id, activity_id, resource_def_id)
 
-
+updateResourceTypeOnExperiment
 
 Change a resource type in the `input` or `output` of an activity on an experiment. Both ad hoc and process design resource types can be changed from the experiment but changes will not appear in process design.
 
@@ -2346,27 +2383,28 @@ Change a resource type in the `input` or `output` of an activity on an experimen
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Body2() # Body2 | A JSON object containing the options for changing the resource type.
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.Body2() # Body2 | A JSON object containing the options for changing the resource type.
 id = 'id_example' # str | The `_id` of the experiment the resource type is being changed for.
 activity_id = 'activity_id_example' # str | The `_id` of the activity the resource type is being changed for.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type being changed.
 
 try:
+    # updateResourceTypeOnExperiment
     api_response = api_instance.update_resource_type_on_experiment(body, id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:
@@ -2400,7 +2438,7 @@ Name | Type | Description  | Notes
 # **upload_config_status**
 > FileUploadStatusResponse upload_config_status(id, activity_id, task_id)
 
-
+uploadConfigStatus
 
 Returns the status of the selected data uploaded from a file and a upload configuration. 
 
@@ -2408,26 +2446,27 @@ Returns the status of the selected data uploaded from a file and a upload config
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 task_id = 'task_id_example' # str | The `_id` of the task for the applied upload config`.
 
 try:
+    # uploadConfigStatus
     api_response = api_instance.upload_config_status(id, activity_id, task_id)
     pprint(api_response)
 except ApiException as e:
@@ -2460,7 +2499,7 @@ Name | Type | Description  | Notes
 # **upload_data_file**
 > UploadFileResponse upload_data_file(id, activity_id, name=name)
 
-
+uploadDataFile
 
 Upload a file to be used with an upload configuration to add data to an activity. The file to be uploaded should be attached to the request body as a binary, or in curl request, include path to file `-T/Folder/path/to/File`. (Sample code is incomplete.) Content-Type for file must be one of these MIME types:  (the default is a .csv file, as illustrated in sample code)   | Ext.  | MIME Type                                                                  |  | ----- | -------------------------------------------------------------------------- |  | .csv  | text/csv                                                                   |  | .tsv  | text/tab-separated-values                                                  |  | .dsv  | text/csv                                                                   |  | .tab  | text/plain                                                                 |  | .txt  | text/plain                                                                 |  | .xlsx | application/vnd.openxmlformats-officedocument.spreadsheetml.sheet          |  | .xls  | application/vnd.ms-excel                                                   |  | .xlsm | application/vnd.ms-excel.sheet.macroenabled.12                             | 
 
@@ -2468,26 +2507,27 @@ Upload a file to be used with an upload configuration to add data to an activity
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ExperimentApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ExperimentApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 name = 'name_example' # str | The name to be attributed to the file being uploaded. The file extension on the name will define how the file is parsed. If no extension is defined the file will be parsed as a character separated file. File extension and content-type must correspond (see chart in description). When using the file extension the content-type can be omitted. (optional)
 
 try:
+    # uploadDataFile
     api_response = api_instance.upload_data_file(id, activity_id, name=name)
     pprint(api_response)
 except ApiException as e:

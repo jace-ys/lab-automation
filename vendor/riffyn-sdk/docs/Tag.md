@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **created** | [**Created**](Created.md) |  | [optional] 
 **modified_by** | [**ModifiedBy**](ModifiedBy.md) |  | [optional] 
 **creator** | **str** | The username of the user that created this tag. | [optional] 
-**modified** | **datetime** |  | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 **accessible_to** | [**AccessibleTo**](AccessibleTo.md) |  | [optional] 
 **org** | [**Org**](Org.md) |  | [optional] 
 **shareable** | **bool** | Indicates if the tag can be shared with other users. | [optional] 

@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **creator** | **str** | The &#x60;username&#x60; of the user that created this resource. | [optional] 
 **created** | [**Created**](Created.md) |  | [optional] 
 **org** | [**Org**](Org.md) |  | [optional] 
-**modified** | **datetime** | The last modified date of the resource. | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 **modified_by** | [**ModifiedBy**](ModifiedBy.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

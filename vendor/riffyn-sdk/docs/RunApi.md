@@ -1,30 +1,30 @@
-# swagger_client.RunApi
+# riffyn_nexus_sdk_v1.RunApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_batch_run_data**](RunApi.md#add_batch_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-batch-run-data | 
-[**add_run_data**](RunApi.md#add_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-run-data | 
-[**assign_input**](RunApi.md#assign_input) | **POST** /experiment/{id}/assign-input | 
-[**connect_runs_along_path**](RunApi.md#connect_runs_along_path) | **POST** /experiment/{id}/connect-runs | 
-[**create_run_group**](RunApi.md#create_run_group) | **POST** /experiment/{id}/activity/{activityId}/run-group | 
-[**create_runs**](RunApi.md#create_runs) | **POST** /experiment/{id}/add-runs | 
-[**delete_run_data**](RunApi.md#delete_run_data) | **DELETE** /v1/experiment/{id}/activity/{activityId}/delete-run-data | 
-[**get_run**](RunApi.md#get_run) | **GET** /experiment/{id}/run/{runId} | 
-[**list_run_groups**](RunApi.md#list_run_groups) | **GET** /experiment/{id}/run-groups | 
-[**list_run_paths**](RunApi.md#list_run_paths) | **GET** /experiment/{id}/run-paths | 
-[**list_runs**](RunApi.md#list_runs) | **GET** /experiment/{id}/run-group/{groupId}/runs | 
-[**propagate_runs_along_path**](RunApi.md#propagate_runs_along_path) | **POST** /experiment/{id}/propagate-runs | 
-[**set_run_overrides**](RunApi.md#set_run_overrides) | **POST** /experiment/{id}/run-overrides/set | 
-[**unset_run_overrides**](RunApi.md#unset_run_overrides) | **POST** /experiment/{id}/run-overrides/unset | 
-[**update_run**](RunApi.md#update_run) | **PATCH** /experiment/{id}/run/{runId} | 
-[**update_run_status**](RunApi.md#update_run_status) | **PUT** /experiment/{id}/run/{runId} | 
+[**add_batch_run_data**](RunApi.md#add_batch_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-batch-run-data | addBatchRunData
+[**add_run_data**](RunApi.md#add_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-run-data | addRunData
+[**assign_input**](RunApi.md#assign_input) | **POST** /experiment/{id}/assign-input | assignInput
+[**connect_runs_along_path**](RunApi.md#connect_runs_along_path) | **POST** /experiment/{id}/connect-runs | connectRunsAlongPath
+[**create_run_group**](RunApi.md#create_run_group) | **POST** /experiment/{id}/activity/{activityId}/run-group | createRunGroup
+[**create_runs**](RunApi.md#create_runs) | **POST** /experiment/{id}/add-runs | createRuns
+[**delete_run_data**](RunApi.md#delete_run_data) | **DELETE** /v1/experiment/{id}/activity/{activityId}/delete-run-data | deleteRunData
+[**get_run**](RunApi.md#get_run) | **GET** /experiment/{id}/run/{runId} | getRun
+[**list_run_groups**](RunApi.md#list_run_groups) | **GET** /experiment/{id}/run-groups | listRunGroups
+[**list_run_paths**](RunApi.md#list_run_paths) | **GET** /experiment/{id}/run-paths | listRunPaths
+[**list_runs**](RunApi.md#list_runs) | **GET** /experiment/{id}/run-group/{groupId}/runs | listRuns
+[**propagate_runs_along_path**](RunApi.md#propagate_runs_along_path) | **POST** /experiment/{id}/propagate-runs | propagateRunsAlongPath
+[**set_run_overrides**](RunApi.md#set_run_overrides) | **POST** /experiment/{id}/run-overrides/set | setRunOverrides
+[**unset_run_overrides**](RunApi.md#unset_run_overrides) | **POST** /experiment/{id}/run-overrides/unset | unsetRunOverrides
+[**update_run**](RunApi.md#update_run) | **PATCH** /experiment/{id}/run/{runId} | updateRun
+[**update_run_status**](RunApi.md#update_run_status) | **PUT** /experiment/{id}/run/{runId} | updateRunStatus
 
 # **add_batch_run_data**
 > RunDataResponse add_batch_run_data(body, id, activity_id)
 
-
+addBatchRunData
 
 Writes values to multiple `propertyTypeId` and `resourceDefId` in one api call. A batch is a set of data objects which conform to the addRunData endpoint format. Each object within the batch array writes data to one `propertyTypeId` within a `resourceDefId` and can specify an `eventGroupId`. Multiple values can be sent for each data object by specifying a list of `eventId` and `value` objects. Data is added to a specific `eventGroupId`, a specific `runGroupId`, or a specific list of `runIds`. One of `runGroupId`, or `runIds` must be included in the request. Define the correct runId When using `eventGroupId`. Use `append` unless previously entered data is to be overwritten. Each element of batch data may be entered in a different order than in the request. To set values to one `propertyTypeId`, `resourceDefId`, and `eventGroupId` use `addRunData` endpoint. 
 
@@ -32,26 +32,27 @@ Writes values to multiple `propertyTypeId` and `resourceDefId` in one api call. 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddBatchDataToInputBody() # AddBatchDataToInputBody | A JSON object containing the batchData composed of a list of JSON objects with the necessary properties to add data.
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddBatchDataToInputBody() # AddBatchDataToInputBody | A JSON object containing the batchData composed of a list of JSON objects with the necessary properties to add data.
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 
 try:
+    # addBatchRunData
     api_response = api_instance.add_batch_run_data(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -84,7 +85,7 @@ Name | Type | Description  | Notes
 # **add_run_data**
 > RunDataResponse add_run_data(body, id, activity_id)
 
-
+addRunData
 
 Write values to one `propertyTypeId` within a `resourceDefId`. Multiple values can be sent by specifying a list of `eventId` and `value` objects. Data is added to a specific `eventGroupId`, a specific list of `runIds`, or a `runGroupId`. One of `runGroupId`, or `runIds` must be included in the request. Define only the correct runId when using `eventGroupId`. Use `append` unless previously entered data is to be overwritten. To set values to multiple `propertyTypeId`, `resourceDefId`, and `eventGroupId` use `batchAddRunData` endpoint. 
 
@@ -92,26 +93,27 @@ Write values to one `propertyTypeId` within a `resourceDefId`. Multiple values c
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddDataToInputBody() # AddDataToInputBody | A JSON object containing the necessary properties to add data.
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddDataToInputBody() # AddDataToInputBody | A JSON object containing the necessary properties to add data.
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 
 try:
+    # addRunData
     api_response = api_instance.add_run_data(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -144,7 +146,7 @@ Name | Type | Description  | Notes
 # **assign_input**
 > Run assign_input(body, id)
 
-
+assignInput
 
 Assigns a resource to a single input ( or `resourceDef` ) by `name` or by `resourceId`. Can be assigned to all runs for an activity (step) or for specific runs defined by an array of `runIds`. The `activityId` refers to the Process level activity `_id`. You must define either an `activityId` or an array of `runIds`, but not both. If you are adding a resource by `name` define only `runIds`. You can define a resource by `name` that does not have a `resourceId` in the resource inventory. 
 
@@ -152,25 +154,26 @@ Assigns a resource to a single input ( or `resourceDef` ) by `name` or by `resou
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.SetResourceBody() # SetResourceBody | A JSON object containing the necessary properties to assign the resource.
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.SetResourceBody() # SetResourceBody | A JSON object containing the necessary properties to assign the resource.
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # assignInput
     api_response = api_instance.assign_input(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -202,7 +205,7 @@ Name | Type | Description  | Notes
 # **connect_runs_along_path**
 > SuccessMessage connect_runs_along_path(body, id)
 
-
+connectRunsAlongPath
 
 Connects runs, along a path, between two activities (steps) of an experiment. Connection will result in propagated runs on the activities included in the path. Define the activity id where the runs should split. To connect a run to multiple runs repeat run connection pattern accordingly: `upstreamRunIds: [runA, runB]` `downstreamRunIds: [run1, run2, run1, run2]` `ratio: [1,2]` results in runA being connected to run1 and run2 and runB will also be connected to run1 and run2.
 
@@ -210,25 +213,26 @@ Connects runs, along a path, between two activities (steps) of an experiment. Co
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ConnectRunsAlongPathBody() # ConnectRunsAlongPathBody | 
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ConnectRunsAlongPathBody() # ConnectRunsAlongPathBody | 
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # connectRunsAlongPath
     api_response = api_instance.connect_runs_along_path(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -260,7 +264,7 @@ Name | Type | Description  | Notes
 # **create_run_group**
 > RunGroup create_run_group(body, id, activity_id)
 
-
+createRunGroup
 
 Create a new run group for a specific activity in an experiment.
 
@@ -268,26 +272,27 @@ Create a new run group for a specific activity in an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewRunGroupBody() # NewRunGroupBody | A JSON object containing the necessary properties to create a new run. group
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewRunGroupBody() # NewRunGroupBody | A JSON object containing the necessary properties to create a new run. group
 id = 'id_example' # str | The `_id` of the experiment to create the run group.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 
 try:
+    # createRunGroup
     api_response = api_instance.create_run_group(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -320,7 +325,7 @@ Name | Type | Description  | Notes
 # **create_runs**
 > Runs create_runs(body, id)
 
-
+createRuns
 
 Creates new runs for a specific activity, or run group, in an experiment.
 
@@ -328,25 +333,26 @@ Creates new runs for a specific activity, or run group, in an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewRunsBody() # NewRunsBody | A JSON object containing the necessary properties to create new runs.
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewRunsBody() # NewRunsBody | A JSON object containing the necessary properties to create new runs.
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # createRuns
     api_response = api_instance.create_runs(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -378,7 +384,7 @@ Name | Type | Description  | Notes
 # **delete_run_data**
 > SuccessfullyDelete delete_run_data(body, id, activity_id)
 
-
+deleteRunData
 
 Deletes values to one `propertyTypeId` within a `resourceDefId`. Data is deleted from a list of `runIds` and can specify `eventGroupId`. 
 
@@ -386,26 +392,27 @@ Deletes values to one `propertyTypeId` within a `resourceDefId`. Data is deleted
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 body = NULL # object | A JSON object containing the necessary properties to remove data
 id = 'id_example' # str | The `_id` of the experiment to manage the data to.
 activity_id = 'activity_id_example' # str | The `_id` of activity (step) to add the data to. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 
 try:
+    # deleteRunData
     api_response = api_instance.delete_run_data(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -438,7 +445,7 @@ Name | Type | Description  | Notes
 # **get_run**
 > Run get_run(id, run_id)
 
-
+getRun
 
 Get a specific run for an experiment.
 
@@ -446,25 +453,26 @@ Get a specific run for an experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 run_id = 'run_id_example' # str | The `_id` of the run.
 
 try:
+    # getRun
     api_response = api_instance.get_run(id, run_id)
     pprint(api_response)
 except ApiException as e:
@@ -496,7 +504,7 @@ Name | Type | Description  | Notes
 # **list_run_groups**
 > RunGroups list_run_groups(id, sort=sort, activity_id=activity_id, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator)
 
-
+listRunGroups
 
 List or search the run groups for a specific experiment.
 
@@ -504,21 +512,21 @@ List or search the run groups for a specific experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `name,-label`).  (optional)
 activity_id = 'activity_id_example' # str | Limits the result set to items associated with the `_id` of the specified activity. Refers to the Process level Activity `_id`. (optional)
@@ -531,6 +539,7 @@ name = 'name_example' # str | Limits the result set to items with this exact nam
 creator = 'creator_example' # str | Limits the result set to items created by the user with this username. (optional)
 
 try:
+    # listRunGroups
     api_response = api_instance.list_run_groups(id, sort=sort, activity_id=activity_id, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator)
     pprint(api_response)
 except ApiException as e:
@@ -570,7 +579,7 @@ Name | Type | Description  | Notes
 # **list_run_paths**
 > RunPaths list_run_paths(id, start, end)
 
-
+listRunPaths
 
 Returns an array of potential run paths between two activities. If there are no possible paths between the `start` and `end` activities (steps), an empty array will be returned. Requires a path query: `?start={startActivityId}&end={endActivityId}`. The results of this query can be used to propagate runs down a specific path, using a specific `activitiesOrder` array. 
 
@@ -578,26 +587,27 @@ Returns an array of potential run paths between two activities. If there are no 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 start = 'start_example' # str | The `_id` of the starting process activity (step). This refers to the Process level activity `_id` (`listActivities` endpoint), use `objectId` when using the `listExperimentActivities` endpoint.
 end = 'end_example' # str | The `_id` of the ending process activity (step). This refers to the Process level activity `_id` (`listActivities` endpoint), use `objectId` when using the `listExperimentActivities` endpoint.
 
 try:
+    # listRunPaths
     api_response = api_instance.list_run_paths(id, start, end)
     pprint(api_response)
 except ApiException as e:
@@ -630,7 +640,7 @@ Name | Type | Description  | Notes
 # **list_runs**
 > Runs list_runs(id, group_id, sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, modified_before=modified_before, modified_after=modified_after)
 
-
+listRuns
 
 List or search the runs for a specific experiment and run group.
 
@@ -638,21 +648,21 @@ List or search the runs for a specific experiment and run group.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 group_id = 'group_id_example' # str | The `_id` of the run group, for the specified experiment.
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `process_name,-label`).  (optional)
@@ -667,6 +677,7 @@ modified_before = 'modified_before_example' # str | Limits the result set to ite
 modified_after = 'modified_after_example' # str | Limits the result set to items modified on, or after, the specified timestamp (for example ISO, `2017-10-10T15:53:48.998Z` or epoch, `1507650828`).  (optional)
 
 try:
+    # listRuns
     api_response = api_instance.list_runs(id, group_id, sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, modified_before=modified_before, modified_after=modified_after)
     pprint(api_response)
 except ApiException as e:
@@ -708,7 +719,7 @@ Name | Type | Description  | Notes
 # **propagate_runs_along_path**
 > Run propagate_runs_along_path(body, id)
 
-
+propagateRunsAlongPath
 
 Propagates runs, along a path, between two activities (steps) of an experiment. Before you can call this endpoint, you must first obtain the list of run paths from the `/experiment/{id}/run-paths` endpoint, and decide which path you want to use. The response will be a the list of runs generated in the `downstreamRunGroupId`. 
 
@@ -716,25 +727,26 @@ Propagates runs, along a path, between two activities (steps) of an experiment. 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.PropagateRunsBody() # PropagateRunsBody | 
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.PropagateRunsBody() # PropagateRunsBody | 
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # propagateRunsAlongPath
     api_response = api_instance.propagate_runs_along_path(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -766,7 +778,7 @@ Name | Type | Description  | Notes
 # **set_run_overrides**
 > SuccessMessage set_run_overrides(body, id)
 
-
+setRunOverrides
 
 Sets `overrideMap` values for one or more properties in either a list of runs, or an entire activity (step).
 
@@ -774,25 +786,26 @@ Sets `overrideMap` values for one or more properties in either a list of runs, o
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.SetRunOverridesBody() # SetRunOverridesBody | 
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.SetRunOverridesBody() # SetRunOverridesBody | 
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # setRunOverrides
     api_response = api_instance.set_run_overrides(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -824,7 +837,7 @@ Name | Type | Description  | Notes
 # **unset_run_overrides**
 > SuccessMessage unset_run_overrides(body, id)
 
-
+unsetRunOverrides
 
 Unsets a single `overrideMap` key, for either a list of runs, or an entire activity (step).
 
@@ -832,25 +845,26 @@ Unsets a single `overrideMap` key, for either a list of runs, or an entire activ
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UnsetRunOverridesBody() # UnsetRunOverridesBody | The `_id` of the experiment.
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UnsetRunOverridesBody() # UnsetRunOverridesBody | The `_id` of the experiment.
 id = 'id_example' # str | The `_id` of the experiment.
 
 try:
+    # unsetRunOverrides
     api_response = api_instance.unset_run_overrides(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -882,7 +896,7 @@ Name | Type | Description  | Notes
 # **update_run**
 > Run update_run(id, run_id, body=body)
 
-
+updateRun
 
 Update the name, description or type of a run for a specific experiment.
 
@@ -890,26 +904,27 @@ Update the name, description or type of a run for a specific experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 run_id = 'run_id_example' # str | The `_id` of the run to be updated.
-body = swagger_client.UpdateRunBody() # UpdateRunBody | A JSON object containing the properties of the run you would like to update. (optional)
+body = riffyn_nexus_sdk_v1.UpdateRunBody() # UpdateRunBody | A JSON object containing the properties of the run you would like to update. (optional)
 
 try:
+    # updateRun
     api_response = api_instance.update_run(id, run_id, body=body)
     pprint(api_response)
 except ApiException as e:
@@ -942,7 +957,7 @@ Name | Type | Description  | Notes
 # **update_run_status**
 > RunStatus update_run_status(id, run_id, body=body)
 
-
+updateRunStatus
 
 Update the status of a run for a specific experiment.
 
@@ -950,26 +965,27 @@ Update the status of a run for a specific experiment.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.RunApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.RunApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the experiment.
 run_id = 'run_id_example' # str | The `_id` of the run to be updated.
-body = swagger_client.UpdateRunStatusBody() # UpdateRunStatusBody | A JSON object containing the properties of the run you would like to update. (optional)
+body = riffyn_nexus_sdk_v1.UpdateRunStatusBody() # UpdateRunStatusBody | A JSON object containing the properties of the run you would like to update. (optional)
 
 try:
+    # updateRunStatus
     api_response = api_instance.update_run_status(id, run_id, body=body)
     pprint(api_response)
 except ApiException as e:

@@ -1,15 +1,15 @@
-# swagger_client.UserApi
+# riffyn_nexus_sdk_v1.UserApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**list_users**](UserApi.md#list_users) | **GET** /users | 
+[**list_users**](UserApi.md#list_users) | **GET** /users | listUsers
 
 # **list_users**
 > Users list_users(fields=fields, sort=sort, limit=limit, offset=offset)
 
-
+listUsers
 
 List the members of the user's organization.
 
@@ -17,27 +17,28 @@ List the members of the user's organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UserApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.UserApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 fields = 'fields_example' # str | Modifies the result set to exclude or include the specified fields. E.g: To return only the the username and email fields use `fields=username,emails`. To exclude the username and emails fields from the results use `fields=-username,-emails.`. Inclusion and exclusion options can not be set in the same query.  (optional)
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `username,-org`).  (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
 offset = 56 # int | The number of records to skip from the beginning of the result set. If the offset value provided is greater than the number of available records, an empty result set will be returned.  (optional)
 
 try:
+    # listUsers
     api_response = api_instance.list_users(fields=fields, sort=sort, limit=limit, offset=offset)
     pprint(api_response)
 except ApiException as e:

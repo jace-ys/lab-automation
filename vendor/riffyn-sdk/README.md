@@ -1,12 +1,12 @@
-# swagger-client
-### Vocabulary Before you begin, please familiarize yourself with our [Glossary of Terms](https://help.riffyn.com/hc/en-us/articles/360045503694). ### Getting Started If you'd like to play around with the API, there are several free GUI tools that will allow you to send requests and receive responses. We suggest using the free app [Postman](https://www.getpostman.com/). ### Authentication Begin with a call the [authenticate](/#api-Authentication-authenticate) endpoint using [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) with your `username` and `password` to retrieve either an API Key or an Access Token. For example:      curl -X POST -u '<username>' https://api.app.riffyn.com/v1/auth -v  You may then use either the API Key or the accessToken for all future requests to the API. For example:      curl -H 'access-token: <ACCESS_TOKEN>' https://api.app.riffyn.com/v1/units -v      curl -H 'api-key: <API_KEY>' https://api.app.riffyn.com/v1/units -v  The tokens' values will be either in the message returned by the `/authenticate` endpoint or in the createApiKey `/auth/api-key` or CreateAccesToken `/auth/access-token` endpoints. The API Key will remain valid until it is deauthorized by revoking it through the Security Settings in the Riffyn App UI. The API Key is best for running scripts and longer lasting interactions with the API. The Access Token will expire automatically and is best suited to granting applications short term access to the Riffyn API. Make your requests by sending the HTTP header `api-key: $API_KEY`, or `access-token: $ACCESS_TOKEN`. In Postman, add your prefered token to the headers under the Headers tab for any request other than the original request to `/authenticate`.  If you are enrolled in MultiFactor Authentication (MFA) the `status` returned by the `/authenticate` endpoint will be `MFA_REQUIRED`. A `passCode`, a `stateToken`, and a `factorId` must be passed to the [/verify](/#api-Authentication-verify) endpoint to complete the authentication process and achieve the `SUCCESS` status. MFA must be managed in the Riffyn App UI.  ### Paging and Sorting The majority of endpoints that return a list of data support paging and sorting through the use of three properties, `limit`,  `offset`, and `sort`. Please see the list of query parameters, displayed below each endpoint's code examples, to see if paging or sorting is supported for that specific endpoint.  Certain endpoints return data that's added frequently, like resources. As a result, you may want filter results on either the maximum or minimum creation timestamp. This will prevent rows from shifting their position from the top of the list, as you scroll though subsequent pages of a multi-page response.  Before querying for the first page, store the current date-time (in memory, a database, a file...). On subsequent pages you *may* include the `before` query parameter, to limit the results to records created before that date-time. E.g. before loading page one, you store the current date time of `2016-10-31T22:00:00Z` (ISO date format). Later, when generating the URL for page two, you *could* limit the results by including the query parameter `before=1477951200000` (epoch timestamp).  ### Postman endpoint examples There is a YAML file with the examples of the request on Riffyn API [Click here](/collection) to get the file. If you don't know how to import the collection file, [here](https://learning.postman.com/docs/postman/collections/data-formats/#importing-postman-data) are the steps. ### Client SDKs You may write your own API client, or you may use one of ours. [Click here](/clients) to select your programming language and download an API client. 
+# riffyn_nexus_sdk_v1
+## Vocabulary Before you begin, please familiarize yourself with our [Glossary of Terms](https://help.riffyn.com/hc/en-us/articles/360045503694). ## Getting Started If you'd like to play around with the API, there are several free GUI tools that will allow you to send requests and receive responses. We suggest using the free app [Postman](https://www.getpostman.com/). ## Authentication Begin with a call the [authenticate](#/authentication/authenticate) endpoint using [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) with your `username` and `password` to retrieve either an API Key or an Access Token. For example:      curl -X POST -u '<username>' https://api.app.riffyn.com/v1/auth -v  You may then use either the API Key or the accessToken for all future requests to the API. For example:      curl -H 'access-token: <ACCESS_TOKEN>' https://api.app.riffyn.com/v1/units -v      curl -H 'api-key: <API_KEY>' https://api.app.riffyn.com/v1/units -v  The tokens' values will be either in the message returned by the `/authenticate` endpoint or in the createApiKey `/auth/api-key` or CreateAccesToken `/auth/access-token` endpoints. The API Key will remain valid until it is deauthorized by revoking it through the Security Settings in the Riffyn Nexus App UI. The API Key is best for running scripts and longer lasting interactions with the API. The Access Token will expire automatically and is best suited to granting applications short term access to the Riffyn Nexus API. Make your requests by sending the HTTP header `api-key: $API_KEY`, or `access-token: $ACCESS_TOKEN`. In Postman, add your preferred token to the headers under the Headers tab for any request other than the original request to `/authenticate`.  If you are enrolled in MultiFactor Authentication (MFA) the `status` returned by the `/authenticate` endpoint will be `MFA_REQUIRED`. A `passCode`, a `stateToken`, and a `factorId` must be passed to the [/verify](#/authentication/verify) endpoint to complete the authentication process and achieve the `SUCCESS` status. MFA must be managed in the Riffyn Nexus App UI.  ## Paging and Sorting The majority of endpoints that return a list of data support paging and sorting through the use of three properties, `limit`,  `offset`, and `sort`. Please see the list of query parameters, displayed below each endpoint's code examples, to see if paging or sorting is supported for that specific endpoint.  Certain endpoints return data that's added frequently, like resources. As a result, you may want filter results on either the maximum or minimum creation timestamp. This will prevent rows from shifting their position from the top of the list, as you scroll though subsequent pages of a multi-page response.  Before querying for the first page, store the current date-time (in memory, a database, a file...). On subsequent pages you *may* include the `before` query parameter, to limit the results to records created before that date-time. E.g. before loading page one, you store the current date time of `2016-10-31T22:00:00Z` (ISO date format). Later, when generating the URL for page two, you *could* limit the results by including the query parameter `before=1477951200000` (epoch timestamp).  ## Postman endpoint examples There is a YAML file with the examples of the request on Riffyn Nexus API [Click here](/v1/collection) to get the file. If you don't know how to import the collection file, [here](https://learning.postman.com/docs/postman/collections/data-formats/#importing-postman-data) are the steps. ## Client SDKs You may write your own API client, or you may use one of ours. [Click here](/v1/clients) to select your programming language and download an API client. 
 
 This Python package is automatically generated by the [Swagger Codegen](https://github.com/swagger-api/swagger-codegen) project:
 
-- API version: 1.4.0
-- Package version: 1.0.0
+- API version: 4.2.0
+- Package version: 4.2.0
 - Build package: io.swagger.codegen.v3.generators.python.PythonClientCodegen
-For more information, please visit [http://riffyn.com](http://riffyn.com)
+For more information, please visit [https://help.riffyn.com/hc/en-us](https://help.riffyn.com/hc/en-us)
 
 ## Requirements.
 
@@ -24,7 +24,7 @@ pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 
 Then import the package:
 ```python
-import swagger_client 
+import riffyn_nexus_sdk_v1 
 ```
 
 ### Setuptools
@@ -38,7 +38,7 @@ python setup.py install --user
 
 Then import the package:
 ```python
-import swagger_client
+import riffyn_nexus_sdk_v1
 ```
 
 ## Getting Started
@@ -48,119 +48,126 @@ Please follow the [installation procedure](#installation--usage) and then run th
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 # Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 
 try:
+    # authenticate
     api_response = api_instance.authenticate()
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->authenticate: %s\n" % e)
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 access_token = 'access_token_example' # str | The `access-token` to be checked. (optional)
 
 try:
+    # checkAccessToken
     api_response = api_instance.check_access_token(access_token=access_token)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->check_access_token: %s\n" % e)
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AccessTokenBody() # AccessTokenBody | A JSON object containing the `time` describing the amount of time, in seconds, the generated access token should last. Maximum lifetime is 6 hours and the default is 30 minutes. ) (optional)
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AccessTokenBody() # AccessTokenBody | A JSON object containing the `time` describing the amount of time, in seconds, the generated access token should last. Maximum lifetime is 6 hours and the default is 30 minutes. ) (optional)
 
 try:
+    # createAccessToken
     api_response = api_instance.create_access_token(body=body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->create_access_token: %s\n" % e)
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the `name` for the new api key.
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the `name` for the new api key.
 
 try:
+    # createApiKey
     api_response = api_instance.create_api_key(body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->create_api_key: %s\n" % e)
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 
 try:
+    # listApiKeys
     api_response = api_instance.list_api_keys()
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->list_api_keys: %s\n" % e)
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the new name for the api key.
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the new name for the api key.
 id = 'id_example' # str | The `_id` of the api-key.
 
 try:
+    # updateApiKey
     api_response = api_instance.update_api_key(body, id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->update_api_key: %s\n" % e)
 # Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.VerifyBody() # VerifyBody | A JSON object containing the stateToken, factorId, and passCode to authenticate. When using the SDK pass in the values only (i.e. swagger_client.VerifyBody(passCode, state_token) ).
-factor_id = 'factor_id_example' # str | The id of the factor type being checked. Generated by the [authenticate](/#api-Authentication-authenticate) endpoint.
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.VerifyBody() # VerifyBody | A JSON object containing the stateToken, factorId, and passCode to authenticate. When using the SDK pass in the values only (i.e. swagger_client.VerifyBody(passCode, state_token) ).
+factor_id = 'factor_id_example' # str | The id of the factor type being checked. Generated by the [authenticate](#/authentication/authenticate) endpoint.
 
 try:
+    # verify
     api_response = api_instance.verify(body, factor_id)
     pprint(api_response)
 except ApiException as e:
@@ -169,182 +176,182 @@ except ApiException as e:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuthenticationApi* | [**authenticate**](docs/AuthenticationApi.md#authenticate) | **POST** /auth | 
-*AuthenticationApi* | [**check_access_token**](docs/AuthenticationApi.md#check_access_token) | **GET** /auth/access-token | 
-*AuthenticationApi* | [**create_access_token**](docs/AuthenticationApi.md#create_access_token) | **POST** /auth/access-token | 
-*AuthenticationApi* | [**create_api_key**](docs/AuthenticationApi.md#create_api_key) | **POST** /auth/api-key | 
-*AuthenticationApi* | [**list_api_keys**](docs/AuthenticationApi.md#list_api_keys) | **GET** /auth/api-keys | 
-*AuthenticationApi* | [**update_api_key**](docs/AuthenticationApi.md#update_api_key) | **PATCH** /auth/api-key/{id} | 
-*AuthenticationApi* | [**verify**](docs/AuthenticationApi.md#verify) | **POST** /auth/factor/{factorId}/verify | 
-*ExperimentApi* | [**add_comment_to_experiment**](docs/ExperimentApi.md#add_comment_to_experiment) | **POST** /experiment/{id}/comment | 
-*ExperimentApi* | [**add_component_to_resource_type**](docs/ExperimentApi.md#add_component_to_resource_type) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | 
-*ExperimentApi* | [**add_property_type_to_experiment**](docs/ExperimentApi.md#add_property_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | 
-*ExperimentApi* | [**add_resource_type_to_experiment**](docs/ExperimentApi.md#add_resource_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type | 
-*ExperimentApi* | [**add_summary_to_experiment**](docs/ExperimentApi.md#add_summary_to_experiment) | **POST** /experiment/{id}/summary | 
-*ExperimentApi* | [**add_tag_to_experiment**](docs/ExperimentApi.md#add_tag_to_experiment) | **POST** /experiment/{id}/tag | 
-*ExperimentApi* | [**apply_upload_config**](docs/ExperimentApi.md#apply_upload_config) | **PUT** /experiment/{id}/activity/{activityId}/apply-config | 
-*ExperimentApi* | [**apply_upload_config_collection**](docs/ExperimentApi.md#apply_upload_config_collection) | **PUT** /experiment/{id}/apply-config-collection | 
-*ExperimentApi* | [**clone_experiment**](docs/ExperimentApi.md#clone_experiment) | **POST** /experiment/{id}/clone | 
-*ExperimentApi* | [**create_experiment**](docs/ExperimentApi.md#create_experiment) | **POST** /experiment | 
-*ExperimentApi* | [**delete_component_from_resource_type**](docs/ExperimentApi.md#delete_component_from_resource_type) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | 
-*ExperimentApi* | [**delete_experiment**](docs/ExperimentApi.md#delete_experiment) | **DELETE** /experiment/{id} | 
-*ExperimentApi* | [**delete_experiment_comment**](docs/ExperimentApi.md#delete_experiment_comment) | **DELETE** /experiment/{id}/comment/{commentId} | 
-*ExperimentApi* | [**delete_experiment_summary**](docs/ExperimentApi.md#delete_experiment_summary) | **DELETE** /experiment/{id}/summary/{summaryId} | 
-*ExperimentApi* | [**delete_property_type_from_experiment**](docs/ExperimentApi.md#delete_property_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-*ExperimentApi* | [**delete_resource_type_from_experiment**](docs/ExperimentApi.md#delete_resource_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-*ExperimentApi* | [**delete_tag_from_experiment**](docs/ExperimentApi.md#delete_tag_from_experiment) | **DELETE** /experiment/{id}/tag/{tagId} | 
-*ExperimentApi* | [**export_experiment_data**](docs/ExperimentApi.md#export_experiment_data) | **PUT** /experiment/{id}/export/data | 
-*ExperimentApi* | [**export_experiment_data_status**](docs/ExperimentApi.md#export_experiment_data_status) | **GET** /experiment/{id}/export/data/status | 
-*ExperimentApi* | [**get_experiment**](docs/ExperimentApi.md#get_experiment) | **GET** /experiment/{id} | 
-*ExperimentApi* | [**get_experiment_comment**](docs/ExperimentApi.md#get_experiment_comment) | **GET** /experiment/{id}/comment/{commentId} | 
-*ExperimentApi* | [**get_experiment_data_clean**](docs/ExperimentApi.md#get_experiment_data_clean) | **GET** /experiment/{id}/step/{activityId}/data/clean | 
-*ExperimentApi* | [**get_experiment_data_raw**](docs/ExperimentApi.md#get_experiment_data_raw) | **GET** /experiment/{id}/step/{activityId}/data/raw | 
-*ExperimentApi* | [**get_experiment_summary**](docs/ExperimentApi.md#get_experiment_summary) | **GET** /experiment/{id}/summary | 
-*ExperimentApi* | [**get_role_for_experiment**](docs/ExperimentApi.md#get_role_for_experiment) | **GET** /experiment/{id}/role/{userId} | 
-*ExperimentApi* | [**list_experiment_activities**](docs/ExperimentApi.md#list_experiment_activities) | **GET** /experiment/{id}/activities | 
-*ExperimentApi* | [**list_experiment_comments**](docs/ExperimentApi.md#list_experiment_comments) | **GET** /experiment/{id}/comments | 
-*ExperimentApi* | [**list_experiment_tags**](docs/ExperimentApi.md#list_experiment_tags) | **GET** /experiment/{id}/tags | 
-*ExperimentApi* | [**list_experiments**](docs/ExperimentApi.md#list_experiments) | **GET** /experiments | 
-*ExperimentApi* | [**list_replies_to_experiment_comment**](docs/ExperimentApi.md#list_replies_to_experiment_comment) | **GET** /experiment/{id}/comment/{commentId}/replies | 
-*ExperimentApi* | [**reply_to_expriment_comment**](docs/ExperimentApi.md#reply_to_expriment_comment) | **POST** /experiment/{id}/comment/{commentId}/reply | 
-*ExperimentApi* | [**share_experiment**](docs/ExperimentApi.md#share_experiment) | **POST** /experiment/{id}/accessible-to | 
-*ExperimentApi* | [**unshare_experiment**](docs/ExperimentApi.md#unshare_experiment) | **PATCH** /experiment/{id}/accessible-to/{principalId} | 
-*ExperimentApi* | [**update_experiment**](docs/ExperimentApi.md#update_experiment) | **PATCH** /experiment/{id} | 
-*ExperimentApi* | [**update_experiment_comment**](docs/ExperimentApi.md#update_experiment_comment) | **PATCH** /experiment/{id}/comment/{commentId} | 
-*ExperimentApi* | [**update_experiment_summary**](docs/ExperimentApi.md#update_experiment_summary) | **PATCH** /experiment/{id}/summary/{summaryId} | 
-*ExperimentApi* | [**update_property_type_on_experiment**](docs/ExperimentApi.md#update_property_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-*ExperimentApi* | [**update_resource_type_on_experiment**](docs/ExperimentApi.md#update_resource_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-*ExperimentApi* | [**upload_config_status**](docs/ExperimentApi.md#upload_config_status) | **GET** /experiment/{id}/activity/{activityId}/apply-config/{taskId} | 
-*ExperimentApi* | [**upload_data_file**](docs/ExperimentApi.md#upload_data_file) | **POST** /experiment/{id}/activity/{activityId}/upload | 
-*ProcessApi* | [**add_connection**](docs/ProcessApi.md#add_connection) | **POST** /process/{id}/connection | 
-*ProcessApi* | [**add_process_comment**](docs/ProcessApi.md#add_process_comment) | **POST** /process/{id}/comment | 
-*ProcessApi* | [**add_tag_to_process**](docs/ProcessApi.md#add_tag_to_process) | **POST** /process/{id}/tag | 
-*ProcessApi* | [**create_group**](docs/ProcessApi.md#create_group) | **POST** /process/{id}/group | 
-*ProcessApi* | [**create_process**](docs/ProcessApi.md#create_process) | **POST** /process | 
-*ProcessApi* | [**delete_connection**](docs/ProcessApi.md#delete_connection) | **DELETE** /process/{id}/connection/{fromResDefId} | 
-*ProcessApi* | [**delete_group**](docs/ProcessApi.md#delete_group) | **DELETE** /process/{id}/group/{groupId} | 
-*ProcessApi* | [**delete_process**](docs/ProcessApi.md#delete_process) | **DELETE** /process/{id} | 
-*ProcessApi* | [**delete_process_comment**](docs/ProcessApi.md#delete_process_comment) | **DELETE** /process/{id}/comment/{commentId} | 
-*ProcessApi* | [**delete_tag_from_process**](docs/ProcessApi.md#delete_tag_from_process) | **DELETE** /process/{id}/tag/{tagId} | 
-*ProcessApi* | [**duplicate_process**](docs/ProcessApi.md#duplicate_process) | **POST** /process/{id} | 
-*ProcessApi* | [**export_to_enclosing_group**](docs/ProcessApi.md#export_to_enclosing_group) | **POST** /process/{id}/connection/{resourceDefId}/export | 
-*ProcessApi* | [**get_group**](docs/ProcessApi.md#get_group) | **GET** /process/{id}/group/{groupId} | 
-*ProcessApi* | [**get_process**](docs/ProcessApi.md#get_process) | **GET** /process/{id} | 
-*ProcessApi* | [**get_process_comment**](docs/ProcessApi.md#get_process_comment) | **GET** /process/{id}/comment/{commentId} | 
-*ProcessApi* | [**get_process_version**](docs/ProcessApi.md#get_process_version) | **GET** /process/{id}/version/{versionLabel} | 
-*ProcessApi* | [**get_role_for_process**](docs/ProcessApi.md#get_role_for_process) | **GET** /process/{id}/role/{userId} | 
-*ProcessApi* | [**get_upload_config**](docs/ProcessApi.md#get_upload_config) | **GET** /process/{id}/upload-config/{uploadConfigId} | 
-*ProcessApi* | [**get_upload_config_collection**](docs/ProcessApi.md#get_upload_config_collection) | **GET** /process/{id}/upload-config-collection/{collectionId} | 
-*ProcessApi* | [**list_groups**](docs/ProcessApi.md#list_groups) | **GET** /process/{id}/groups | 
-*ProcessApi* | [**list_process_comments**](docs/ProcessApi.md#list_process_comments) | **GET** /process/{id}/comments | 
-*ProcessApi* | [**list_process_tags**](docs/ProcessApi.md#list_process_tags) | **GET** /process/{id}/tags | 
-*ProcessApi* | [**list_process_versions**](docs/ProcessApi.md#list_process_versions) | **GET** /process/{id}/versions | 
-*ProcessApi* | [**list_processes**](docs/ProcessApi.md#list_processes) | **GET** /processes | 
-*ProcessApi* | [**list_replies_to_process_comment**](docs/ProcessApi.md#list_replies_to_process_comment) | **GET** /process/{id}/comment/{commentId}/replies | 
-*ProcessApi* | [**list_upload_config_collections**](docs/ProcessApi.md#list_upload_config_collections) | **GET** /process/{id}/upload-config-collections | 
-*ProcessApi* | [**list_upload_configs**](docs/ProcessApi.md#list_upload_configs) | **GET** /process/{id}/upload-configs | 
-*ProcessApi* | [**reply_to_process_comment**](docs/ProcessApi.md#reply_to_process_comment) | **POST** /process/{id}/comment/{commentId}/reply | 
-*ProcessApi* | [**share_process**](docs/ProcessApi.md#share_process) | **POST** /process/{id}/accessible-to | 
-*ProcessApi* | [**unshare_process**](docs/ProcessApi.md#unshare_process) | **PATCH** /process/{id}/accessible-to/{principalId} | 
-*ProcessApi* | [**update_group**](docs/ProcessApi.md#update_group) | **PATCH** /process/{id}/group/{groupId} | 
-*ProcessApi* | [**update_process**](docs/ProcessApi.md#update_process) | **PATCH** /process/{id} | 
-*ProcessApi* | [**update_process_comment**](docs/ProcessApi.md#update_process_comment) | **PATCH** /process/{id}/comment/{commentId} | 
-*ProcessActivityApi* | [**add_component_to_resource_def**](docs/ProcessActivityApi.md#add_component_to_resource_def) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | 
-*ProcessActivityApi* | [**add_property_type_to_activity**](docs/ProcessActivityApi.md#add_property_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | 
-*ProcessActivityApi* | [**add_resource_type_to_activity**](docs/ProcessActivityApi.md#add_resource_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type | 
-*ProcessActivityApi* | [**create_activity**](docs/ProcessActivityApi.md#create_activity) | **POST** /process/{id}/activity | 
-*ProcessActivityApi* | [**delete_activity**](docs/ProcessActivityApi.md#delete_activity) | **DELETE** /process/{id}/activity/{activityId} | 
-*ProcessActivityApi* | [**delete_component_from_resource_def**](docs/ProcessActivityApi.md#delete_component_from_resource_def) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | 
-*ProcessActivityApi* | [**delete_property_type_from_activity**](docs/ProcessActivityApi.md#delete_property_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-*ProcessActivityApi* | [**delete_resource_type_from_activity**](docs/ProcessActivityApi.md#delete_resource_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-*ProcessActivityApi* | [**get_activity**](docs/ProcessActivityApi.md#get_activity) | **GET** /process/{id}/activity/{activityId} | 
-*ProcessActivityApi* | [**get_activity_version**](docs/ProcessActivityApi.md#get_activity_version) | **GET** /process/{id}/activity/{activityId}/version/{versionLabel} | 
-*ProcessActivityApi* | [**list_activities**](docs/ProcessActivityApi.md#list_activities) | **GET** /process/{id}/activities | 
-*ProcessActivityApi* | [**list_activity_versions**](docs/ProcessActivityApi.md#list_activity_versions) | **GET** /process/{id}/activity/{activityId}/versions | 
-*ProcessActivityApi* | [**update_activity**](docs/ProcessActivityApi.md#update_activity) | **PATCH** /process/{id}/activity/{activityId} | 
-*ProcessActivityApi* | [**update_component_on_resource_def**](docs/ProcessActivityApi.md#update_component_on_resource_def) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | 
-*ProcessActivityApi* | [**update_property_type_on_activity**](docs/ProcessActivityApi.md#update_property_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-*ProcessActivityApi* | [**update_resource_type_on_activity**](docs/ProcessActivityApi.md#update_resource_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-*PropertyTypeApi* | [**add_unit_to_property_type**](docs/PropertyTypeApi.md#add_unit_to_property_type) | **PUT** /property-type/{id}/unit | 
-*PropertyTypeApi* | [**create_property_type**](docs/PropertyTypeApi.md#create_property_type) | **POST** /property-type | 
-*PropertyTypeApi* | [**get_property_type**](docs/PropertyTypeApi.md#get_property_type) | **GET** /property-type/{id} | 
-*PropertyTypeApi* | [**get_role_for_property_type**](docs/PropertyTypeApi.md#get_role_for_property_type) | **GET** /property-type/{id}/role/{userId} | 
-*PropertyTypeApi* | [**list_property_type_units**](docs/PropertyTypeApi.md#list_property_type_units) | **GET** /property-type/{id}/units | 
-*PropertyTypeApi* | [**list_property_types**](docs/PropertyTypeApi.md#list_property_types) | **GET** /property-types | 
-*PropertyTypeApi* | [**remove_unit_from_property_type**](docs/PropertyTypeApi.md#remove_unit_from_property_type) | **DELETE** /property-type/{id}/unit/{unitId} | 
-*PropertyTypeApi* | [**share_property_type**](docs/PropertyTypeApi.md#share_property_type) | **POST** /property-type/{id}/accessible-to | 
-*PropertyTypeApi* | [**unshare_property_type**](docs/PropertyTypeApi.md#unshare_property_type) | **PATCH** /property-type/{id}/accessible-to/{principalId} | 
-*PropertyTypeApi* | [**update_property_type**](docs/PropertyTypeApi.md#update_property_type) | **PATCH** /property-type/{id} | 
-*ResourceApi* | [**add_component_to_resource**](docs/ResourceApi.md#add_component_to_resource) | **PUT** /resource/{id}/component | 
-*ResourceApi* | [**add_property_to_component**](docs/ResourceApi.md#add_property_to_component) | **PUT** /resource/{id}/component/{componentId}/property | 
-*ResourceApi* | [**add_property_to_resource**](docs/ResourceApi.md#add_property_to_resource) | **PUT** /resource/{id}/property | 
-*ResourceApi* | [**create_resource**](docs/ResourceApi.md#create_resource) | **POST** /resource | 
-*ResourceApi* | [**delete_component_from_resource**](docs/ResourceApi.md#delete_component_from_resource) | **DELETE** /resource/{id}/component/{componentId} | 
-*ResourceApi* | [**delete_property_from_resource**](docs/ResourceApi.md#delete_property_from_resource) | **DELETE** /resource/{id}/property/{propertyId} | 
-*ResourceApi* | [**delete_property_of_component**](docs/ResourceApi.md#delete_property_of_component) | **DELETE** /resource/{id}/component/{componentId}/property/{propertyId} | 
-*ResourceApi* | [**delete_resource**](docs/ResourceApi.md#delete_resource) | **DELETE** /resource/{id} | 
-*ResourceApi* | [**get_resource**](docs/ResourceApi.md#get_resource) | **GET** /resource/{id} | 
-*ResourceApi* | [**get_resource_status**](docs/ResourceApi.md#get_resource_status) | **GET** /resource/{id}/status | 
-*ResourceApi* | [**get_role_for_resource**](docs/ResourceApi.md#get_role_for_resource) | **GET** /resource/{id}/role/{userId} | 
-*ResourceApi* | [**list_resources**](docs/ResourceApi.md#list_resources) | **GET** /resources | 
-*ResourceApi* | [**share_resource**](docs/ResourceApi.md#share_resource) | **POST** /resource/{id}/accessible-to | 
-*ResourceApi* | [**unshare_resource**](docs/ResourceApi.md#unshare_resource) | **PATCH** /resource/{id}/accessible-to/{principalId} | 
-*ResourceApi* | [**update_property_of_component**](docs/ResourceApi.md#update_property_of_component) | **PATCH** /resource/{id}/component/{componentId}/property/{propertyId} | 
-*ResourceApi* | [**update_property_of_resource**](docs/ResourceApi.md#update_property_of_resource) | **PATCH** /resource/{id}/property/{propertyId} | 
-*ResourceApi* | [**update_resource**](docs/ResourceApi.md#update_resource) | **PATCH** /resource/{id} | 
-*ResourceTypeApi* | [**create_resource_type**](docs/ResourceTypeApi.md#create_resource_type) | **POST** /resource-type | 
-*ResourceTypeApi* | [**get_resource_type**](docs/ResourceTypeApi.md#get_resource_type) | **GET** /resource-type/{id} | 
-*ResourceTypeApi* | [**get_role_for_resource_type**](docs/ResourceTypeApi.md#get_role_for_resource_type) | **GET** /resource-type/{id}/role/{userId} | 
-*ResourceTypeApi* | [**list_resource_types**](docs/ResourceTypeApi.md#list_resource_types) | **GET** /resource-types | 
-*ResourceTypeApi* | [**share_resource_type**](docs/ResourceTypeApi.md#share_resource_type) | **POST** /resource-type/{id}/accessible-to | 
-*ResourceTypeApi* | [**unshare_resource_type**](docs/ResourceTypeApi.md#unshare_resource_type) | **PATCH** /resource-type/{id}/accessible-to/{principalId} | 
-*ResourceTypeApi* | [**update_resource_type**](docs/ResourceTypeApi.md#update_resource_type) | **PATCH** /resource-type/{id} | 
-*RunApi* | [**add_batch_run_data**](docs/RunApi.md#add_batch_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-batch-run-data | 
-*RunApi* | [**add_run_data**](docs/RunApi.md#add_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-run-data | 
-*RunApi* | [**assign_input**](docs/RunApi.md#assign_input) | **POST** /experiment/{id}/assign-input | 
-*RunApi* | [**connect_runs_along_path**](docs/RunApi.md#connect_runs_along_path) | **POST** /experiment/{id}/connect-runs | 
-*RunApi* | [**create_run_group**](docs/RunApi.md#create_run_group) | **POST** /experiment/{id}/activity/{activityId}/run-group | 
-*RunApi* | [**create_runs**](docs/RunApi.md#create_runs) | **POST** /experiment/{id}/add-runs | 
-*RunApi* | [**delete_run_data**](docs/RunApi.md#delete_run_data) | **DELETE** /v1/experiment/{id}/activity/{activityId}/delete-run-data | 
-*RunApi* | [**get_run**](docs/RunApi.md#get_run) | **GET** /experiment/{id}/run/{runId} | 
-*RunApi* | [**list_run_groups**](docs/RunApi.md#list_run_groups) | **GET** /experiment/{id}/run-groups | 
-*RunApi* | [**list_run_paths**](docs/RunApi.md#list_run_paths) | **GET** /experiment/{id}/run-paths | 
-*RunApi* | [**list_runs**](docs/RunApi.md#list_runs) | **GET** /experiment/{id}/run-group/{groupId}/runs | 
-*RunApi* | [**propagate_runs_along_path**](docs/RunApi.md#propagate_runs_along_path) | **POST** /experiment/{id}/propagate-runs | 
-*RunApi* | [**set_run_overrides**](docs/RunApi.md#set_run_overrides) | **POST** /experiment/{id}/run-overrides/set | 
-*RunApi* | [**unset_run_overrides**](docs/RunApi.md#unset_run_overrides) | **POST** /experiment/{id}/run-overrides/unset | 
-*RunApi* | [**update_run**](docs/RunApi.md#update_run) | **PATCH** /experiment/{id}/run/{runId} | 
-*RunApi* | [**update_run_status**](docs/RunApi.md#update_run_status) | **PUT** /experiment/{id}/run/{runId} | 
-*TagApi* | [**create_tag**](docs/TagApi.md#create_tag) | **POST** /tag | 
-*TagApi* | [**delete_tag**](docs/TagApi.md#delete_tag) | **DELETE** /tag/{id} | 
-*TagApi* | [**get_tag**](docs/TagApi.md#get_tag) | **GET** /tag/{id} | 
-*TagApi* | [**list_entities_for_tag**](docs/TagApi.md#list_entities_for_tag) | **GET** /tag/{id}/entities | 
-*TagApi* | [**list_tags**](docs/TagApi.md#list_tags) | **GET** /tags | 
-*TagApi* | [**update_tag**](docs/TagApi.md#update_tag) | **PATCH** /tag/{id} | 
-*TaskApi* | [**get_task**](docs/TaskApi.md#get_task) | **GET** /task/{id} | 
-*TaskApi* | [**list_tasks**](docs/TaskApi.md#list_tasks) | **GET** /tasks | 
-*TeamApi* | [**add_member_to_team**](docs/TeamApi.md#add_member_to_team) | **POST** /team/{id}/member | 
-*TeamApi* | [**create_team**](docs/TeamApi.md#create_team) | **POST** /team | 
-*TeamApi* | [**delete_team**](docs/TeamApi.md#delete_team) | **DELETE** /team/{id} | 
-*TeamApi* | [**get_role_for_team**](docs/TeamApi.md#get_role_for_team) | **GET** /team/{id}/role/{userId} | 
-*TeamApi* | [**get_team**](docs/TeamApi.md#get_team) | **GET** /team/{id} | 
-*TeamApi* | [**list_teams**](docs/TeamApi.md#list_teams) | **GET** /teams | 
-*TeamApi* | [**remove_member_from_team**](docs/TeamApi.md#remove_member_from_team) | **DELETE** /team/{id}/member/{memberId} | 
-*TeamApi* | [**share_team**](docs/TeamApi.md#share_team) | **POST** /team/{id}/accessible-to | 
-*TeamApi* | [**unshare_team**](docs/TeamApi.md#unshare_team) | **PATCH** /team/{id}/accessible-to/{principalId} | 
-*TeamApi* | [**update_team**](docs/TeamApi.md#update_team) | **PATCH** /team/{id} | 
-*UnitApi* | [**create_unit**](docs/UnitApi.md#create_unit) | **POST** /unit | 
-*UnitApi* | [**get_role_for_unit**](docs/UnitApi.md#get_role_for_unit) | **GET** /unit/{id}/role/{userId} | 
-*UnitApi* | [**get_unit**](docs/UnitApi.md#get_unit) | **GET** /unit/{id} | 
-*UnitApi* | [**list_units**](docs/UnitApi.md#list_units) | **GET** /units | 
-*UnitApi* | [**share_unit**](docs/UnitApi.md#share_unit) | **POST** /unit/{id}/accessible-to | 
-*UnitApi* | [**unshare_unit**](docs/UnitApi.md#unshare_unit) | **PATCH** /unit/{id}/accessible-to/{principalId} | 
-*UnitApi* | [**update_unit**](docs/UnitApi.md#update_unit) | **PATCH** /unit/{id} | 
-*UserApi* | [**list_users**](docs/UserApi.md#list_users) | **GET** /users | 
+*AuthenticationApi* | [**authenticate**](docs/AuthenticationApi.md#authenticate) | **POST** /auth | authenticate
+*AuthenticationApi* | [**check_access_token**](docs/AuthenticationApi.md#check_access_token) | **GET** /auth/access-token | checkAccessToken
+*AuthenticationApi* | [**create_access_token**](docs/AuthenticationApi.md#create_access_token) | **POST** /auth/access-token | createAccessToken
+*AuthenticationApi* | [**create_api_key**](docs/AuthenticationApi.md#create_api_key) | **POST** /auth/api-key | createApiKey
+*AuthenticationApi* | [**list_api_keys**](docs/AuthenticationApi.md#list_api_keys) | **GET** /auth/api-keys | listApiKeys
+*AuthenticationApi* | [**update_api_key**](docs/AuthenticationApi.md#update_api_key) | **PATCH** /auth/api-key/{id} | updateApiKey
+*AuthenticationApi* | [**verify**](docs/AuthenticationApi.md#verify) | **POST** /auth/factor/{factorId}/verify | verify
+*ExperimentApi* | [**add_comment_to_experiment**](docs/ExperimentApi.md#add_comment_to_experiment) | **POST** /experiment/{id}/comment | addCommentToExperiment
+*ExperimentApi* | [**add_component_to_resource_type**](docs/ExperimentApi.md#add_component_to_resource_type) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | addComponentToResourceType
+*ExperimentApi* | [**add_property_type_to_experiment**](docs/ExperimentApi.md#add_property_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | addPropertyTypeToExperiment
+*ExperimentApi* | [**add_resource_type_to_experiment**](docs/ExperimentApi.md#add_resource_type_to_experiment) | **POST** /experiment/{id}/activity/{activityId}/resource-type | addResourceTypeToExperiment
+*ExperimentApi* | [**add_summary_to_experiment**](docs/ExperimentApi.md#add_summary_to_experiment) | **POST** /experiment/{id}/summary | addSummaryToExperiment
+*ExperimentApi* | [**add_tag_to_experiment**](docs/ExperimentApi.md#add_tag_to_experiment) | **POST** /experiment/{id}/tag | addTagToExperiment
+*ExperimentApi* | [**apply_upload_config**](docs/ExperimentApi.md#apply_upload_config) | **PUT** /experiment/{id}/activity/{activityId}/apply-config | applyUploadConfig
+*ExperimentApi* | [**apply_upload_config_collection**](docs/ExperimentApi.md#apply_upload_config_collection) | **PUT** /experiment/{id}/apply-config-collection | applyUploadConfigCollection
+*ExperimentApi* | [**clone_experiment**](docs/ExperimentApi.md#clone_experiment) | **POST** /experiment/{id}/clone | cloneExperiment
+*ExperimentApi* | [**create_experiment**](docs/ExperimentApi.md#create_experiment) | **POST** /experiment | createExperiment
+*ExperimentApi* | [**delete_component_from_resource_type**](docs/ExperimentApi.md#delete_component_from_resource_type) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | deleteComponentFromResourceType
+*ExperimentApi* | [**delete_experiment**](docs/ExperimentApi.md#delete_experiment) | **DELETE** /experiment/{id} | deleteExperiment
+*ExperimentApi* | [**delete_experiment_comment**](docs/ExperimentApi.md#delete_experiment_comment) | **DELETE** /experiment/{id}/comment/{commentId} | deleteExperimentComment
+*ExperimentApi* | [**delete_experiment_summary**](docs/ExperimentApi.md#delete_experiment_summary) | **DELETE** /experiment/{id}/summary/{summaryId} | deleteExperimentSummary
+*ExperimentApi* | [**delete_property_type_from_experiment**](docs/ExperimentApi.md#delete_property_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | deletePropertyTypeFromExperiment
+*ExperimentApi* | [**delete_resource_type_from_experiment**](docs/ExperimentApi.md#delete_resource_type_from_experiment) | **DELETE** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | deleteResourceTypeFromExperiment
+*ExperimentApi* | [**delete_tag_from_experiment**](docs/ExperimentApi.md#delete_tag_from_experiment) | **DELETE** /experiment/{id}/tag/{tagId} | deleteTagFromExperiment
+*ExperimentApi* | [**export_experiment_data**](docs/ExperimentApi.md#export_experiment_data) | **PUT** /experiment/{id}/export/data | exportExperimentData
+*ExperimentApi* | [**export_experiment_data_status**](docs/ExperimentApi.md#export_experiment_data_status) | **GET** /experiment/{id}/export/data/status | exportExperimentDataStatus
+*ExperimentApi* | [**get_experiment**](docs/ExperimentApi.md#get_experiment) | **GET** /experiment/{id} | getExperiment
+*ExperimentApi* | [**get_experiment_comment**](docs/ExperimentApi.md#get_experiment_comment) | **GET** /experiment/{id}/comment/{commentId} | getExperimentComment
+*ExperimentApi* | [**get_experiment_data_clean**](docs/ExperimentApi.md#get_experiment_data_clean) | **GET** /experiment/{id}/step/{activityId}/data/clean | getExperimentDataClean
+*ExperimentApi* | [**get_experiment_data_raw**](docs/ExperimentApi.md#get_experiment_data_raw) | **GET** /experiment/{id}/step/{activityId}/data/raw | getExperimentDataRaw
+*ExperimentApi* | [**get_experiment_summary**](docs/ExperimentApi.md#get_experiment_summary) | **GET** /experiment/{id}/summary | getExperimentSummary
+*ExperimentApi* | [**get_role_for_experiment**](docs/ExperimentApi.md#get_role_for_experiment) | **GET** /experiment/{id}/role/{userId} | getRoleForExperiment
+*ExperimentApi* | [**list_experiment_activities**](docs/ExperimentApi.md#list_experiment_activities) | **GET** /experiment/{id}/activities | listExperimentActivities
+*ExperimentApi* | [**list_experiment_comments**](docs/ExperimentApi.md#list_experiment_comments) | **GET** /experiment/{id}/comments | listExperimentComments
+*ExperimentApi* | [**list_experiment_tags**](docs/ExperimentApi.md#list_experiment_tags) | **GET** /experiment/{id}/tags | listExperimentTags
+*ExperimentApi* | [**list_experiments**](docs/ExperimentApi.md#list_experiments) | **GET** /experiments | listExperiments
+*ExperimentApi* | [**list_replies_to_experiment_comment**](docs/ExperimentApi.md#list_replies_to_experiment_comment) | **GET** /experiment/{id}/comment/{commentId}/replies | listRepliesToExperimentComment
+*ExperimentApi* | [**reply_to_expriment_comment**](docs/ExperimentApi.md#reply_to_expriment_comment) | **POST** /experiment/{id}/comment/{commentId}/reply | replyToExprimentComment
+*ExperimentApi* | [**share_experiment**](docs/ExperimentApi.md#share_experiment) | **POST** /experiment/{id}/accessible-to | shareExperiment
+*ExperimentApi* | [**unshare_experiment**](docs/ExperimentApi.md#unshare_experiment) | **PATCH** /experiment/{id}/accessible-to/{principalId} | unshareExperiment
+*ExperimentApi* | [**update_experiment**](docs/ExperimentApi.md#update_experiment) | **PATCH** /experiment/{id} | updateExperiment
+*ExperimentApi* | [**update_experiment_comment**](docs/ExperimentApi.md#update_experiment_comment) | **PATCH** /experiment/{id}/comment/{commentId} | updateExperimentComment
+*ExperimentApi* | [**update_experiment_summary**](docs/ExperimentApi.md#update_experiment_summary) | **PATCH** /experiment/{id}/summary/{summaryId} | updateExperimentSummary
+*ExperimentApi* | [**update_property_type_on_experiment**](docs/ExperimentApi.md#update_property_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | updatePropertyTypeOnExperiment
+*ExperimentApi* | [**update_resource_type_on_experiment**](docs/ExperimentApi.md#update_resource_type_on_experiment) | **PATCH** /experiment/{id}/activity/{activityId}/resource-type/{resourceDefId} | updateResourceTypeOnExperiment
+*ExperimentApi* | [**upload_config_status**](docs/ExperimentApi.md#upload_config_status) | **GET** /experiment/{id}/activity/{activityId}/apply-config/{taskId} | uploadConfigStatus
+*ExperimentApi* | [**upload_data_file**](docs/ExperimentApi.md#upload_data_file) | **POST** /experiment/{id}/activity/{activityId}/upload | uploadDataFile
+*ProcessApi* | [**add_connection**](docs/ProcessApi.md#add_connection) | **POST** /process/{id}/connection | addConnection
+*ProcessApi* | [**add_process_comment**](docs/ProcessApi.md#add_process_comment) | **POST** /process/{id}/comment | addProcessComment
+*ProcessApi* | [**add_tag_to_process**](docs/ProcessApi.md#add_tag_to_process) | **POST** /process/{id}/tag | addTagToProcess
+*ProcessApi* | [**create_group**](docs/ProcessApi.md#create_group) | **POST** /process/{id}/group | createGroup
+*ProcessApi* | [**create_process**](docs/ProcessApi.md#create_process) | **POST** /process | createProcess
+*ProcessApi* | [**delete_connection**](docs/ProcessApi.md#delete_connection) | **DELETE** /process/{id}/connection/{fromResDefId} | deleteConnection
+*ProcessApi* | [**delete_group**](docs/ProcessApi.md#delete_group) | **DELETE** /process/{id}/group/{groupId} | deleteGroup
+*ProcessApi* | [**delete_process**](docs/ProcessApi.md#delete_process) | **DELETE** /process/{id} | deleteProcess
+*ProcessApi* | [**delete_process_comment**](docs/ProcessApi.md#delete_process_comment) | **DELETE** /process/{id}/comment/{commentId} | deleteProcessComment
+*ProcessApi* | [**delete_tag_from_process**](docs/ProcessApi.md#delete_tag_from_process) | **DELETE** /process/{id}/tag/{tagId} | deleteTagFromProcess
+*ProcessApi* | [**duplicate_process**](docs/ProcessApi.md#duplicate_process) | **POST** /process/{id} | duplicateProcess
+*ProcessApi* | [**export_to_enclosing_group**](docs/ProcessApi.md#export_to_enclosing_group) | **POST** /process/{id}/connection/{resourceDefId}/export | exportToEnclosingGroup
+*ProcessApi* | [**get_group**](docs/ProcessApi.md#get_group) | **GET** /process/{id}/group/{groupId} | getGroup
+*ProcessApi* | [**get_process**](docs/ProcessApi.md#get_process) | **GET** /process/{id} | getProcess
+*ProcessApi* | [**get_process_comment**](docs/ProcessApi.md#get_process_comment) | **GET** /process/{id}/comment/{commentId} | getProcessComment
+*ProcessApi* | [**get_process_version**](docs/ProcessApi.md#get_process_version) | **GET** /process/{id}/version/{versionLabel} | getProcessVersion
+*ProcessApi* | [**get_role_for_process**](docs/ProcessApi.md#get_role_for_process) | **GET** /process/{id}/role/{userId} | getRoleForProcess
+*ProcessApi* | [**get_upload_config**](docs/ProcessApi.md#get_upload_config) | **GET** /process/{id}/upload-config/{uploadConfigId} | getUploadConfig
+*ProcessApi* | [**get_upload_config_collection**](docs/ProcessApi.md#get_upload_config_collection) | **GET** /process/{id}/upload-config-collection/{collectionId} | getUploadConfigCollection
+*ProcessApi* | [**list_groups**](docs/ProcessApi.md#list_groups) | **GET** /process/{id}/groups | listGroups
+*ProcessApi* | [**list_process_comments**](docs/ProcessApi.md#list_process_comments) | **GET** /process/{id}/comments | listProcessComments
+*ProcessApi* | [**list_process_tags**](docs/ProcessApi.md#list_process_tags) | **GET** /process/{id}/tags | listProcessTags
+*ProcessApi* | [**list_process_versions**](docs/ProcessApi.md#list_process_versions) | **GET** /process/{id}/versions | listProcessVersions
+*ProcessApi* | [**list_processes**](docs/ProcessApi.md#list_processes) | **GET** /processes | listProcesses
+*ProcessApi* | [**list_replies_to_process_comment**](docs/ProcessApi.md#list_replies_to_process_comment) | **GET** /process/{id}/comment/{commentId}/replies | listRepliesToProcessComment
+*ProcessApi* | [**list_upload_config_collections**](docs/ProcessApi.md#list_upload_config_collections) | **GET** /process/{id}/upload-config-collections | listUploadConfigCollections
+*ProcessApi* | [**list_upload_configs**](docs/ProcessApi.md#list_upload_configs) | **GET** /process/{id}/upload-configs | listUploadConfigs
+*ProcessApi* | [**reply_to_process_comment**](docs/ProcessApi.md#reply_to_process_comment) | **POST** /process/{id}/comment/{commentId}/reply | replyToProcessComment
+*ProcessApi* | [**share_process**](docs/ProcessApi.md#share_process) | **POST** /process/{id}/accessible-to | shareProcess
+*ProcessApi* | [**unshare_process**](docs/ProcessApi.md#unshare_process) | **PATCH** /process/{id}/accessible-to/{principalId} | unshareProcess
+*ProcessApi* | [**update_group**](docs/ProcessApi.md#update_group) | **PATCH** /process/{id}/group/{groupId} | updateGroup
+*ProcessApi* | [**update_process**](docs/ProcessApi.md#update_process) | **PATCH** /process/{id} | updateProcess
+*ProcessApi* | [**update_process_comment**](docs/ProcessApi.md#update_process_comment) | **PATCH** /process/{id}/comment/{commentId} | updateProcessComment
+*ProcessActivityApi* | [**add_component_to_resource_def**](docs/ProcessActivityApi.md#add_component_to_resource_def) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | addComponentToResourceDef
+*ProcessActivityApi* | [**add_property_type_to_activity**](docs/ProcessActivityApi.md#add_property_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | addPropertyTypeToActivity
+*ProcessActivityApi* | [**add_resource_type_to_activity**](docs/ProcessActivityApi.md#add_resource_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type | addResourceTypeToActivity
+*ProcessActivityApi* | [**create_activity**](docs/ProcessActivityApi.md#create_activity) | **POST** /process/{id}/activity | createActivity
+*ProcessActivityApi* | [**delete_activity**](docs/ProcessActivityApi.md#delete_activity) | **DELETE** /process/{id}/activity/{activityId} | deleteActivity
+*ProcessActivityApi* | [**delete_component_from_resource_def**](docs/ProcessActivityApi.md#delete_component_from_resource_def) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | deleteComponentFromResourceDef
+*ProcessActivityApi* | [**delete_property_type_from_activity**](docs/ProcessActivityApi.md#delete_property_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | deletePropertyTypeFromActivity
+*ProcessActivityApi* | [**delete_resource_type_from_activity**](docs/ProcessActivityApi.md#delete_resource_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | deleteResourceTypeFromActivity
+*ProcessActivityApi* | [**get_activity**](docs/ProcessActivityApi.md#get_activity) | **GET** /process/{id}/activity/{activityId} | getActivity
+*ProcessActivityApi* | [**get_activity_version**](docs/ProcessActivityApi.md#get_activity_version) | **GET** /process/{id}/activity/{activityId}/version/{versionLabel} | getActivityVersion
+*ProcessActivityApi* | [**list_activities**](docs/ProcessActivityApi.md#list_activities) | **GET** /process/{id}/activities | listActivities
+*ProcessActivityApi* | [**list_activity_versions**](docs/ProcessActivityApi.md#list_activity_versions) | **GET** /process/{id}/activity/{activityId}/versions | listActivityVersions
+*ProcessActivityApi* | [**update_activity**](docs/ProcessActivityApi.md#update_activity) | **PATCH** /process/{id}/activity/{activityId} | updateActivity
+*ProcessActivityApi* | [**update_component_on_resource_def**](docs/ProcessActivityApi.md#update_component_on_resource_def) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | updateComponentOnResourceDef
+*ProcessActivityApi* | [**update_property_type_on_activity**](docs/ProcessActivityApi.md#update_property_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | updatePropertyTypeOnActivity
+*ProcessActivityApi* | [**update_resource_type_on_activity**](docs/ProcessActivityApi.md#update_resource_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | updateResourceTypeOnActivity
+*PropertyTypeApi* | [**add_unit_to_property_type**](docs/PropertyTypeApi.md#add_unit_to_property_type) | **PUT** /property-type/{id}/unit | addUnitToPropertyType
+*PropertyTypeApi* | [**create_property_type**](docs/PropertyTypeApi.md#create_property_type) | **POST** /property-type | createPropertyType
+*PropertyTypeApi* | [**get_property_type**](docs/PropertyTypeApi.md#get_property_type) | **GET** /property-type/{id} | getPropertyType
+*PropertyTypeApi* | [**get_role_for_property_type**](docs/PropertyTypeApi.md#get_role_for_property_type) | **GET** /property-type/{id}/role/{userId} | getRoleForPropertyType
+*PropertyTypeApi* | [**list_property_type_units**](docs/PropertyTypeApi.md#list_property_type_units) | **GET** /property-type/{id}/units | listPropertyTypeUnits
+*PropertyTypeApi* | [**list_property_types**](docs/PropertyTypeApi.md#list_property_types) | **GET** /property-types | listPropertyTypes
+*PropertyTypeApi* | [**remove_unit_from_property_type**](docs/PropertyTypeApi.md#remove_unit_from_property_type) | **DELETE** /property-type/{id}/unit/{unitId} | removeUnitFromPropertyType
+*PropertyTypeApi* | [**share_property_type**](docs/PropertyTypeApi.md#share_property_type) | **POST** /property-type/{id}/accessible-to | sharePropertyType
+*PropertyTypeApi* | [**unshare_property_type**](docs/PropertyTypeApi.md#unshare_property_type) | **PATCH** /property-type/{id}/accessible-to/{principalId} | unsharePropertyType
+*PropertyTypeApi* | [**update_property_type**](docs/PropertyTypeApi.md#update_property_type) | **PATCH** /property-type/{id} | updatePropertyType
+*ResourceApi* | [**add_component_to_resource**](docs/ResourceApi.md#add_component_to_resource) | **PUT** /resource/{id}/component | AddComponentToResource
+*ResourceApi* | [**add_property_to_component**](docs/ResourceApi.md#add_property_to_component) | **PUT** /resource/{id}/component/{componentId}/property | AddPropertyToComponent
+*ResourceApi* | [**add_property_to_resource**](docs/ResourceApi.md#add_property_to_resource) | **PUT** /resource/{id}/property | AddPropertyToResource
+*ResourceApi* | [**create_resource**](docs/ResourceApi.md#create_resource) | **POST** /resource | createResource
+*ResourceApi* | [**delete_component_from_resource**](docs/ResourceApi.md#delete_component_from_resource) | **DELETE** /resource/{id}/component/{componentId} | DeleteComponentFromResource
+*ResourceApi* | [**delete_property_from_resource**](docs/ResourceApi.md#delete_property_from_resource) | **DELETE** /resource/{id}/property/{propertyId} | deletePropertyFromResource
+*ResourceApi* | [**delete_property_of_component**](docs/ResourceApi.md#delete_property_of_component) | **DELETE** /resource/{id}/component/{componentId}/property/{propertyId} | DeletePropertyOfComponent
+*ResourceApi* | [**delete_resource**](docs/ResourceApi.md#delete_resource) | **DELETE** /resource/{id} | deleteResource
+*ResourceApi* | [**get_resource**](docs/ResourceApi.md#get_resource) | **GET** /resource/{id} | getResource
+*ResourceApi* | [**get_resource_status**](docs/ResourceApi.md#get_resource_status) | **GET** /resource/{id}/status | getResourceStatus
+*ResourceApi* | [**get_role_for_resource**](docs/ResourceApi.md#get_role_for_resource) | **GET** /resource/{id}/role/{userId} | getRoleForResource
+*ResourceApi* | [**list_resources**](docs/ResourceApi.md#list_resources) | **GET** /resources | listResources
+*ResourceApi* | [**share_resource**](docs/ResourceApi.md#share_resource) | **POST** /resource/{id}/accessible-to | shareResource
+*ResourceApi* | [**unshare_resource**](docs/ResourceApi.md#unshare_resource) | **PATCH** /resource/{id}/accessible-to/{principalId} | unshareResource
+*ResourceApi* | [**update_property_of_component**](docs/ResourceApi.md#update_property_of_component) | **PATCH** /resource/{id}/component/{componentId}/property/{propertyId} | UpdatePropertyOfComponent
+*ResourceApi* | [**update_property_of_resource**](docs/ResourceApi.md#update_property_of_resource) | **PATCH** /resource/{id}/property/{propertyId} | UpdatePropertyOfResource
+*ResourceApi* | [**update_resource**](docs/ResourceApi.md#update_resource) | **PATCH** /resource/{id} | updateResource
+*ResourceTypeApi* | [**create_resource_type**](docs/ResourceTypeApi.md#create_resource_type) | **POST** /resource-type | createResourceType
+*ResourceTypeApi* | [**get_resource_type**](docs/ResourceTypeApi.md#get_resource_type) | **GET** /resource-type/{id} | getResourceType
+*ResourceTypeApi* | [**get_role_for_resource_type**](docs/ResourceTypeApi.md#get_role_for_resource_type) | **GET** /resource-type/{id}/role/{userId} | getRoleForResourceType
+*ResourceTypeApi* | [**list_resource_types**](docs/ResourceTypeApi.md#list_resource_types) | **GET** /resource-types | listResourceTypes
+*ResourceTypeApi* | [**share_resource_type**](docs/ResourceTypeApi.md#share_resource_type) | **POST** /resource-type/{id}/accessible-to | shareResourceType
+*ResourceTypeApi* | [**unshare_resource_type**](docs/ResourceTypeApi.md#unshare_resource_type) | **PATCH** /resource-type/{id}/accessible-to/{principalId} | unshareResourceType
+*ResourceTypeApi* | [**update_resource_type**](docs/ResourceTypeApi.md#update_resource_type) | **PATCH** /resource-type/{id} | updateResourceType
+*RunApi* | [**add_batch_run_data**](docs/RunApi.md#add_batch_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-batch-run-data | addBatchRunData
+*RunApi* | [**add_run_data**](docs/RunApi.md#add_run_data) | **POST** /experiment/{id}/activity/{activityId}/add-run-data | addRunData
+*RunApi* | [**assign_input**](docs/RunApi.md#assign_input) | **POST** /experiment/{id}/assign-input | assignInput
+*RunApi* | [**connect_runs_along_path**](docs/RunApi.md#connect_runs_along_path) | **POST** /experiment/{id}/connect-runs | connectRunsAlongPath
+*RunApi* | [**create_run_group**](docs/RunApi.md#create_run_group) | **POST** /experiment/{id}/activity/{activityId}/run-group | createRunGroup
+*RunApi* | [**create_runs**](docs/RunApi.md#create_runs) | **POST** /experiment/{id}/add-runs | createRuns
+*RunApi* | [**delete_run_data**](docs/RunApi.md#delete_run_data) | **DELETE** /v1/experiment/{id}/activity/{activityId}/delete-run-data | deleteRunData
+*RunApi* | [**get_run**](docs/RunApi.md#get_run) | **GET** /experiment/{id}/run/{runId} | getRun
+*RunApi* | [**list_run_groups**](docs/RunApi.md#list_run_groups) | **GET** /experiment/{id}/run-groups | listRunGroups
+*RunApi* | [**list_run_paths**](docs/RunApi.md#list_run_paths) | **GET** /experiment/{id}/run-paths | listRunPaths
+*RunApi* | [**list_runs**](docs/RunApi.md#list_runs) | **GET** /experiment/{id}/run-group/{groupId}/runs | listRuns
+*RunApi* | [**propagate_runs_along_path**](docs/RunApi.md#propagate_runs_along_path) | **POST** /experiment/{id}/propagate-runs | propagateRunsAlongPath
+*RunApi* | [**set_run_overrides**](docs/RunApi.md#set_run_overrides) | **POST** /experiment/{id}/run-overrides/set | setRunOverrides
+*RunApi* | [**unset_run_overrides**](docs/RunApi.md#unset_run_overrides) | **POST** /experiment/{id}/run-overrides/unset | unsetRunOverrides
+*RunApi* | [**update_run**](docs/RunApi.md#update_run) | **PATCH** /experiment/{id}/run/{runId} | updateRun
+*RunApi* | [**update_run_status**](docs/RunApi.md#update_run_status) | **PUT** /experiment/{id}/run/{runId} | updateRunStatus
+*TagApi* | [**create_tag**](docs/TagApi.md#create_tag) | **POST** /tag | createTag
+*TagApi* | [**delete_tag**](docs/TagApi.md#delete_tag) | **DELETE** /tag/{id} | deleteTag
+*TagApi* | [**get_tag**](docs/TagApi.md#get_tag) | **GET** /tag/{id} | getTag
+*TagApi* | [**list_entities_for_tag**](docs/TagApi.md#list_entities_for_tag) | **GET** /tag/{id}/entities | listEntitiesForTag
+*TagApi* | [**list_tags**](docs/TagApi.md#list_tags) | **GET** /tags | listTags
+*TagApi* | [**update_tag**](docs/TagApi.md#update_tag) | **PATCH** /tag/{id} | updateTag
+*TaskApi* | [**get_task**](docs/TaskApi.md#get_task) | **GET** /task/{id} | getTask
+*TaskApi* | [**list_tasks**](docs/TaskApi.md#list_tasks) | **GET** /tasks | listTasks
+*TeamApi* | [**add_member_to_team**](docs/TeamApi.md#add_member_to_team) | **POST** /team/{id}/member | addMemberToTeam
+*TeamApi* | [**create_team**](docs/TeamApi.md#create_team) | **POST** /team | createTeam
+*TeamApi* | [**delete_team**](docs/TeamApi.md#delete_team) | **DELETE** /team/{id} | deleteTeam
+*TeamApi* | [**get_role_for_team**](docs/TeamApi.md#get_role_for_team) | **GET** /team/{id}/role/{userId} | getRoleForTeam
+*TeamApi* | [**get_team**](docs/TeamApi.md#get_team) | **GET** /team/{id} | getTeam
+*TeamApi* | [**list_teams**](docs/TeamApi.md#list_teams) | **GET** /teams | listTeams
+*TeamApi* | [**remove_member_from_team**](docs/TeamApi.md#remove_member_from_team) | **DELETE** /team/{id}/member/{memberId} | removeMemberFromTeam
+*TeamApi* | [**share_team**](docs/TeamApi.md#share_team) | **POST** /team/{id}/accessible-to | shareTeam
+*TeamApi* | [**unshare_team**](docs/TeamApi.md#unshare_team) | **PATCH** /team/{id}/accessible-to/{principalId} | unshareTeam
+*TeamApi* | [**update_team**](docs/TeamApi.md#update_team) | **PATCH** /team/{id} | updateTeam
+*UnitApi* | [**create_unit**](docs/UnitApi.md#create_unit) | **POST** /unit | createUnit
+*UnitApi* | [**get_role_for_unit**](docs/UnitApi.md#get_role_for_unit) | **GET** /unit/{id}/role/{userId} | getRoleForUnit
+*UnitApi* | [**get_unit**](docs/UnitApi.md#get_unit) | **GET** /unit/{id} | getUnit
+*UnitApi* | [**list_units**](docs/UnitApi.md#list_units) | **GET** /units | listUnits
+*UnitApi* | [**share_unit**](docs/UnitApi.md#share_unit) | **POST** /unit/{id}/accessible-to | shareUnit
+*UnitApi* | [**unshare_unit**](docs/UnitApi.md#unshare_unit) | **PATCH** /unit/{id}/accessible-to/{principalId} | unshareUnit
+*UnitApi* | [**update_unit**](docs/UnitApi.md#update_unit) | **PATCH** /unit/{id} | updateUnit
+*UserApi* | [**list_users**](docs/UserApi.md#list_users) | **GET** /users | listUsers
 
 ## Documentation For Models
 
@@ -421,7 +428,6 @@ Class | Method | HTTP request | Description
  - [Error](docs/Error.md)
  - [Experiment](docs/Experiment.md)
  - [ExperimentId](docs/ExperimentId.md)
- - [ExperimentModified](docs/ExperimentModified.md)
  - [ExperimentOverrides](docs/ExperimentOverrides.md)
  - [ExperimentSummary](docs/ExperimentSummary.md)
  - [Experiments](docs/Experiments.md)

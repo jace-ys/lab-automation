@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **media** | [**CommentMedia**](CommentMedia.md) |  | [optional] 
 **creator** | **str** | The username of the user that created this comment. | [optional] 
 **created** | [**Created**](Created.md) |  | [optional] 
-**modified** | **datetime** |  | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 **modified_by** | [**ModifiedBy**](ModifiedBy.md) |  | [optional] 
 **org** | [**Org**](Org.md) |  | [optional] 
 

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **public** | **bool** | Indicates if the activity is visible to all users. | [optional] 
 **creator** | **str** | The username of the user that created this activity | [optional] 
 **created** | [**Created**](Created.md) |  | [optional] 
-**modified** | **datetime** |  | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 **version** | [**Version**](Version.md) |  | [optional] 
 **object_id** | **str** | The &#x60;_id&#x60; of the corresponding activity on the Process level. Use this value in endpoint paths.  | [optional] 
 

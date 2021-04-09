@@ -1,11 +1,11 @@
 # coding: utf-8
 
 """
-    Riffyn REST API
+    Riffyn Nexus REST API V1
 
-    ### Vocabulary Before you begin, please familiarize yourself with our [Glossary of Terms](https://help.riffyn.com/hc/en-us/articles/360045503694). ### Getting Started If you'd like to play around with the API, there are several free GUI tools that will allow you to send requests and receive responses. We suggest using the free app [Postman](https://www.getpostman.com/). ### Authentication Begin with a call the [authenticate](/#api-Authentication-authenticate) endpoint using [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) with your `username` and `password` to retrieve either an API Key or an Access Token. For example:      curl -X POST -u '<username>' https://api.app.riffyn.com/v1/auth -v  You may then use either the API Key or the accessToken for all future requests to the API. For example:      curl -H 'access-token: <ACCESS_TOKEN>' https://api.app.riffyn.com/v1/units -v      curl -H 'api-key: <API_KEY>' https://api.app.riffyn.com/v1/units -v  The tokens' values will be either in the message returned by the `/authenticate` endpoint or in the createApiKey `/auth/api-key` or CreateAccesToken `/auth/access-token` endpoints. The API Key will remain valid until it is deauthorized by revoking it through the Security Settings in the Riffyn App UI. The API Key is best for running scripts and longer lasting interactions with the API. The Access Token will expire automatically and is best suited to granting applications short term access to the Riffyn API. Make your requests by sending the HTTP header `api-key: $API_KEY`, or `access-token: $ACCESS_TOKEN`. In Postman, add your prefered token to the headers under the Headers tab for any request other than the original request to `/authenticate`.  If you are enrolled in MultiFactor Authentication (MFA) the `status` returned by the `/authenticate` endpoint will be `MFA_REQUIRED`. A `passCode`, a `stateToken`, and a `factorId` must be passed to the [/verify](/#api-Authentication-verify) endpoint to complete the authentication process and achieve the `SUCCESS` status. MFA must be managed in the Riffyn App UI.  ### Paging and Sorting The majority of endpoints that return a list of data support paging and sorting through the use of three properties, `limit`,  `offset`, and `sort`. Please see the list of query parameters, displayed below each endpoint's code examples, to see if paging or sorting is supported for that specific endpoint.  Certain endpoints return data that's added frequently, like resources. As a result, you may want filter results on either the maximum or minimum creation timestamp. This will prevent rows from shifting their position from the top of the list, as you scroll though subsequent pages of a multi-page response.  Before querying for the first page, store the current date-time (in memory, a database, a file...). On subsequent pages you *may* include the `before` query parameter, to limit the results to records created before that date-time. E.g. before loading page one, you store the current date time of `2016-10-31T22:00:00Z` (ISO date format). Later, when generating the URL for page two, you *could* limit the results by including the query parameter `before=1477951200000` (epoch timestamp).  ### Postman endpoint examples There is a YAML file with the examples of the request on Riffyn API [Click here](/collection) to get the file. If you don't know how to import the collection file, [here](https://learning.postman.com/docs/postman/collections/data-formats/#importing-postman-data) are the steps. ### Client SDKs You may write your own API client, or you may use one of ours. [Click here](/clients) to select your programming language and download an API client.   # noqa: E501
+    ## Vocabulary Before you begin, please familiarize yourself with our [Glossary of Terms](https://help.riffyn.com/hc/en-us/articles/360045503694). ## Getting Started If you'd like to play around with the API, there are several free GUI tools that will allow you to send requests and receive responses. We suggest using the free app [Postman](https://www.getpostman.com/). ## Authentication Begin with a call the [authenticate](#/authentication/authenticate) endpoint using [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) with your `username` and `password` to retrieve either an API Key or an Access Token. For example:      curl -X POST -u '<username>' https://api.app.riffyn.com/v1/auth -v  You may then use either the API Key or the accessToken for all future requests to the API. For example:      curl -H 'access-token: <ACCESS_TOKEN>' https://api.app.riffyn.com/v1/units -v      curl -H 'api-key: <API_KEY>' https://api.app.riffyn.com/v1/units -v  The tokens' values will be either in the message returned by the `/authenticate` endpoint or in the createApiKey `/auth/api-key` or CreateAccesToken `/auth/access-token` endpoints. The API Key will remain valid until it is deauthorized by revoking it through the Security Settings in the Riffyn Nexus App UI. The API Key is best for running scripts and longer lasting interactions with the API. The Access Token will expire automatically and is best suited to granting applications short term access to the Riffyn Nexus API. Make your requests by sending the HTTP header `api-key: $API_KEY`, or `access-token: $ACCESS_TOKEN`. In Postman, add your preferred token to the headers under the Headers tab for any request other than the original request to `/authenticate`.  If you are enrolled in MultiFactor Authentication (MFA) the `status` returned by the `/authenticate` endpoint will be `MFA_REQUIRED`. A `passCode`, a `stateToken`, and a `factorId` must be passed to the [/verify](#/authentication/verify) endpoint to complete the authentication process and achieve the `SUCCESS` status. MFA must be managed in the Riffyn Nexus App UI.  ## Paging and Sorting The majority of endpoints that return a list of data support paging and sorting through the use of three properties, `limit`,  `offset`, and `sort`. Please see the list of query parameters, displayed below each endpoint's code examples, to see if paging or sorting is supported for that specific endpoint.  Certain endpoints return data that's added frequently, like resources. As a result, you may want filter results on either the maximum or minimum creation timestamp. This will prevent rows from shifting their position from the top of the list, as you scroll though subsequent pages of a multi-page response.  Before querying for the first page, store the current date-time (in memory, a database, a file...). On subsequent pages you *may* include the `before` query parameter, to limit the results to records created before that date-time. E.g. before loading page one, you store the current date time of `2016-10-31T22:00:00Z` (ISO date format). Later, when generating the URL for page two, you *could* limit the results by including the query parameter `before=1477951200000` (epoch timestamp).  ## Postman endpoint examples There is a YAML file with the examples of the request on Riffyn Nexus API [Click here](/v1/collection) to get the file. If you don't know how to import the collection file, [here](https://learning.postman.com/docs/postman/collections/data-formats/#importing-postman-data) are the steps. ## Client SDKs You may write your own API client, or you may use one of ours. [Click here](/v1/clients) to select your programming language and download an API client.   # noqa: E501
 
-    OpenAPI spec version: 1.4.0
+    OpenAPI spec version: 4.2.0
     Contact: support@riffyn.com
     Generated by: https://github.com/swagger-api/swagger-codegen.git
 """
@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import swagger_client
-from api.process_activity_api import ProcessActivityApi  # noqa: E501
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.api.process_activity_api import ProcessActivityApi  # noqa: E501
+from riffyn_nexus_sdk_v1.rest import ApiException
 
 
 class TestProcessActivityApi(unittest.TestCase):
     """ProcessActivityApi unit test stubs"""
 
     def setUp(self):
-        self.api = api.process_activity_api.ProcessActivityApi()  # noqa: E501
+        self.api = ProcessActivityApi()  # noqa: E501
 
     def tearDown(self):
         pass
@@ -31,96 +31,112 @@ class TestProcessActivityApi(unittest.TestCase):
     def test_add_component_to_resource_def(self):
         """Test case for add_component_to_resource_def
 
+        addComponentToResourceDef  # noqa: E501
         """
         pass
 
     def test_add_property_type_to_activity(self):
         """Test case for add_property_type_to_activity
 
+        addPropertyTypeToActivity  # noqa: E501
         """
         pass
 
     def test_add_resource_type_to_activity(self):
         """Test case for add_resource_type_to_activity
 
+        addResourceTypeToActivity  # noqa: E501
         """
         pass
 
     def test_create_activity(self):
         """Test case for create_activity
 
+        createActivity  # noqa: E501
         """
         pass
 
     def test_delete_activity(self):
         """Test case for delete_activity
 
+        deleteActivity  # noqa: E501
         """
         pass
 
     def test_delete_component_from_resource_def(self):
         """Test case for delete_component_from_resource_def
 
+        deleteComponentFromResourceDef  # noqa: E501
         """
         pass
 
     def test_delete_property_type_from_activity(self):
         """Test case for delete_property_type_from_activity
 
+        deletePropertyTypeFromActivity  # noqa: E501
         """
         pass
 
     def test_delete_resource_type_from_activity(self):
         """Test case for delete_resource_type_from_activity
 
+        deleteResourceTypeFromActivity  # noqa: E501
         """
         pass
 
     def test_get_activity(self):
         """Test case for get_activity
 
+        getActivity  # noqa: E501
         """
         pass
 
     def test_get_activity_version(self):
         """Test case for get_activity_version
 
+        getActivityVersion  # noqa: E501
         """
         pass
 
     def test_list_activities(self):
         """Test case for list_activities
 
+        listActivities  # noqa: E501
         """
         pass
 
     def test_list_activity_versions(self):
         """Test case for list_activity_versions
 
+        listActivityVersions  # noqa: E501
         """
         pass
 
     def test_update_activity(self):
         """Test case for update_activity
 
+        updateActivity  # noqa: E501
         """
         pass
 
     def test_update_component_on_resource_def(self):
         """Test case for update_component_on_resource_def
 
+        updateComponentOnResourceDef  # noqa: E501
         """
         pass
 
     def test_update_property_type_on_activity(self):
         """Test case for update_property_type_on_activity
 
+        updatePropertyTypeOnActivity  # noqa: E501
         """
         pass
 
     def test_update_resource_type_on_activity(self):
         """Test case for update_resource_type_on_activity
 
+        updateResourceTypeOnActivity  # noqa: E501
         """
         pass
 
