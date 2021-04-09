@@ -1,24 +1,24 @@
-# swagger_client.TeamApi
+# riffyn_nexus_sdk_v1.TeamApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_member_to_team**](TeamApi.md#add_member_to_team) | **POST** /team/{id}/member | 
-[**create_team**](TeamApi.md#create_team) | **POST** /team | 
-[**delete_team**](TeamApi.md#delete_team) | **DELETE** /team/{id} | 
-[**get_role_for_team**](TeamApi.md#get_role_for_team) | **GET** /team/{id}/role/{userId} | 
-[**get_team**](TeamApi.md#get_team) | **GET** /team/{id} | 
-[**list_teams**](TeamApi.md#list_teams) | **GET** /teams | 
-[**remove_member_from_team**](TeamApi.md#remove_member_from_team) | **DELETE** /team/{id}/member/{memberId} | 
-[**share_team**](TeamApi.md#share_team) | **POST** /team/{id}/accessible-to | 
-[**unshare_team**](TeamApi.md#unshare_team) | **PATCH** /team/{id}/accessible-to/{principalId} | 
-[**update_team**](TeamApi.md#update_team) | **PATCH** /team/{id} | 
+[**add_member_to_team**](TeamApi.md#add_member_to_team) | **POST** /team/{id}/member | addMemberToTeam
+[**create_team**](TeamApi.md#create_team) | **POST** /team | createTeam
+[**delete_team**](TeamApi.md#delete_team) | **DELETE** /team/{id} | deleteTeam
+[**get_role_for_team**](TeamApi.md#get_role_for_team) | **GET** /team/{id}/role/{userId} | getRoleForTeam
+[**get_team**](TeamApi.md#get_team) | **GET** /team/{id} | getTeam
+[**list_teams**](TeamApi.md#list_teams) | **GET** /teams | listTeams
+[**remove_member_from_team**](TeamApi.md#remove_member_from_team) | **DELETE** /team/{id}/member/{memberId} | removeMemberFromTeam
+[**share_team**](TeamApi.md#share_team) | **POST** /team/{id}/accessible-to | shareTeam
+[**unshare_team**](TeamApi.md#unshare_team) | **PATCH** /team/{id}/accessible-to/{principalId} | unshareTeam
+[**update_team**](TeamApi.md#update_team) | **PATCH** /team/{id} | updateTeam
 
 # **add_member_to_team**
 > SuccessAddedMember add_member_to_team(body, id)
 
-
+addMemberToTeam
 
 Add a member to an existing team.
 
@@ -26,25 +26,26 @@ Add a member to an existing team.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddMemberToTeamBody() # AddMemberToTeamBody | A JSON object containing the necessary properties to add a new member to a team.
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddMemberToTeamBody() # AddMemberToTeamBody | A JSON object containing the necessary properties to add a new member to a team.
 id = 'id_example' # str | The `_id` of the team that the member is being added to.
 
 try:
+    # addMemberToTeam
     api_response = api_instance.add_member_to_team(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -76,7 +77,7 @@ Name | Type | Description  | Notes
 # **create_team**
 > Team create_team(body)
 
-
+createTeam
 
 Create a new team. Will add the team creator as a member by default unless a `excludeCreator` parameter is passed.
 
@@ -84,24 +85,25 @@ Create a new team. Will add the team creator as a member by default unless a `ex
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewTeamBody() # NewTeamBody | A JSON object containing the necessary properties to create a new team.
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewTeamBody() # NewTeamBody | A JSON object containing the necessary properties to create a new team.
 
 try:
+    # createTeam
     api_response = api_instance.create_team(body)
     pprint(api_response)
 except ApiException as e:
@@ -132,7 +134,7 @@ Name | Type | Description  | Notes
 # **delete_team**
 > TeamRemove delete_team(id)
 
-
+deleteTeam
 
 Delete an existing team from the database.
 
@@ -140,24 +142,25 @@ Delete an existing team from the database.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the team.
 
 try:
+    # deleteTeam
     api_response = api_instance.delete_team(id)
     pprint(api_response)
 except ApiException as e:
@@ -188,7 +191,7 @@ Name | Type | Description  | Notes
 # **get_role_for_team**
 > Role get_role_for_team(id, user_id)
 
-
+getRoleForTeam
 
 Returns the highest role for the specified user for the specific team.
 
@@ -196,25 +199,26 @@ Returns the highest role for the specified user for the specific team.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the team.
 user_id = 'user_id_example' # str | The `_id` of the user.
 
 try:
+    # getRoleForTeam
     api_response = api_instance.get_role_for_team(id, user_id)
     pprint(api_response)
 except ApiException as e:
@@ -246,7 +250,7 @@ Name | Type | Description  | Notes
 # **get_team**
 > TeamWithMembers get_team(id)
 
-
+getTeam
 
 Returns the details for the specified team.
 
@@ -254,24 +258,25 @@ Returns the details for the specified team.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the team.
 
 try:
+    # getTeam
     api_response = api_instance.get_team(id)
     pprint(api_response)
 except ApiException as e:
@@ -302,7 +307,7 @@ Name | Type | Description  | Notes
 # **list_teams**
 > Teams list_teams(sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator)
 
-
+listTeams
 
 List or search the user's teams.
 
@@ -310,21 +315,21 @@ List or search the user's teams.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `process_name,-label`.  (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
 offset = 56 # int | The number of records to skip from the beginning of the result set. If the offset value provided is greater than the number of available records, an empty result set will be returned.  (optional)
@@ -335,6 +340,7 @@ name = 'name_example' # str | Limits the result set to items with this exact nam
 creator = 'creator_example' # str | Limits the result set to items created by the user with this username. (optional)
 
 try:
+    # listTeams
     api_response = api_instance.list_teams(sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator)
     pprint(api_response)
 except ApiException as e:
@@ -372,7 +378,7 @@ Name | Type | Description  | Notes
 # **remove_member_from_team**
 > SuccessfullyDelete remove_member_from_team(body, id, member_id)
 
-
+removeMemberFromTeam
 
 Remove a member from an existing team.
 
@@ -380,26 +386,27 @@ Remove a member from an existing team.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 body = NULL # object | The member type from the team.
 id = 'id_example' # str | The `_id` of the team.
 member_id = 'member_id_example' # str | The `_id` of the team.
 
 try:
+    # removeMemberFromTeam
     api_response = api_instance.remove_member_from_team(body, id, member_id)
     pprint(api_response)
 except ApiException as e:
@@ -432,7 +439,7 @@ Name | Type | Description  | Notes
 # **share_team**
 > SuccessfullyShare share_team(body, id)
 
-
+shareTeam
 
 Share an existing team with a user, team, or organization.
 
@@ -440,25 +447,26 @@ Share an existing team with a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ShareTeamBody() # ShareTeamBody | A JSON object containing the necessary properties to share the team.
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ShareTeamBody() # ShareTeamBody | A JSON object containing the necessary properties to share the team.
 id = 'id_example' # str | The `_id` of the team being shared.
 
 try:
+    # shareTeam
     api_response = api_instance.share_team(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -490,7 +498,7 @@ Name | Type | Description  | Notes
 # **unshare_team**
 > SuccessfullyUnshared unshare_team(body, id, principal_id)
 
-
+unshareTeam
 
 Revoke access to an existing team from a user, team, or organization.
 
@@ -498,26 +506,27 @@ Revoke access to an existing team from a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UnshareTeamBody() # UnshareTeamBody | A JSON object containing the necessary properties to revoke access to the team.
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UnshareTeamBody() # UnshareTeamBody | A JSON object containing the necessary properties to revoke access to the team.
 id = 'id_example' # str | The `_id` of the team.
 principal_id = 'principal_id_example' # str | The `_id` of the entity being revoked access to the team.
 
 try:
+    # unshareTeam
     api_response = api_instance.unshare_team(body, id, principal_id)
     pprint(api_response)
 except ApiException as e:
@@ -550,7 +559,7 @@ Name | Type | Description  | Notes
 # **update_team**
 > Team update_team(body, id)
 
-
+updateTeam
 
 Update the name or the description of an existing team.
 
@@ -558,25 +567,26 @@ Update the name or the description of an existing team.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TeamApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdateTeamBody() # UpdateTeamBody | A JSON object containing the necessary properties to update the team.
+api_instance = riffyn_nexus_sdk_v1.TeamApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdateTeamBody() # UpdateTeamBody | A JSON object containing the necessary properties to update the team.
 id = 'id_example' # str | The `_id` of the team.
 
 try:
+    # updateTeam
     api_response = api_instance.update_team(body, id)
     pprint(api_response)
 except ApiException as e:

@@ -1,30 +1,30 @@
-# swagger_client.ProcessActivityApi
+# riffyn_nexus_sdk_v1.ProcessActivityApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_component_to_resource_def**](ProcessActivityApi.md#add_component_to_resource_def) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | 
-[**add_property_type_to_activity**](ProcessActivityApi.md#add_property_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | 
-[**add_resource_type_to_activity**](ProcessActivityApi.md#add_resource_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type | 
-[**create_activity**](ProcessActivityApi.md#create_activity) | **POST** /process/{id}/activity | 
-[**delete_activity**](ProcessActivityApi.md#delete_activity) | **DELETE** /process/{id}/activity/{activityId} | 
-[**delete_component_from_resource_def**](ProcessActivityApi.md#delete_component_from_resource_def) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | 
-[**delete_property_type_from_activity**](ProcessActivityApi.md#delete_property_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-[**delete_resource_type_from_activity**](ProcessActivityApi.md#delete_resource_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
-[**get_activity**](ProcessActivityApi.md#get_activity) | **GET** /process/{id}/activity/{activityId} | 
-[**get_activity_version**](ProcessActivityApi.md#get_activity_version) | **GET** /process/{id}/activity/{activityId}/version/{versionLabel} | 
-[**list_activities**](ProcessActivityApi.md#list_activities) | **GET** /process/{id}/activities | 
-[**list_activity_versions**](ProcessActivityApi.md#list_activity_versions) | **GET** /process/{id}/activity/{activityId}/versions | 
-[**update_activity**](ProcessActivityApi.md#update_activity) | **PATCH** /process/{id}/activity/{activityId} | 
-[**update_component_on_resource_def**](ProcessActivityApi.md#update_component_on_resource_def) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | 
-[**update_property_type_on_activity**](ProcessActivityApi.md#update_property_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | 
-[**update_resource_type_on_activity**](ProcessActivityApi.md#update_resource_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | 
+[**add_component_to_resource_def**](ProcessActivityApi.md#add_component_to_resource_def) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component | addComponentToResourceDef
+[**add_property_type_to_activity**](ProcessActivityApi.md#add_property_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type | addPropertyTypeToActivity
+[**add_resource_type_to_activity**](ProcessActivityApi.md#add_resource_type_to_activity) | **POST** /process/{id}/activity/{activityId}/resource-type | addResourceTypeToActivity
+[**create_activity**](ProcessActivityApi.md#create_activity) | **POST** /process/{id}/activity | createActivity
+[**delete_activity**](ProcessActivityApi.md#delete_activity) | **DELETE** /process/{id}/activity/{activityId} | deleteActivity
+[**delete_component_from_resource_def**](ProcessActivityApi.md#delete_component_from_resource_def) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | deleteComponentFromResourceDef
+[**delete_property_type_from_activity**](ProcessActivityApi.md#delete_property_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | deletePropertyTypeFromActivity
+[**delete_resource_type_from_activity**](ProcessActivityApi.md#delete_resource_type_from_activity) | **DELETE** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | deleteResourceTypeFromActivity
+[**get_activity**](ProcessActivityApi.md#get_activity) | **GET** /process/{id}/activity/{activityId} | getActivity
+[**get_activity_version**](ProcessActivityApi.md#get_activity_version) | **GET** /process/{id}/activity/{activityId}/version/{versionLabel} | getActivityVersion
+[**list_activities**](ProcessActivityApi.md#list_activities) | **GET** /process/{id}/activities | listActivities
+[**list_activity_versions**](ProcessActivityApi.md#list_activity_versions) | **GET** /process/{id}/activity/{activityId}/versions | listActivityVersions
+[**update_activity**](ProcessActivityApi.md#update_activity) | **PATCH** /process/{id}/activity/{activityId} | updateActivity
+[**update_component_on_resource_def**](ProcessActivityApi.md#update_component_on_resource_def) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/component/{componentId} | updateComponentOnResourceDef
+[**update_property_type_on_activity**](ProcessActivityApi.md#update_property_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId}/property-type/{propertyTypeId} | updatePropertyTypeOnActivity
+[**update_resource_type_on_activity**](ProcessActivityApi.md#update_resource_type_on_activity) | **PATCH** /process/{id}/activity/{activityId}/resource-type/{resourceDefId} | updateResourceTypeOnActivity
 
 # **add_component_to_resource_def**
 > InlineResponse2003 add_component_to_resource_def(id, activity_id, resource_def_id, body=body)
 
-
+addComponentToResourceDef
 
 Add a component on a resource type on the `input` or `output` of an activity on a process.
 
@@ -32,27 +32,28 @@ Add a component on a resource type on the `input` or `output` of an activity on 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`. 
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type the component will be added to.
-body = swagger_client.AddComponentToResourceType() # AddComponentToResourceType | A JSON object containing the options for adding the component. (optional)
+body = riffyn_nexus_sdk_v1.AddComponentToResourceType() # AddComponentToResourceType | A JSON object containing the options for adding the component. (optional)
 
 try:
+    # addComponentToResourceDef
     api_response = api_instance.add_component_to_resource_def(id, activity_id, resource_def_id, body=body)
     pprint(api_response)
 except ApiException as e:
@@ -86,7 +87,7 @@ Name | Type | Description  | Notes
 # **add_property_type_to_activity**
 > InlineResponse2005 add_property_type_to_activity(body, id, activity_id, resource_def_id)
 
-
+addPropertyTypeToActivity
 
 Add a property type to a resource type on the `input` or `output` of an activity on a process. Property type will be created with default unit.
 
@@ -94,27 +95,28 @@ Add a property type to a resource type on the `input` or `output` of an activity
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddPropertyTypeBody() # AddPropertyTypeBody | A JSON object containing the options for adding the property type.
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddPropertyTypeBody() # AddPropertyTypeBody | A JSON object containing the options for adding the property type.
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the the resource type the property type is being added to.
 
 try:
+    # addPropertyTypeToActivity
     api_response = api_instance.add_property_type_to_activity(body, id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:
@@ -148,7 +150,7 @@ Name | Type | Description  | Notes
 # **add_resource_type_to_activity**
 > InlineResponse2008 add_resource_type_to_activity(body, id, activity_id)
 
-
+addResourceTypeToActivity
 
 Add a resource type to the `input` or `output` of an activity on a process. Default components and property types for that resource type will be included.
 
@@ -156,26 +158,27 @@ Add a resource type to the `input` or `output` of an activity on a process. Defa
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddResourceTypeBody() # AddResourceTypeBody | A JSON object containing the options for creating the resource type.
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddResourceTypeBody() # AddResourceTypeBody | A JSON object containing the options for creating the resource type.
 id = 'id_example' # str | The `_id` of process the resource type is being added to.
 activity_id = 'activity_id_example' # str | The `_id` of activity the resource type is being added to.
 
 try:
+    # addResourceTypeToActivity
     api_response = api_instance.add_resource_type_to_activity(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -208,7 +211,7 @@ Name | Type | Description  | Notes
 # **create_activity**
 > Activity create_activity(body, id)
 
-
+createActivity
 
 Create a new activity (step) on a process.
 
@@ -216,25 +219,26 @@ Create a new activity (step) on a process.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ActivityBody() # ActivityBody | A JSON object containing the necessary properties to create a new activity.
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ActivityBody() # ActivityBody | A JSON object containing the necessary properties to create a new activity.
 id = 'id_example' # str | The `_id` of process.
 
 try:
+    # createActivity
     api_response = api_instance.create_activity(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -266,7 +270,7 @@ Name | Type | Description  | Notes
 # **delete_activity**
 > InlineResponse2007 delete_activity(id, activity_id)
 
-
+deleteActivity
 
 Deletes the specified activity (step) from a process.
 
@@ -274,25 +278,26 @@ Deletes the specified activity (step) from a process.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity.
 
 try:
+    # deleteActivity
     api_response = api_instance.delete_activity(id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -324,7 +329,7 @@ Name | Type | Description  | Notes
 # **delete_component_from_resource_def**
 > InlineResponse20013 delete_component_from_resource_def(id, activity_id, resource_def_id, component_id, propagate=propagate, propagation_direction=propagation_direction)
 
-
+deleteComponentFromResourceDef
 
 Removal of a component from a resource type on the `input` or `output` of an activity on a process.
 
@@ -332,21 +337,21 @@ Removal of a component from a resource type on the `input` or `output` of an act
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`. 
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type the component will be removed from.
@@ -355,6 +360,7 @@ propagate = true # bool | Propagates the removal of the component to connected i
 propagation_direction = 'propagation_direction_example' # str | Direction of propagation. Will be one of `upstream` or `downstream`. Defaults to `downstream` if not set. Not required if `propagate` is not defined. (optional)
 
 try:
+    # deleteComponentFromResourceDef
     api_response = api_instance.delete_component_from_resource_def(id, activity_id, resource_def_id, component_id, propagate=propagate, propagation_direction=propagation_direction)
     pprint(api_response)
 except ApiException as e:
@@ -390,7 +396,7 @@ Name | Type | Description  | Notes
 # **delete_property_type_from_activity**
 > InlineResponse20011 delete_property_type_from_activity(body, id, activity_id, resource_def_id, property_type_id)
 
-
+deletePropertyTypeFromActivity
 
 Removal of a property type from a resource type on the `input` or `output` of an activity on a process.
 
@@ -398,21 +404,21 @@ Removal of a property type from a resource type on the `input` or `output` of an
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 body = NULL # object | A JSON object containing the options for removing the property type.
 id = 'id_example' # str | The `_id` of the process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
@@ -420,6 +426,7 @@ resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or 
 property_type_id = 'property_type_id_example' # str | The `_id` of the property type.
 
 try:
+    # deletePropertyTypeFromActivity
     api_response = api_instance.delete_property_type_from_activity(body, id, activity_id, resource_def_id, property_type_id)
     pprint(api_response)
 except ApiException as e:
@@ -454,7 +461,7 @@ Name | Type | Description  | Notes
 # **delete_resource_type_from_activity**
 > InlineResponse2009 delete_resource_type_from_activity(id, activity_id, resource_def_id)
 
-
+deleteResourceTypeFromActivity
 
 Deletes a resource type from the `input` or `output` of an activity on a process.
 
@@ -462,26 +469,27 @@ Deletes a resource type from the `input` or `output` of an activity on a process
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process the resource type is being deleted from.
 activity_id = 'activity_id_example' # str | The `_id` of activity the resource type is being deleted from.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type being deleted.
 
 try:
+    # deleteResourceTypeFromActivity
     api_response = api_instance.delete_resource_type_from_activity(id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:
@@ -514,7 +522,7 @@ Name | Type | Description  | Notes
 # **get_activity**
 > Activity get_activity(id, activity_id)
 
-
+getActivity
 
 Returns the details for the specified activity (step) on a process.
 
@@ -522,25 +530,26 @@ Returns the details for the specified activity (step) on a process.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity.
 
 try:
+    # getActivity
     api_response = api_instance.get_activity(id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -572,7 +581,7 @@ Name | Type | Description  | Notes
 # **get_activity_version**
 > Activity get_activity_version(id, activity_id, version_label)
 
-
+getActivityVersion
 
 Returns design details on the specified activity and its version.
 
@@ -580,26 +589,27 @@ Returns design details on the specified activity and its version.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity.
 version_label = 'version_label_example' # str | The `version.label` of the activity. Should be in the format of `0.01` or `1.00`.
 
 try:
+    # getActivityVersion
     api_response = api_instance.get_activity_version(id, activity_id, version_label)
     pprint(api_response)
 except ApiException as e:
@@ -632,7 +642,7 @@ Name | Type | Description  | Notes
 # **list_activities**
 > Activities list_activities(id, sort=sort, version=version, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public)
 
-
+listActivities
 
 List or search the activities (steps) associated with a process.
 
@@ -640,21 +650,21 @@ List or search the activities (steps) associated with a process.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash(`-`). A comma separated list may be used to sort by more than one field (e.g. `name,-label`).  (optional)
 version = 'version_example' # str | Limits the result set to the specified version label (optional)
@@ -668,6 +678,7 @@ creator = 'creator_example' # str | Limits the result set to items created by th
 public = true # bool | Toggles the result set between public and private data. Default value is `false` (optional)
 
 try:
+    # listActivities
     api_response = api_instance.list_activities(id, sort=sort, version=version, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public)
     pprint(api_response)
 except ApiException as e:
@@ -708,7 +719,7 @@ Name | Type | Description  | Notes
 # **list_activity_versions**
 > Activities list_activity_versions(id, activity_id)
 
-
+listActivityVersions
 
 Returns design details on all versions of specified activity associated with a process.
 
@@ -716,25 +727,26 @@ Returns design details on all versions of specified activity associated with a p
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity.
 
 try:
+    # listActivityVersions
     api_response = api_instance.list_activity_versions(id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -766,7 +778,7 @@ Name | Type | Description  | Notes
 # **update_activity**
 > Activity update_activity(body, id, activity_id)
 
-
+updateActivity
 
 Updates the detail for the specified activity (step) on a process.
 
@@ -774,26 +786,27 @@ Updates the detail for the specified activity (step) on a process.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdateActivityBody() # UpdateActivityBody | A JSON object containing the necessary properties to update an activity.
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdateActivityBody() # UpdateActivityBody | A JSON object containing the necessary properties to update an activity.
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity.
 
 try:
+    # updateActivity
     api_response = api_instance.update_activity(body, id, activity_id)
     pprint(api_response)
 except ApiException as e:
@@ -826,7 +839,7 @@ Name | Type | Description  | Notes
 # **update_component_on_resource_def**
 > InlineResponse2003 update_component_on_resource_def(id, activity_id, resource_def_id, component_id, body=body)
 
-
+updateComponentOnResourceDef
 
 Update a component on a resource type on the `input` or `output` of an activity on a process.
 
@@ -834,28 +847,29 @@ Update a component on a resource type on the `input` or `output` of an activity 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`. 
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type the component will be updated on.
 component_id = 'component_id_example' # str | The `_id` of the resource type being used as a component.
-body = swagger_client.UpdateComponentOnResType() # UpdateComponentOnResType | A JSON object containing the options for adding the component. (optional)
+body = riffyn_nexus_sdk_v1.UpdateComponentOnResType() # UpdateComponentOnResType | A JSON object containing the options for adding the component. (optional)
 
 try:
+    # updateComponentOnResourceDef
     api_response = api_instance.update_component_on_resource_def(id, activity_id, resource_def_id, component_id, body=body)
     pprint(api_response)
 except ApiException as e:
@@ -890,7 +904,7 @@ Name | Type | Description  | Notes
 # **update_property_type_on_activity**
 > InlineResponse20012 update_property_type_on_activity(id, activity_id, resource_def_id, property_type_id, body=body)
 
-
+updatePropertyTypeOnActivity
 
 Update a property type on a resource type on the `input` or `output` of an activity on a process. Allows for setting a different unit than the default unit for the property.
 
@@ -898,28 +912,29 @@ Update a property type on a resource type on the `input` or `output` of an activ
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the process.
 activity_id = 'activity_id_example' # str | The `_id` of the activity. Refers to the Process Activity `_id` from the `listActivities` endpoint. When using the `listExperimentActivities` endpoint, use the `objectId`.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type the property type will be updated on.
 property_type_id = 'property_type_id_example' # str | The `_id` of the property type.
-body = swagger_client.Body7() # Body7 | A JSON object containing the options for removing the property type. (optional)
+body = riffyn_nexus_sdk_v1.Body7() # Body7 | A JSON object containing the options for removing the property type. (optional)
 
 try:
+    # updatePropertyTypeOnActivity
     api_response = api_instance.update_property_type_on_activity(id, activity_id, resource_def_id, property_type_id, body=body)
     pprint(api_response)
 except ApiException as e:
@@ -954,7 +969,7 @@ Name | Type | Description  | Notes
 # **update_resource_type_on_activity**
 > InlineResponse20010 update_resource_type_on_activity(body, id, activity_id, resource_def_id)
 
-
+updateResourceTypeOnActivity
 
 Change a resource type on the `input` or `output` of an activity on a process.
 
@@ -962,27 +977,28 @@ Change a resource type on the `input` or `output` of an activity on a process.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ProcessActivityApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Body6() # Body6 | A JSON object containing the options for updating the resource type.
+api_instance = riffyn_nexus_sdk_v1.ProcessActivityApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.Body6() # Body6 | A JSON object containing the options for updating the resource type.
 id = 'id_example' # str | The `_id` of process the resource type is being updated on.
 activity_id = 'activity_id_example' # str | The `_id` of activity the resource type is being updated on.
 resource_def_id = 'resource_def_id_example' # str | The `_id` of the `input` or `output` on the activity for the resource type being updated.
 
 try:
+    # updateResourceTypeOnActivity
     api_response = api_instance.update_resource_type_on_activity(body, id, activity_id, resource_def_id)
     pprint(api_response)
 except ApiException as e:

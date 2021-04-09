@@ -1,20 +1,20 @@
-# swagger_client.TagApi
+# riffyn_nexus_sdk_v1.TagApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_tag**](TagApi.md#create_tag) | **POST** /tag | 
-[**delete_tag**](TagApi.md#delete_tag) | **DELETE** /tag/{id} | 
-[**get_tag**](TagApi.md#get_tag) | **GET** /tag/{id} | 
-[**list_entities_for_tag**](TagApi.md#list_entities_for_tag) | **GET** /tag/{id}/entities | 
-[**list_tags**](TagApi.md#list_tags) | **GET** /tags | 
-[**update_tag**](TagApi.md#update_tag) | **PATCH** /tag/{id} | 
+[**create_tag**](TagApi.md#create_tag) | **POST** /tag | createTag
+[**delete_tag**](TagApi.md#delete_tag) | **DELETE** /tag/{id} | deleteTag
+[**get_tag**](TagApi.md#get_tag) | **GET** /tag/{id} | getTag
+[**list_entities_for_tag**](TagApi.md#list_entities_for_tag) | **GET** /tag/{id}/entities | listEntitiesForTag
+[**list_tags**](TagApi.md#list_tags) | **GET** /tags | listTags
+[**update_tag**](TagApi.md#update_tag) | **PATCH** /tag/{id} | updateTag
 
 # **create_tag**
 > Tag create_tag(body)
 
-
+createTag
 
 Create a tag for the user.
 
@@ -22,24 +22,25 @@ Create a tag for the user.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TagApi(swagger_client.ApiClient(configuration))
-body = swagger_client.TagBody() # TagBody | A JSON object containing the necessary properties to create a new tag.
+api_instance = riffyn_nexus_sdk_v1.TagApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.TagBody() # TagBody | A JSON object containing the necessary properties to create a new tag.
 
 try:
+    # createTag
     api_response = api_instance.create_tag(body)
     pprint(api_response)
 except ApiException as e:
@@ -70,7 +71,7 @@ Name | Type | Description  | Notes
 # **delete_tag**
 > InlineResponse20018 delete_tag(id)
 
-
+deleteTag
 
 Delete an existing tag.
 
@@ -78,24 +79,25 @@ Delete an existing tag.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TagApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TagApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the tag.
 
 try:
+    # deleteTag
     api_response = api_instance.delete_tag(id)
     pprint(api_response)
 except ApiException as e:
@@ -126,7 +128,7 @@ Name | Type | Description  | Notes
 # **get_tag**
 > Tag get_tag(id)
 
-
+getTag
 
 Returns the detail for the specified tag.
 
@@ -134,24 +136,25 @@ Returns the detail for the specified tag.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TagApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TagApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the tag.
 
 try:
+    # getTag
     api_response = api_instance.get_tag(id)
     pprint(api_response)
 except ApiException as e:
@@ -182,7 +185,7 @@ Name | Type | Description  | Notes
 # **list_entities_for_tag**
 > EntitiesForTag list_entities_for_tag(id)
 
-
+listEntitiesForTag
 
 Returns all the entities with the specified tag.
 
@@ -190,24 +193,25 @@ Returns all the entities with the specified tag.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TagApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TagApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the tag.
 
 try:
+    # listEntitiesForTag
     api_response = api_instance.list_entities_for_tag(id)
     pprint(api_response)
 except ApiException as e:
@@ -238,7 +242,7 @@ Name | Type | Description  | Notes
 # **list_tags**
 > Tags list_tags(name=name, fields=fields, creator=creator, sort=sort, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, public=public)
 
-
+listTags
 
 Returns all tags for the user.
 
@@ -246,21 +250,21 @@ Returns all tags for the user.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TagApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.TagApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 name = 'name_example' # str | Limits the result set to items with this exact name (case insensitive). (optional)
 fields = 'fields_example' # str | Modifies the result set to exclude or include the specified fields. E.g: To return only the the name and created fields use `fields=name,created`. To exclude the name and created fields from the results use `fields=-name,-created`. Inclusion and exclusion options can not be set in the same query.  (optional)
 creator = 'creator_example' # str | Limits the result set to items created by the user with this username. (optional)
@@ -274,6 +278,7 @@ modified_after = 'modified_after_example' # str | Limits the result set to items
 public = true # bool | Toggles the result set between public and private data. Default value is `false` (optional)
 
 try:
+    # listTags
     api_response = api_instance.list_tags(name=name, fields=fields, creator=creator, sort=sort, limit=limit, offset=offset, before=before, after=after, modified_before=modified_before, modified_after=modified_after, public=public)
     pprint(api_response)
 except ApiException as e:
@@ -314,7 +319,7 @@ Name | Type | Description  | Notes
 # **update_tag**
 > Tag update_tag(body, id)
 
-
+updateTag
 
 Update an existing tag.
 
@@ -322,25 +327,26 @@ Update an existing tag.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.TagApi(swagger_client.ApiClient(configuration))
-body = swagger_client.TagBody() # TagBody | A JSON object containing the necessary properties to update a tag.
+api_instance = riffyn_nexus_sdk_v1.TagApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.TagBody() # TagBody | A JSON object containing the necessary properties to update a tag.
 id = 'id_example' # str | The `_id` of the tag.
 
 try:
+    # updateTag
     api_response = api_instance.update_tag(body, id)
     pprint(api_response)
 except ApiException as e:

@@ -1,21 +1,21 @@
-# swagger_client.ResourceTypeApi
+# riffyn_nexus_sdk_v1.ResourceTypeApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_resource_type**](ResourceTypeApi.md#create_resource_type) | **POST** /resource-type | 
-[**get_resource_type**](ResourceTypeApi.md#get_resource_type) | **GET** /resource-type/{id} | 
-[**get_role_for_resource_type**](ResourceTypeApi.md#get_role_for_resource_type) | **GET** /resource-type/{id}/role/{userId} | 
-[**list_resource_types**](ResourceTypeApi.md#list_resource_types) | **GET** /resource-types | 
-[**share_resource_type**](ResourceTypeApi.md#share_resource_type) | **POST** /resource-type/{id}/accessible-to | 
-[**unshare_resource_type**](ResourceTypeApi.md#unshare_resource_type) | **PATCH** /resource-type/{id}/accessible-to/{principalId} | 
-[**update_resource_type**](ResourceTypeApi.md#update_resource_type) | **PATCH** /resource-type/{id} | 
+[**create_resource_type**](ResourceTypeApi.md#create_resource_type) | **POST** /resource-type | createResourceType
+[**get_resource_type**](ResourceTypeApi.md#get_resource_type) | **GET** /resource-type/{id} | getResourceType
+[**get_role_for_resource_type**](ResourceTypeApi.md#get_role_for_resource_type) | **GET** /resource-type/{id}/role/{userId} | getRoleForResourceType
+[**list_resource_types**](ResourceTypeApi.md#list_resource_types) | **GET** /resource-types | listResourceTypes
+[**share_resource_type**](ResourceTypeApi.md#share_resource_type) | **POST** /resource-type/{id}/accessible-to | shareResourceType
+[**unshare_resource_type**](ResourceTypeApi.md#unshare_resource_type) | **PATCH** /resource-type/{id}/accessible-to/{principalId} | unshareResourceType
+[**update_resource_type**](ResourceTypeApi.md#update_resource_type) | **PATCH** /resource-type/{id} | updateResourceType
 
 # **create_resource_type**
 > ResourceType create_resource_type(body)
 
-
+createResourceType
 
 Create a new resource type.
 
@@ -23,24 +23,25 @@ Create a new resource type.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewResourceTypeBody() # NewResourceTypeBody | A JSON object containing the necessary properties to create a new resource type.
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewResourceTypeBody() # NewResourceTypeBody | A JSON object containing the necessary properties to create a new resource type.
 
 try:
+    # createResourceType
     api_response = api_instance.create_resource_type(body)
     pprint(api_response)
 except ApiException as e:
@@ -71,7 +72,7 @@ Name | Type | Description  | Notes
 # **get_resource_type**
 > ResourceType get_resource_type(id)
 
-
+getResourceType
 
 Returns the detail for the specified resource type.
 
@@ -79,24 +80,25 @@ Returns the detail for the specified resource type.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the resource type.
 
 try:
+    # getResourceType
     api_response = api_instance.get_resource_type(id)
     pprint(api_response)
 except ApiException as e:
@@ -127,7 +129,7 @@ Name | Type | Description  | Notes
 # **get_role_for_resource_type**
 > Role get_role_for_resource_type(id, user_id)
 
-
+getRoleForResourceType
 
 Returns the highest role for the specified user for the specific resource-type.
 
@@ -135,25 +137,26 @@ Returns the highest role for the specified user for the specific resource-type.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the resource type.
 user_id = 'user_id_example' # str | The `_id` of the user.
 
 try:
+    # getRoleForResourceType
     api_response = api_instance.get_role_for_resource_type(id, user_id)
     pprint(api_response)
 except ApiException as e:
@@ -185,7 +188,7 @@ Name | Type | Description  | Notes
 # **list_resource_types**
 > ResourceTypes list_resource_types(sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public, deleted=deleted)
 
-
+listResourceTypes
 
 List or search the user's resource types.
 
@@ -193,21 +196,21 @@ List or search the user's resource types.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `process_name,-label`).  (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
 offset = 56 # int | The number of records to skip from the beginning of the result set. If the offset value provided is greater than the number of available records, an empty result set will be returned.  (optional)
@@ -220,6 +223,7 @@ public = true # bool | Toggles the result set between public and private data. D
 deleted = true # bool | Toggles the result set between deleted and non-deleted items. Default value is `false`, to only show non-deleted items.  (optional)
 
 try:
+    # listResourceTypes
     api_response = api_instance.list_resource_types(sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, public=public, deleted=deleted)
     pprint(api_response)
 except ApiException as e:
@@ -259,7 +263,7 @@ Name | Type | Description  | Notes
 # **share_resource_type**
 > SuccessShared share_resource_type(body, id)
 
-
+shareResourceType
 
 Share an existing resource type with a user, team, or organization.
 
@@ -267,25 +271,26 @@ Share an existing resource type with a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ShareResourceTypeBody() # ShareResourceTypeBody | A JSON object containing the necessary properties to share the property.
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ShareResourceTypeBody() # ShareResourceTypeBody | A JSON object containing the necessary properties to share the property.
 id = 'id_example' # str | The `_id` of the resource type.
 
 try:
+    # shareResourceType
     api_response = api_instance.share_resource_type(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -317,7 +322,7 @@ Name | Type | Description  | Notes
 # **unshare_resource_type**
 > SuccessfullyUnshared unshare_resource_type(body, id, principal_id)
 
-
+unshareResourceType
 
 Revoke access to an existing resource type from a user, team, or organization.
 
@@ -325,26 +330,27 @@ Revoke access to an existing resource type from a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UnshareResourceTypeBody() # UnshareResourceTypeBody | A JSON object containing the necessary properties to revoke access to the reource type.
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UnshareResourceTypeBody() # UnshareResourceTypeBody | A JSON object containing the necessary properties to revoke access to the reource type.
 id = 'id_example' # str | The `_id` of the resource type.
 principal_id = 'principal_id_example' # str | The `_id` of the entity being revoked access to the resource type.
 
 try:
+    # unshareResourceType
     api_response = api_instance.unshare_resource_type(body, id, principal_id)
     pprint(api_response)
 except ApiException as e:
@@ -377,7 +383,7 @@ Name | Type | Description  | Notes
 # **update_resource_type**
 > ResourceType update_resource_type(body, id)
 
-
+updateResourceType
 
 Updates an existing resource type. You must provide the complete list of immutable properties and components. Old values will be deleted and replaced. Run data that's already been collected will not be deleted. 
 
@@ -385,25 +391,26 @@ Updates an existing resource type. You must provide the complete list of immutab
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceTypeApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdateResourceTypeBody() # UpdateResourceTypeBody | A JSON object containing the necessary properties to update the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceTypeApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdateResourceTypeBody() # UpdateResourceTypeBody | A JSON object containing the necessary properties to update the resource.
 id = 'id_example' # str | The `_id` of the resource type to update.
 
 try:
+    # updateResourceType
     api_response = api_instance.update_resource_type(body, id)
     pprint(api_response)
 except ApiException as e:

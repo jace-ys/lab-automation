@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **creator** | **str** | The username of the user that created this process | [optional] 
 **created** | [**Created**](Created.md) |  | [optional] 
 **org** | [**Org**](Org.md) |  | [optional] 
-**modified** | **datetime** |  | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 **version** | [**Version**](Version.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

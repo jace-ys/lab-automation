@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **creator** | **str** | The username of the user that created this run group | [optional] 
 **created** | [**Created**](Created.md) |  | [optional] 
 **label** | **str** |  | [optional] 
-**modified** | **datetime** | The last modified date of the run. | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

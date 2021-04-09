@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **accessible_to** | [**AccessibleTo**](AccessibleTo.md) |  | [optional] 
 **public** | **bool** | Indicates if the experiment is visible to all users. | [optional] 
 **modified_by** | [**ModifiedBy**](ModifiedBy.md) |  | [optional] 
-**modified** | [**list[ExperimentModified]**](ExperimentModified.md) | The last modified date of the experiment. | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 **status** | **str** | The status of the electronic signature. | [optional] 
 **compliant** | **str** | 21CRF compliant. | [optional] 
 **signers** | **list[str]** | The list of required signatures. | [optional] 

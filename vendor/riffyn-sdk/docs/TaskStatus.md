@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **status_message** | **str** | Message regarding the status of the task. For example: \&quot;task completed successfully\&quot; | [optional] 
 **comment_message** | **str** | The comment message displayed to the user. | [optional] 
 **stale** | **bool** | The￼&#x60;stale&#x60; field will only exist if relevant. A &#x60;stale&#x3D;true&#x60; flag means the experiment was modified since this task was created. The &#x60;stale&#x60; state is with respect to the requested &#x60;fileType&#x60; (defaults to &#x60;text/csv&#x60;). If you request &#x60;fileType&#x3D;binary/parquet&#x60;, the stale flag shows the status of the &#x60;binary/parquet&#x60; datatable. If you request &#x60;fileType&#x3D;text/csv&#x60; (the default) it shows the status of &#x60;text/csv&#x60; datatable. If stale is true, the results may not exist. The &#x60;stale&#x60; field will only exist if relevant.  | [optional] 
-**modified** | **datetime** | The last modified date of the task | [optional] 
+**modified** | [**Modified**](Modified.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

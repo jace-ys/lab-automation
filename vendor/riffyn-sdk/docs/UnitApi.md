@@ -1,21 +1,21 @@
-# swagger_client.UnitApi
+# riffyn_nexus_sdk_v1.UnitApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_unit**](UnitApi.md#create_unit) | **POST** /unit | 
-[**get_role_for_unit**](UnitApi.md#get_role_for_unit) | **GET** /unit/{id}/role/{userId} | 
-[**get_unit**](UnitApi.md#get_unit) | **GET** /unit/{id} | 
-[**list_units**](UnitApi.md#list_units) | **GET** /units | 
-[**share_unit**](UnitApi.md#share_unit) | **POST** /unit/{id}/accessible-to | 
-[**unshare_unit**](UnitApi.md#unshare_unit) | **PATCH** /unit/{id}/accessible-to/{principalId} | 
-[**update_unit**](UnitApi.md#update_unit) | **PATCH** /unit/{id} | 
+[**create_unit**](UnitApi.md#create_unit) | **POST** /unit | createUnit
+[**get_role_for_unit**](UnitApi.md#get_role_for_unit) | **GET** /unit/{id}/role/{userId} | getRoleForUnit
+[**get_unit**](UnitApi.md#get_unit) | **GET** /unit/{id} | getUnit
+[**list_units**](UnitApi.md#list_units) | **GET** /units | listUnits
+[**share_unit**](UnitApi.md#share_unit) | **POST** /unit/{id}/accessible-to | shareUnit
+[**unshare_unit**](UnitApi.md#unshare_unit) | **PATCH** /unit/{id}/accessible-to/{principalId} | unshareUnit
+[**update_unit**](UnitApi.md#update_unit) | **PATCH** /unit/{id} | updateUnit
 
 # **create_unit**
 > Unit create_unit(body)
 
-
+createUnit
 
 Create a new unit.
 
@@ -23,24 +23,25 @@ Create a new unit.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewUnitBody() # NewUnitBody | A JSON object containing the necessary properties to create a new unit.
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewUnitBody() # NewUnitBody | A JSON object containing the necessary properties to create a new unit.
 
 try:
+    # createUnit
     api_response = api_instance.create_unit(body)
     pprint(api_response)
 except ApiException as e:
@@ -71,7 +72,7 @@ Name | Type | Description  | Notes
 # **get_role_for_unit**
 > Role get_role_for_unit(id, user_id)
 
-
+getRoleForUnit
 
 Returns the highest role for the specified user for the specific unit.
 
@@ -79,25 +80,26 @@ Returns the highest role for the specified user for the specific unit.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the unit.
 user_id = 'user_id_example' # str | The `_id` of the user.
 
 try:
+    # getRoleForUnit
     api_response = api_instance.get_role_for_unit(id, user_id)
     pprint(api_response)
 except ApiException as e:
@@ -129,7 +131,7 @@ Name | Type | Description  | Notes
 # **get_unit**
 > Unit get_unit(id)
 
-
+getUnit
 
 Returns the detail for the specified unit.
 
@@ -137,24 +139,25 @@ Returns the detail for the specified unit.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the unit.
 
 try:
+    # getUnit
     api_response = api_instance.get_unit(id)
     pprint(api_response)
 except ApiException as e:
@@ -185,7 +188,7 @@ Name | Type | Description  | Notes
 # **list_units**
 > Units list_units(sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, deleted=deleted, public=public)
 
-
+listUnits
 
 List or search the user's units. 
 
@@ -193,21 +196,21 @@ List or search the user's units.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash(`-`). A comma separated list may be used to sort by more than one field (e.g. `name,-creator`).  (optional)
 limit = 56 # int | Limits the number of records returned to the given value. Maximum value is `1000`. Default value is `100`  (optional)
 offset = 56 # int | The number of records to skip from the beginning of the result set. If the offset value provided is greater than the number of available records, an empty result set will be returned.  (optional)
@@ -220,6 +223,7 @@ deleted = true # bool | Toggles the result set between deleted and non-deleted i
 public = true # bool | Toggles the result set between public and private data. Default value is `false` (optional)
 
 try:
+    # listUnits
     api_response = api_instance.list_units(sort=sort, limit=limit, offset=offset, before=before, after=after, fields=fields, name=name, creator=creator, deleted=deleted, public=public)
     pprint(api_response)
 except ApiException as e:
@@ -259,7 +263,7 @@ Name | Type | Description  | Notes
 # **share_unit**
 > SuccessfullyShare share_unit(body, id)
 
-
+shareUnit
 
 Share an existing unit with a user, team, or organization.
 
@@ -267,25 +271,26 @@ Share an existing unit with a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ShareUnitBody() # ShareUnitBody | A JSON object containing the necessary properties to share the unit.
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ShareUnitBody() # ShareUnitBody | A JSON object containing the necessary properties to share the unit.
 id = 'id_example' # str | The `_id` of the unit to share.
 
 try:
+    # shareUnit
     api_response = api_instance.share_unit(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -317,7 +322,7 @@ Name | Type | Description  | Notes
 # **unshare_unit**
 > SuccessfullyUnshared unshare_unit(body, id, principal_id)
 
-
+unshareUnit
 
 Revoke access to an existing unit from a user, team, or organization.
 
@@ -325,26 +330,27 @@ Revoke access to an existing unit from a user, team, or organization.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UnshareUnitBody() # UnshareUnitBody | A JSON object containing the necessary properties to revoke access to the unit.
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UnshareUnitBody() # UnshareUnitBody | A JSON object containing the necessary properties to revoke access to the unit.
 id = 'id_example' # str | The `_id` of the unit to be revoked access to.
 principal_id = 'principal_id_example' # str | The `_id` of the entity being revoked access to the unit.
 
 try:
+    # unshareUnit
     api_response = api_instance.unshare_unit(body, id, principal_id)
     pprint(api_response)
 except ApiException as e:
@@ -377,7 +383,7 @@ Name | Type | Description  | Notes
 # **update_unit**
 > Unit update_unit(body, id)
 
-
+updateUnit
 
 Update an existing unit.
 
@@ -385,25 +391,26 @@ Update an existing unit.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.UnitApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdateUnitBody() # UpdateUnitBody | A JSON object containing the necessary properties to update the unit.
+api_instance = riffyn_nexus_sdk_v1.UnitApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdateUnitBody() # UpdateUnitBody | A JSON object containing the necessary properties to update the unit.
 id = 'id_example' # str | The `_id` of the unit to update.
 
 try:
+    # updateUnit
     api_response = api_instance.update_unit(body, id)
     pprint(api_response)
 except ApiException as e:

@@ -1,10 +1,10 @@
 import re
 import threading
 
+import riffyn_nexus_sdk_v1 as api
 import requests
-import swagger_client as riffyn
 
-from lib import utils
+from lib import riffyn, utils
 from plugins.riffyn.config import PluginConfig
 from src.commands import command
 
@@ -22,10 +22,10 @@ class Watcher(threading.Thread):
         self.cache_key = cfg.CACHE_KEY
         self.poll_interval = cfg.POLL_INTERVAL
 
-        riffyn.Configuration().api_key["api-key"] = cfg.API_KEY
-        self.activity_api = riffyn.ProcessActivityApi()
-        self.experiment_api = riffyn.ExperimentApi()
-        self.run_api = riffyn.RunApi()
+        client = riffyn.Client.default(cfg.API_KEY)
+        self.activity_api = api.ProcessActivityApi(client)
+        self.experiment_api = api.ExperimentApi(client)
+        self.run_api = api.RunApi(client)
 
         self.partials = {}
 
@@ -76,7 +76,7 @@ class Watcher(threading.Thread):
 
                 self.logger.info("runs.poll.finished")
 
-            except riffyn.rest.ApiException as err:
+            except api.rest.ApiException as err:
                 self.logger.error(
                     "runs.poll.failed", status=err.status, error=err.reason
                 )
@@ -200,7 +200,8 @@ class Watcher(threading.Thread):
                     except command.InvalidAPIVersion:
                         continue
 
-            data = self.__get_experiment_data_raw(experiment_id, activity.id, run)
+            rdid = list(resources.keys())
+            data = self.__get_experiment_data_raw(experiment_id, activity.id, run, rdid)
             datatable = data["datatables"][run.id]["datatable"][0]
 
             # Iterate over each input in the activity and populate the commands' spec
@@ -227,7 +228,7 @@ class Watcher(threading.Thread):
 
         return list(commands.values())
 
-    def __get_experiment_data_raw(self, experiment_id, activity_id, run):
+    def __get_experiment_data_raw(self, experiment_id, activity_id, run, rdid):
         resp = requests.get(
             f"https://api.app.riffyn.com/v1/experiment/{experiment_id}/step/{activity_id}/data/raw",
             headers={"api-key": cfg.API_KEY},
@@ -235,6 +236,7 @@ class Watcher(threading.Thread):
                 "rgid": [run.group_id],
                 "rid": [run.id],
                 "rnum": [run.num],
+                "rdid": rdid,
             },
         )
         resp.raise_for_status()

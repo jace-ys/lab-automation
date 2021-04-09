@@ -1,21 +1,21 @@
-# swagger_client.AuthenticationApi
+# riffyn_nexus_sdk_v1.AuthenticationApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authenticate**](AuthenticationApi.md#authenticate) | **POST** /auth | 
-[**check_access_token**](AuthenticationApi.md#check_access_token) | **GET** /auth/access-token | 
-[**create_access_token**](AuthenticationApi.md#create_access_token) | **POST** /auth/access-token | 
-[**create_api_key**](AuthenticationApi.md#create_api_key) | **POST** /auth/api-key | 
-[**list_api_keys**](AuthenticationApi.md#list_api_keys) | **GET** /auth/api-keys | 
-[**update_api_key**](AuthenticationApi.md#update_api_key) | **PATCH** /auth/api-key/{id} | 
-[**verify**](AuthenticationApi.md#verify) | **POST** /auth/factor/{factorId}/verify | 
+[**authenticate**](AuthenticationApi.md#authenticate) | **POST** /auth | authenticate
+[**check_access_token**](AuthenticationApi.md#check_access_token) | **GET** /auth/access-token | checkAccessToken
+[**create_access_token**](AuthenticationApi.md#create_access_token) | **POST** /auth/access-token | createAccessToken
+[**create_api_key**](AuthenticationApi.md#create_api_key) | **POST** /auth/api-key | createApiKey
+[**list_api_keys**](AuthenticationApi.md#list_api_keys) | **GET** /auth/api-keys | listApiKeys
+[**update_api_key**](AuthenticationApi.md#update_api_key) | **PATCH** /auth/api-key/{id} | updateApiKey
+[**verify**](AuthenticationApi.md#verify) | **POST** /auth/factor/{factorId}/verify | verify
 
 # **authenticate**
 > AuthResponse authenticate()
 
-
+authenticate
 
 Validates the user from a `username` and `password` with `Basic Authentication`. Returns a JSON object with a `status`, `API Key`, `accessToken`, `accessTokenExpiresAt`. If MultiFactor Authentication is required, the JSON object will only have a `stateToken` and the `factorId` required in the `verify` endpoint along with the `status` and an `expiresAt` field.
 
@@ -23,18 +23,19 @@ Validates the user from a `username` and `password` with `Basic Authentication`.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 # Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 
 try:
+    # authenticate
     api_response = api_instance.authenticate()
     pprint(api_response)
 except ApiException as e:
@@ -62,7 +63,7 @@ This endpoint does not need any parameter.
 # **check_access_token**
 > AccessTokenInfo check_access_token(access_token=access_token)
 
-
+checkAccessToken
 
 Checks the validity of the `access-token` used in the headers of the request.
 
@@ -70,15 +71,16 @@ Checks the validity of the `access-token` used in the headers of the request.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi()
 access_token = 'access_token_example' # str | The `access-token` to be checked. (optional)
 
 try:
+    # checkAccessToken
     api_response = api_instance.check_access_token(access_token=access_token)
     pprint(api_response)
 except ApiException as e:
@@ -109,7 +111,7 @@ No authorization required
 # **create_access_token**
 > AccessToken create_access_token(body=body)
 
-
+createAccessToken
 
 Generates an `access-token` to be used to access the same endpoints that support apiKey authentication. Default lifetime for the access token in 30 minutes. A `time` parameter can be sent to set the lifetime up to 6 hours. 
 
@@ -117,24 +119,25 @@ Generates an `access-token` to be used to access the same endpoints that support
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AccessTokenBody() # AccessTokenBody | A JSON object containing the `time` describing the amount of time, in seconds, the generated access token should last. Maximum lifetime is 6 hours and the default is 30 minutes. ) (optional)
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AccessTokenBody() # AccessTokenBody | A JSON object containing the `time` describing the amount of time, in seconds, the generated access token should last. Maximum lifetime is 6 hours and the default is 30 minutes. ) (optional)
 
 try:
+    # createAccessToken
     api_response = api_instance.create_access_token(body=body)
     pprint(api_response)
 except ApiException as e:
@@ -165,7 +168,7 @@ Name | Type | Description  | Notes
 # **create_api_key**
 > NewApiKey create_api_key(body)
 
-
+createApiKey
 
 Generate a new `api-key` to be used to access any of the endpoints that support apiKey authentication. This API key will not be displayed again, please store it securely. The key must be named by passing a `name` in the `body`.
 
@@ -173,24 +176,25 @@ Generate a new `api-key` to be used to access any of the endpoints that support 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the `name` for the new api key.
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the `name` for the new api key.
 
 try:
+    # createApiKey
     api_response = api_instance.create_api_key(body)
     pprint(api_response)
 except ApiException as e:
@@ -221,7 +225,7 @@ Name | Type | Description  | Notes
 # **list_api_keys**
 > ApiKeys list_api_keys()
 
-
+listApiKeys
 
 Returns the information associated with the api keys for the user. Will not include the api key itself. 
 
@@ -229,23 +233,24 @@ Returns the information associated with the api keys for the user. Will not incl
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 
 try:
+    # listApiKeys
     api_response = api_instance.list_api_keys()
     pprint(api_response)
 except ApiException as e:
@@ -273,7 +278,7 @@ This endpoint does not need any parameter.
 # **update_api_key**
 > UpdateApiKeyResponse update_api_key(body, id)
 
-
+updateApiKey
 
 Rename an api key. A new `name` must be passed in the `body`. The `name` must be unique.
 
@@ -281,25 +286,26 @@ Rename an api key. A new `name` must be passed in the `body`. The `name` must be
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the new name for the api key.
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewApiKeyBody() # NewApiKeyBody | A JSON object containing the new name for the api key.
 id = 'id_example' # str | The `_id` of the api-key.
 
 try:
+    # updateApiKey
     api_response = api_instance.update_api_key(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -331,7 +337,7 @@ Name | Type | Description  | Notes
 # **verify**
 > VerifyResponse verify(body, factor_id)
 
-
+verify
 
 For MultiFactor Authentication only. Validates the `passCode` from Google Authenticator and returns a JSON object with the access token, the final status of the multi-factor authentication request, and the API key. 
 
@@ -339,20 +345,21 @@ For MultiFactor Authentication only. Validates the `passCode` from Google Authen
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 # Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
-body = swagger_client.VerifyBody() # VerifyBody | A JSON object containing the stateToken, factorId, and passCode to authenticate. When using the SDK pass in the values only (i.e. swagger_client.VerifyBody(passCode, state_token) ).
-factor_id = 'factor_id_example' # str | The id of the factor type being checked. Generated by the [authenticate](/#api-Authentication-authenticate) endpoint.
+api_instance = riffyn_nexus_sdk_v1.AuthenticationApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.VerifyBody() # VerifyBody | A JSON object containing the stateToken, factorId, and passCode to authenticate. When using the SDK pass in the values only (i.e. swagger_client.VerifyBody(passCode, state_token) ).
+factor_id = 'factor_id_example' # str | The id of the factor type being checked. Generated by the [authenticate](#/authentication/authenticate) endpoint.
 
 try:
+    # verify
     api_response = api_instance.verify(body, factor_id)
     pprint(api_response)
 except ApiException as e:
@@ -364,7 +371,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**VerifyBody**](VerifyBody.md)| A JSON object containing the stateToken, factorId, and passCode to authenticate. When using the SDK pass in the values only (i.e. swagger_client.VerifyBody(passCode, state_token) ). | 
- **factor_id** | **str**| The id of the factor type being checked. Generated by the [authenticate](/#api-Authentication-authenticate) endpoint. | 
+ **factor_id** | **str**| The id of the factor type being checked. Generated by the [authenticate](#/authentication/authenticate) endpoint. | 
 
 ### Return type
 

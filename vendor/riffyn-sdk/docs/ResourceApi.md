@@ -1,31 +1,31 @@
-# swagger_client.ResourceApi
+# riffyn_nexus_sdk_v1.ResourceApi
 
-All URIs are relative to *https://api.riffyn.com/v1*
+All URIs are relative to *deployment_url/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_component_to_resource**](ResourceApi.md#add_component_to_resource) | **PUT** /resource/{id}/component | 
-[**add_property_to_component**](ResourceApi.md#add_property_to_component) | **PUT** /resource/{id}/component/{componentId}/property | 
-[**add_property_to_resource**](ResourceApi.md#add_property_to_resource) | **PUT** /resource/{id}/property | 
-[**create_resource**](ResourceApi.md#create_resource) | **POST** /resource | 
-[**delete_component_from_resource**](ResourceApi.md#delete_component_from_resource) | **DELETE** /resource/{id}/component/{componentId} | 
-[**delete_property_from_resource**](ResourceApi.md#delete_property_from_resource) | **DELETE** /resource/{id}/property/{propertyId} | 
-[**delete_property_of_component**](ResourceApi.md#delete_property_of_component) | **DELETE** /resource/{id}/component/{componentId}/property/{propertyId} | 
-[**delete_resource**](ResourceApi.md#delete_resource) | **DELETE** /resource/{id} | 
-[**get_resource**](ResourceApi.md#get_resource) | **GET** /resource/{id} | 
-[**get_resource_status**](ResourceApi.md#get_resource_status) | **GET** /resource/{id}/status | 
-[**get_role_for_resource**](ResourceApi.md#get_role_for_resource) | **GET** /resource/{id}/role/{userId} | 
-[**list_resources**](ResourceApi.md#list_resources) | **GET** /resources | 
-[**share_resource**](ResourceApi.md#share_resource) | **POST** /resource/{id}/accessible-to | 
-[**unshare_resource**](ResourceApi.md#unshare_resource) | **PATCH** /resource/{id}/accessible-to/{principalId} | 
-[**update_property_of_component**](ResourceApi.md#update_property_of_component) | **PATCH** /resource/{id}/component/{componentId}/property/{propertyId} | 
-[**update_property_of_resource**](ResourceApi.md#update_property_of_resource) | **PATCH** /resource/{id}/property/{propertyId} | 
-[**update_resource**](ResourceApi.md#update_resource) | **PATCH** /resource/{id} | 
+[**add_component_to_resource**](ResourceApi.md#add_component_to_resource) | **PUT** /resource/{id}/component | AddComponentToResource
+[**add_property_to_component**](ResourceApi.md#add_property_to_component) | **PUT** /resource/{id}/component/{componentId}/property | AddPropertyToComponent
+[**add_property_to_resource**](ResourceApi.md#add_property_to_resource) | **PUT** /resource/{id}/property | AddPropertyToResource
+[**create_resource**](ResourceApi.md#create_resource) | **POST** /resource | createResource
+[**delete_component_from_resource**](ResourceApi.md#delete_component_from_resource) | **DELETE** /resource/{id}/component/{componentId} | DeleteComponentFromResource
+[**delete_property_from_resource**](ResourceApi.md#delete_property_from_resource) | **DELETE** /resource/{id}/property/{propertyId} | deletePropertyFromResource
+[**delete_property_of_component**](ResourceApi.md#delete_property_of_component) | **DELETE** /resource/{id}/component/{componentId}/property/{propertyId} | DeletePropertyOfComponent
+[**delete_resource**](ResourceApi.md#delete_resource) | **DELETE** /resource/{id} | deleteResource
+[**get_resource**](ResourceApi.md#get_resource) | **GET** /resource/{id} | getResource
+[**get_resource_status**](ResourceApi.md#get_resource_status) | **GET** /resource/{id}/status | getResourceStatus
+[**get_role_for_resource**](ResourceApi.md#get_role_for_resource) | **GET** /resource/{id}/role/{userId} | getRoleForResource
+[**list_resources**](ResourceApi.md#list_resources) | **GET** /resources | listResources
+[**share_resource**](ResourceApi.md#share_resource) | **POST** /resource/{id}/accessible-to | shareResource
+[**unshare_resource**](ResourceApi.md#unshare_resource) | **PATCH** /resource/{id}/accessible-to/{principalId} | unshareResource
+[**update_property_of_component**](ResourceApi.md#update_property_of_component) | **PATCH** /resource/{id}/component/{componentId}/property/{propertyId} | UpdatePropertyOfComponent
+[**update_property_of_resource**](ResourceApi.md#update_property_of_resource) | **PATCH** /resource/{id}/property/{propertyId} | UpdatePropertyOfResource
+[**update_resource**](ResourceApi.md#update_resource) | **PATCH** /resource/{id} | updateResource
 
 # **add_component_to_resource**
 > InlineResponse2003 add_component_to_resource(body, id)
 
-
+AddComponentToResource
 
 Add a component to an existing resource. 
 
@@ -33,25 +33,26 @@ Add a component to an existing resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddComponentToResourceBody() # AddComponentToResourceBody | A JSON object containing the necessary properties to add a property to the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddComponentToResourceBody() # AddComponentToResourceBody | A JSON object containing the necessary properties to add a property to the resource.
 id = 'id_example' # str | The `_id` of the resource the component is being added to.
 
 try:
+    # AddComponentToResource
     api_response = api_instance.add_component_to_resource(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -83,7 +84,7 @@ Name | Type | Description  | Notes
 # **add_property_to_component**
 > PropertyAddedToComponent add_property_to_component(body, id, component_id)
 
-
+AddPropertyToComponent
 
 Add a property to a component to a resource. 
 
@@ -91,26 +92,27 @@ Add a property to a component to a resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddPropertyToComponentOfResourceBody() # AddPropertyToComponentOfResourceBody | A JSON object containing the necessary properties to add a property to the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddPropertyToComponentOfResourceBody() # AddPropertyToComponentOfResourceBody | A JSON object containing the necessary properties to add a property to the resource.
 id = 'id_example' # str | The `_id` of the resource to add a component to.
 component_id = 'component_id_example' # str | The `_id` of the component the property will be added to.
 
 try:
+    # AddPropertyToComponent
     api_response = api_instance.add_property_to_component(body, id, component_id)
     pprint(api_response)
 except ApiException as e:
@@ -143,7 +145,7 @@ Name | Type | Description  | Notes
 # **add_property_to_resource**
 > PropertyAddedToResource add_property_to_resource(body, id)
 
-
+AddPropertyToResource
 
 Add a property to an existing resource. Only immutable properties can be added to the resource with this method. 
 
@@ -151,25 +153,26 @@ Add a property to an existing resource. Only immutable properties can be added t
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AddPropertyToResourceBody() # AddPropertyToResourceBody | A JSON object containing the necessary properties to add a property to the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.AddPropertyToResourceBody() # AddPropertyToResourceBody | A JSON object containing the necessary properties to add a property to the resource.
 id = 'id_example' # str | The `_id` of the resource to add a property to.
 
 try:
+    # AddPropertyToResource
     api_response = api_instance.add_property_to_resource(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -201,7 +204,7 @@ Name | Type | Description  | Notes
 # **create_resource**
 > Resource create_resource(body)
 
-
+createResource
 
 Create a new resource. It creates a new resource in inventory.
 
@@ -209,24 +212,25 @@ Create a new resource. It creates a new resource in inventory.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NewResourceBody() # NewResourceBody | A JSON object containing the necessary properties to create a new resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.NewResourceBody() # NewResourceBody | A JSON object containing the necessary properties to create a new resource.
 
 try:
+    # createResource
     api_response = api_instance.create_resource(body)
     pprint(api_response)
 except ApiException as e:
@@ -257,7 +261,7 @@ Name | Type | Description  | Notes
 # **delete_component_from_resource**
 > SuccessfullyDelete delete_component_from_resource(body, id, component_id)
 
-
+DeleteComponentFromResource
 
 Delete a component from an existing resource.
 
@@ -265,26 +269,27 @@ Delete a component from an existing resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 body = NULL # object | A JSON object containing the necessary properties to delete a component from the resource.
 id = 'id_example' # str | The `_id` of the resource related to a component.
 component_id = 'component_id_example' # str | The `_id` of the component.
 
 try:
+    # DeleteComponentFromResource
     api_response = api_instance.delete_component_from_resource(body, id, component_id)
     pprint(api_response)
 except ApiException as e:
@@ -317,7 +322,7 @@ Name | Type | Description  | Notes
 # **delete_property_from_resource**
 > SuccessfullyDelete delete_property_from_resource(body, id, property_id)
 
-
+deletePropertyFromResource
 
 Removes a property from the resource.
 
@@ -325,26 +330,27 @@ Removes a property from the resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 body = NULL # object | A JSON object containing the necessary properties to delete a property from the resource.
 id = 'id_example' # str | The `_id` of the resource related to a component.
 property_id = 'property_id_example' # str | The `_id` of the property.
 
 try:
+    # deletePropertyFromResource
     api_response = api_instance.delete_property_from_resource(body, id, property_id)
     pprint(api_response)
 except ApiException as e:
@@ -377,7 +383,7 @@ Name | Type | Description  | Notes
 # **delete_property_of_component**
 > SuccessfullyDelete delete_property_of_component(body, id, component_id, property_id)
 
-
+DeletePropertyOfComponent
 
 Delete a property of a component of an existing resource.
 
@@ -385,27 +391,28 @@ Delete a property of a component of an existing resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 body = NULL # object | A JSON object containing the necessary properties to delete a property of a component from the resource.
 id = 'id_example' # str | The `_id` of the resource related to a component.
 component_id = 'component_id_example' # str | The `_id` of the component.
 property_id = 'property_id_example' # str | The `_id` of the property.
 
 try:
+    # DeletePropertyOfComponent
     api_response = api_instance.delete_property_of_component(body, id, component_id, property_id)
     pprint(api_response)
 except ApiException as e:
@@ -439,7 +446,7 @@ Name | Type | Description  | Notes
 # **delete_resource**
 > InlineResponse20017 delete_resource(id)
 
-
+deleteResource
 
 Deletes existing resource from inventory. The deleted resource will remain in experiments where it had been used. It will no longer be available for future experiments. 
 
@@ -447,24 +454,25 @@ Deletes existing resource from inventory. The deleted resource will remain in ex
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the resource to be deleted.
 
 try:
+    # deleteResource
     api_response = api_instance.delete_resource(id)
     pprint(api_response)
 except ApiException as e:
@@ -495,7 +503,7 @@ Name | Type | Description  | Notes
 # **get_resource**
 > Resource get_resource(id)
 
-
+getResource
 
 Returns the detail for the specified resource.
 
@@ -503,24 +511,25 @@ Returns the detail for the specified resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the resource.
 
 try:
+    # getResource
     api_response = api_instance.get_resource(id)
     pprint(api_response)
 except ApiException as e:
@@ -551,7 +560,7 @@ Name | Type | Description  | Notes
 # **get_resource_status**
 > ResourceStatus get_resource_status(id)
 
-
+getResourceStatus
 
 Returns the status for the specified resource. Provides a list of all experiments in which the specified resource has been used, along with the latest active step (activity), and/or the latest stopped step (activity)
 
@@ -559,24 +568,25 @@ Returns the status for the specified resource. Provides a list of all experiment
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the resource.
 
 try:
+    # getResourceStatus
     api_response = api_instance.get_resource_status(id)
     pprint(api_response)
 except ApiException as e:
@@ -607,7 +617,7 @@ Name | Type | Description  | Notes
 # **get_role_for_resource**
 > Role get_role_for_resource(id, user_id)
 
-
+getRoleForResource
 
 Returns the highest role for the specified user for the specific resource.
 
@@ -615,25 +625,26 @@ Returns the highest role for the specified user for the specific resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 id = 'id_example' # str | The `_id` of the resource.
 user_id = 'user_id_example' # str | The `_id` of the user.
 
 try:
+    # getRoleForResource
     api_response = api_instance.get_role_for_resource(id, user_id)
     pprint(api_response)
 except ApiException as e:
@@ -665,7 +676,7 @@ Name | Type | Description  | Notes
 # **list_resources**
 > Resources list_resources(sort=sort, fields=fields, name=name, limit=limit, offset=offset, before=before, after=after, creator=creator, public=public, deleted=deleted, inventory=inventory, resource_type_id=resource_type_id, experiment_id=experiment_id, activity_id=activity_id, run_id=run_id, top_group_id=top_group_id, runlabel=runlabel, label=label, shareable=shareable)
 
-
+listResources
 
 List or search the user's resource inventory.
 
@@ -673,21 +684,21 @@ List or search the user's resource inventory.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
 sort = ['sort_example'] # list[str] | The sort order to use for the result set. To sort in descending order, prefix the field name with a dash (`-`). A comma separated list may be used to sort by more than one field (e.g. `process_name,-label`.  (optional)
 fields = 'fields_example' # str | Modifies the result set to exclude or include the specified fields. E.g: To return only the the name and created fields use `fields=name,created`. To exclude the name and created fields from the results use `fields=-name,-created`. Inclusion and exclusion options can not be set in the same query.  (optional)
 name = 'name_example' # str | Limits the result set to items with this exact name (case insensitive). (optional)
@@ -709,6 +720,7 @@ label = 'label_example' # str | Limits the result set to the specified label (op
 shareable = true # bool | Limits the records returned to the ones that are shareable. (optional)
 
 try:
+    # listResources
     api_response = api_instance.list_resources(sort=sort, fields=fields, name=name, limit=limit, offset=offset, before=before, after=after, creator=creator, public=public, deleted=deleted, inventory=inventory, resource_type_id=resource_type_id, experiment_id=experiment_id, activity_id=activity_id, run_id=run_id, top_group_id=top_group_id, runlabel=runlabel, label=label, shareable=shareable)
     pprint(api_response)
 except ApiException as e:
@@ -757,7 +769,7 @@ Name | Type | Description  | Notes
 # **share_resource**
 > SuccessShared share_resource(body, id)
 
-
+shareResource
 
 Share an existing resource with a user, team, or organization
 
@@ -765,25 +777,26 @@ Share an existing resource with a user, team, or organization
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ShareResourceBody() # ShareResourceBody | A JSON object containing the necessary properties to share the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.ShareResourceBody() # ShareResourceBody | A JSON object containing the necessary properties to share the resource.
 id = 'id_example' # str | The `_id` of the resource
 
 try:
+    # shareResource
     api_response = api_instance.share_resource(body, id)
     pprint(api_response)
 except ApiException as e:
@@ -815,7 +828,7 @@ Name | Type | Description  | Notes
 # **unshare_resource**
 > SuccessfullyUnshared unshare_resource(body, id, principal_id)
 
-
+unshareResource
 
 Revoke access to an existing resource from a user, team, or organization
 
@@ -823,26 +836,27 @@ Revoke access to an existing resource from a user, team, or organization
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UnshareResourceBody() # UnshareResourceBody | A JSON object containing the necessary properties to revoke access to the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UnshareResourceBody() # UnshareResourceBody | A JSON object containing the necessary properties to revoke access to the resource.
 id = 'id_example' # str | The `_id` of the resource.
 principal_id = 'principal_id_example' # str | The `_id` of the entity being revoked access to the resource.
 
 try:
+    # unshareResource
     api_response = api_instance.unshare_resource(body, id, principal_id)
     pprint(api_response)
 except ApiException as e:
@@ -875,7 +889,7 @@ Name | Type | Description  | Notes
 # **update_property_of_component**
 > ComponentPropertyUpdated update_property_of_component(body, id, component_id, property_id)
 
-
+UpdatePropertyOfComponent
 
 Updates the property of a component of an existing resource. 
 
@@ -883,27 +897,28 @@ Updates the property of a component of an existing resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdatePropertyOfComponentOfResourceBody() # UpdatePropertyOfComponentOfResourceBody | A JSON object containing the necessary properties to update the property of a component of a resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdatePropertyOfComponentOfResourceBody() # UpdatePropertyOfComponentOfResourceBody | A JSON object containing the necessary properties to update the property of a component of a resource.
 id = 'id_example' # str | The `_id` of the resource related to a component.
 component_id = 'component_id_example' # str | The `_id` of the component.
 property_id = 'property_id_example' # str | The `_id` of the property.
 
 try:
+    # UpdatePropertyOfComponent
     api_response = api_instance.update_property_of_component(body, id, component_id, property_id)
     pprint(api_response)
 except ApiException as e:
@@ -937,7 +952,7 @@ Name | Type | Description  | Notes
 # **update_property_of_resource**
 > PropertyUpdated update_property_of_resource(body, id, property_id)
 
-
+UpdatePropertyOfResource
 
 Updates the property of an existing resource. 
 
@@ -945,26 +960,27 @@ Updates the property of an existing resource.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdatePropertyOfResourceBody() # UpdatePropertyOfResourceBody | A JSON object containing the necessary properties to update a property of the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdatePropertyOfResourceBody() # UpdatePropertyOfResourceBody | A JSON object containing the necessary properties to update a property of the resource.
 id = 'id_example' # str | The `_id` of the resource related to a component.
 property_id = 'property_id_example' # str | The `_id` of the property.
 
 try:
+    # UpdatePropertyOfResource
     api_response = api_instance.update_property_of_resource(body, id, property_id)
     pprint(api_response)
 except ApiException as e:
@@ -997,7 +1013,7 @@ Name | Type | Description  | Notes
 # **update_resource**
 > Resource update_resource(body, id)
 
-
+updateResource
 
 Updates an existing resource. You must provide the complete list of immutable properties and components. Old values will be deleted and replaced. Run data that's already been collected will not be deleted. 
 
@@ -1005,25 +1021,26 @@ Updates an existing resource. You must provide the complete list of immutable pr
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import riffyn_nexus_sdk_v1
+from riffyn_nexus_sdk_v1.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: apiKey
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['api-key'] = 'Bearer'# Configure HTTP basic authorization: basicAuth
-configuration = swagger_client.Configuration()
+configuration = riffyn_nexus_sdk_v1.Configuration()
 configuration.username = 'YOUR_USERNAME'
 configuration.password = 'YOUR_PASSWORD'
 
 # create an instance of the API class
-api_instance = swagger_client.ResourceApi(swagger_client.ApiClient(configuration))
-body = swagger_client.UpdateResourceBody() # UpdateResourceBody | A JSON object containing the necessary properties to update the resource.
+api_instance = riffyn_nexus_sdk_v1.ResourceApi(riffyn_nexus_sdk_v1.ApiClient(configuration))
+body = riffyn_nexus_sdk_v1.UpdateResourceBody() # UpdateResourceBody | A JSON object containing the necessary properties to update the resource.
 id = 'id_example' # str | The `_id` of the resource to update.
 
 try:
+    # updateResource
     api_response = api_instance.update_resource(body, id)
     pprint(api_response)
 except ApiException as e:

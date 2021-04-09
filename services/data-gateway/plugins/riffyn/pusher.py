@@ -1,9 +1,9 @@
 from collections import defaultdict
 
+import riffyn_nexus_sdk_v1 as api
 import requests
-import swagger_client as riffyn
 
-from lib import utils
+from lib import riffyn, utils
 from plugins.riffyn.config import PluginConfig
 
 cfg = PluginConfig()
@@ -20,10 +20,10 @@ class Pusher:
         self.logger = logger
         self.control_tower_addr = cfg.CONTROL_TOWER_ADDR
 
-        riffyn.Configuration().api_key["api-key"] = cfg.API_KEY
-        self.activity_api = riffyn.ProcessActivityApi()
-        self.experiment_api = riffyn.ExperimentApi()
-        self.run_api = riffyn.RunApi()
+        client = riffyn.Client.default(cfg.API_KEY)
+        self.activity_api = api.ProcessActivityApi(client)
+        self.experiment_api = api.ExperimentApi(client)
+        self.run_api = api.RunApi(client)
 
     def push(self, payload):
         try:
@@ -52,7 +52,7 @@ class Pusher:
             self.logger.error("data.push.skipped", uuid=payload.uuid)
             return  # No-op
 
-        except riffyn.rest.ApiException as err:
+        except api.rest.ApiException as err:
             self.logger.error(
                 "data.push.failed",
                 uuid=payload.uuid,
