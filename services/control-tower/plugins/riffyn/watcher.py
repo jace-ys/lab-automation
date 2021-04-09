@@ -37,6 +37,13 @@ class Watcher(threading.Thread):
                 runs = self.__fetch_run_statuses()
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
+                        self.logger.info(
+                            "run.started",
+                            experiment_id=experiment_id,
+                            run_id=run.id,
+                            run_name=run.name,
+                        )
+
                         complete, plate = self.__aggregate(run)
                         if len(complete) > 0:
                             if plate:
@@ -52,26 +59,21 @@ class Watcher(threading.Thread):
                                 self.queue.put(cmd)
 
                         self.cache.hset(self.cache_key, run.id, "")
-                        self.logger.info(
-                            "run.started",
-                            experiment_id=experiment_id,
-                            run_id=run.id,
-                            run_name=run.name,
-                        )
 
                     for run in runs["stopped"]:
-                        partial = self.__is_partial(run)
-                        if partial:
-                            key, rows, cols, idx = partial
-                            if key in self.partials:
-                                self.partials[key][idx] = None
-
                         self.logger.info(
                             "run.stopped",
                             experiment_id=experiment_id,
                             run_id=run.id,
                             run_name=run.name,
                         )
+
+                        partial = self.__is_partial(run)
+                        if partial:
+                            key, rows, cols, idx = partial
+                            if key in self.partials:
+                                self.partials[key][idx] = None
+
                         self.cache.hdel(self.cache_key, run.id)
 
                 self.logger.info("runs.poll.finished")
@@ -147,97 +149,91 @@ class Watcher(threading.Thread):
         return (key, int(rows), int(cols), int(idx) - 1)
 
     def __build_commands(self, experiment_id, runs, plate=None):
-        # Create a mapping of resource IDs -> names
-        resources = {}
-        # Create a mapping of API version -> command objects
-        commands = {}
+        activity = self.activity_api.get_activity(experiment_id, runs[0].activity_id)
+        data = self.__get_experiment_data_raw(experiment_id, activity.id, runs)
+        commands = self.__init_commands(experiment_id, activity, runs, plate)
 
-        for idx, run in enumerate(runs):
-            activity = self.activity_api.get_activity(experiment_id, run.activity_id)
-
-            # All runs in an aggregated shape should have the same shape so use the first
-            # in each set as the command template
-            if idx == 0:
-                # Iterate over each input in the run and populate the mappings
-                for input in run.inputs:
-                    try:
-                        api_version = input.resource_name
-                        protocol = activity.name.replace(" ", "")
-
-                        cmd = command.Command(api_version, protocol)
-                        if len(runs) > 1:
-                            cmd.plate(*plate)
-                            # Pre-fill the spec with an array equal to the number of runs
-                            cmd.spec = [{}] * len(runs)
-                            cmd.metadata(
-                                "riffyn",
-                                list(
-                                    map(
-                                        lambda run: {
-                                            "experimentId": experiment_id,
-                                            "activityId": run.activity_id,
-                                            "runId": run.id,
-                                        },
-                                        runs,
-                                    )
-                                ),
-                            )
-                            commands[api_version] = cmd
-                        else:
-                            cmd.metadata(
-                                "riffyn",
-                                {
-                                    "experimentId": experiment_id,
-                                    "activityId": run.activity_id,
-                                    "runId": run.id,
-                                },
-                            )
-
-                        # Track created command and its associated API version
-                        commands[api_version] = cmd
-                        resources[input.resource_def_id] = api_version
-
-                    except command.InvalidAPIVersion:
-                        continue
-
-            rdid = list(resources.keys())
-            data = self.__get_experiment_data_raw(experiment_id, activity.id, run, rdid)
-            datatable = data["datatables"][run.id]["datatable"][0]
-
-            # Iterate over each input in the activity and populate the commands' spec
+        for api_version, (cmd, resources) in commands.items():
+            properties = {}
             for input in activity.inputs:
-                properties = {}
                 if input.id in resources:
-                    # Get the API version for the resource
-                    api_version = resources[input.id]
-
                     for property in input.properties:
                         header = f"{activity.id} | input | {input.id} | {property.id} | value"
-                        if datatable[header] is not None:
-                            properties[
-                                utils.str_to_camelcase(property.name)
-                            ] = datatable[header]
+                        properties[utils.str_to_camelcase(property.name)] = header
 
-                if isinstance(commands[api_version].spec, list):
-                    commands[api_version].spec[idx] = {
-                        **commands[api_version].spec[idx],
-                        **properties,
-                    }
+            for idx, run in enumerate(runs):
+                spec = {}
+                for property, header in properties.items():
+                    datatable = data["datatables"][run.id]["datatable"][0]
+                    value = datatable[header]
+
+                    if value is not None:
+                        spec[property] = value
+
+                if isinstance(cmd.spec, list):
+                    cmd.spec[idx] = spec
                 else:
-                    commands[api_version].spec.update(properties)
+                    cmd.spec = spec
 
-        return list(commands.values())
+        return [cmd for (cmd, resources) in commands.values()]
 
-    def __get_experiment_data_raw(self, experiment_id, activity_id, run, rdid):
+    def __get_experiment_data_raw(self, experiment_id, activity_id, runs):
         resp = requests.get(
             f"https://api.app.riffyn.com/v1/experiment/{experiment_id}/step/{activity_id}/data/raw",
             headers={"api-key": cfg.API_KEY},
             params={
-                "rgid": [run.group_id],
-                "rid": [run.id],
-                "rnum": [run.num],
-                "rdid": rdid,
+                "rgid": list(map(lambda run: run.group_id, runs)),
+                "rid": list(map(lambda run: run.id, runs)),
+                "rnum": list(map(lambda run: run.num, runs)),
             },
         )
         resp.raise_for_status()
         return resp.json()
+
+    def __init_commands(self, experiment_id, activity, runs, plate=None):
+        # Create a mapping of API version -> (command, resource IDs)
+        commands = {}
+        protocol = activity.name.replace(" ", "")
+
+        for input in runs[0].inputs:
+            try:
+                api_version = input.resource_name
+                if api_version not in commands:
+                    cmd = command.Command(api_version, protocol)
+
+                    if plate:
+                        cmd.plate(*plate)
+                        # Pre-fill the spec with an array equal to the number of runs
+                        cmd.spec = [None] * len(runs)
+                        cmd.metadata(
+                            "riffyn",
+                            list(
+                                map(
+                                    lambda run: {
+                                        "experimentId": experiment_id,
+                                        "activityId": activity.id,
+                                        "runId": run.id,
+                                    },
+                                    runs,
+                                )
+                            ),
+                        )
+
+                    else:
+                        cmd.metadata(
+                            "riffyn",
+                            {
+                                "experimentId": experiment_id,
+                                "activityId": run.activity_id,
+                                "runId": run.id,
+                            },
+                        )
+
+                    commands[api_version] = (cmd, [])
+
+                commands[api_version][1].append(input.resource_def_id)
+
+            except command.InvalidAPIVersion:
+                continue
+
+        return commands
