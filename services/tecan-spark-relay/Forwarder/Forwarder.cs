@@ -25,7 +25,7 @@ namespace TecanSparkRelay.Forwarder
         {
             var payload = JsonConvert.SerializeObject(new Dictionary<string, dynamic>{
                 {"uuid", uuid},
-                {"data", row}
+                {"row", row}
             });
 
             try
@@ -43,7 +43,7 @@ namespace TecanSparkRelay.Forwarder
         {
             var payload = JsonConvert.SerializeObject(new Dictionary<string, dynamic>{
                 {"uuid", uuid},
-                {"data", rows}
+                {"rows", rows}
             });
 
             try
@@ -63,10 +63,9 @@ namespace TecanSparkRelay.Forwarder
             using (TextReader reader = new StringReader(resultsXML))
             {
                 System.MeasurementResultData result = (System.MeasurementResultData)serializer.Deserialize(reader);
-                List<DataRow> rows = result.Absorbance.DataLabel.ResultContext.Select(row =>
+                List<DataRow> rows = result.Absorbance.DataLabel.ResultContext.Select(result =>
                 {
-                    var data = row.MeasurementResult;
-                    return new DataRow(data.TimeStamp, data.Value);
+                    return new DataRow(result);
                 }).ToList();
 
                 return rows;

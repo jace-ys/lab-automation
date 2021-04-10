@@ -6,10 +6,10 @@ using Fluid;
 
 namespace TecanSparkRelay.Methods
 {
-
     public abstract class SparkMethod
     {
-        public IFluidTemplate templateXML;
+        public List<object> wells = new List<object>();
+        private IFluidTemplate templateXML;
 
         public virtual void Register(string methodName)
         {
@@ -19,11 +19,25 @@ namespace TecanSparkRelay.Methods
 
         public virtual string GenerateMethodXML()
         {
-            var context = new TemplateContext(this);
+            var context = new TemplateContext(this.SpecContext());
             return templateXML.Render(context);
         }
 
         public virtual void Validate()
+        {
+            Type type = this.SpecType();
+            if (this.SpecContext().GetType() != type)
+            {
+                throw new ApplicationException($"spec is not of type {type}");
+            };
+        }
+
+        public virtual object SpecContext()
+        {
+            return this;
+        }
+
+        public virtual Type SpecType()
         {
             throw new NotImplementedException();
         }

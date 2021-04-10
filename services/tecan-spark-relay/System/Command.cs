@@ -12,6 +12,7 @@ namespace TecanSparkRelay.System
         public string uuid { get; set; }
         public string apiVersion { get; set; }
         public string protocol { get; set; }
+        public Plate plate { get; set; }
         public Methods.SparkMethod spec { get; set; }
         public CommandMetadata metadata { get; set; }
     }
@@ -29,7 +30,17 @@ namespace TecanSparkRelay.System
 
             var command = new Command();
             var methodName = (string)obj["protocol"];
-            command.spec = Methods.Registry.GetMethod(methodName);
+            var method = Methods.Registry.GetMethod(methodName);
+
+            foreach (var well in obj["spec"])
+            {
+                var spec = Activator.CreateInstance(method.SpecType());
+                serializer.Populate(well.CreateReader(), spec);
+                method.wells.Add(spec);
+            }
+            obj.Remove("spec");
+
+            command.spec = method;
             serializer.Populate(obj.CreateReader(), command);
 
             return command;
@@ -41,6 +52,12 @@ namespace TecanSparkRelay.System
         }
     }
 
+    class Plate
+    {
+        public int rows { get; set; }
+        public int columns { get; set; }
+    }
+
     class CommandMetadata
     {
         public CommandSource source { get; set; }
@@ -49,6 +66,6 @@ namespace TecanSparkRelay.System
     class CommandSource
     {
         public string name { get; set; }
-        public Dictionary<string, dynamic> spec { get; set; }
+        public List<Dictionary<string, dynamic>> spec { get; set; }
     }
 }
