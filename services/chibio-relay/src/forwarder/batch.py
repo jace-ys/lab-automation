@@ -1,10 +1,11 @@
 import glob
 import os
 import threading
+import typing
 
 import requests
 
-from src.forwarder.payload import DataRow
+from src.forwarder.payload import Data, DataRow
 
 
 class BatchForwarder(threading.Thread):
@@ -27,20 +28,20 @@ class BatchForwarder(threading.Thread):
             for csv in glob.glob(f"{self.data_dir}/*.csv"):
                 try:
                     filename = os.path.basename(csv)
-                    rows = self.__diff(filename)
-                    if rows:
+                    diff = self.__diff(filename)
+                    if diff:
                         try:
                             uuid = self.manager.get(filename)
                         except ValueError:
                             continue  # No-op
 
-                        count = len(rows)
+                        count = len(diff)
                         self.logger.info(
                             "batch.forward.started", file=filename, rows=count
                         )
 
-                        data = list(map(lambda row: vars(DataRow(row)), rows))
-                        self.__forward(uuid, data)
+                        rows = list(map(lambda row: DataRow(Data(row)), diff))
+                        self.__forward(uuid, rows)
                         self.__seek(filename, count)
 
                         self.logger.info(
@@ -60,15 +61,15 @@ class BatchForwarder(threading.Thread):
         position = self.cache.hget(self.cache_key, filename) or 0
         return lines[int(position) :]
 
-    def __forward(self, uuid, data):
+    def __forward(self, uuid, rows: typing.List[DataRow]):
         resp = requests.post(
             f"http://{self.data_gateway_addr}/data/batch",
             json={
                 "uuid": uuid,
-                "data": data,
+                "rows": list(map(lambda row: vars(row), rows)),
             },
         )
         resp.raise_for_status()
 
-    def __seek(self, filename, rows):
-        self.cache.hincrby(self.cache_key, filename, rows)
+    def __seek(self, filename, count):
+        self.cache.hincrby(self.cache_key, filename, count)
