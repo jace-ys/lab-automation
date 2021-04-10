@@ -4,7 +4,7 @@ import requests
 
 from src.config import config
 from src.forwarder.basic import BasicForwarder
-from src.forwarder.payload import DataRow
+from src.forwarder.payload import Data, DataRow
 
 cfg = config.Config()
 forwarder = BasicForwarder(cfg.forwarder)
@@ -68,9 +68,9 @@ class SystemManager:
             )
 
             try:
-                data = DataRow()
+                data = Data()
                 data.error = str(err)
-                forwarder.forward(command["uuid"], vars(data))
+                forwarder.forward(command["uuid"], DataRow(data))
                 self.logger.info("configure.error.forwarded", uuid=command["uuid"])
 
             except Exception as err:

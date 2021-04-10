@@ -14,9 +14,14 @@ pushers = pushers.load(logger)
 router = APIRouter()
 
 
+class DataRow(BaseModel):
+    data: typing.Dict[typing.Any, typing.Any]
+    well: typing.Union[None, int]
+
+
 class DataPushRequest(BaseModel):
     uuid: str
-    data: typing.Dict[typing.Any, typing.Any]
+    row: DataRow
 
 
 @router.post("/data")
@@ -33,7 +38,7 @@ async def push_data(req: DataPushRequest):
 
 class DataBatchPushRequest(BaseModel):
     uuid: str
-    data: typing.List[typing.Dict[typing.Any, typing.Any]]
+    rows: typing.List[DataRow]
 
 
 @router.post("/data/batch")

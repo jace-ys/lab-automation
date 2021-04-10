@@ -1,4 +1,4 @@
-class DataRow:
+class Data:
     def __init__(self, row=None):
         if row:
             data = row.split(",", 40)
@@ -46,3 +46,8 @@ class DataRow:
         self.zigzagTarget = data[38]
         self.growthRate = data[39]
         self.error = ""
+
+
+class DataRow:
+    def __init__(self, data: Data):
+        self.data = vars(data)

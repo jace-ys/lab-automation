@@ -224,8 +224,8 @@ class Watcher(threading.Thread):
                             "riffyn",
                             {
                                 "experimentId": experiment_id,
-                                "activityId": run.activity_id,
-                                "runId": run.id,
+                                "activityId": activity.id,
+                                "runId": runs[0].id,
                             },
                         )
 
