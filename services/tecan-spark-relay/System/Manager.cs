@@ -81,7 +81,7 @@ namespace TecanSparkRelay.System
             using (var ai = AutomationInterfaceFactory.Build())
             {
                 this.instrument = ai.InstrumentManagement.GetInstruments().FirstOrDefault(i => i.SerialNumber == selectedInstrument);
-                if (this.instrument == null)
+                if (this.instrument is null)
                 {
                     throw new ApplicationException($"Could not find an instrument with serial {selectedInstrument}");
                 }
@@ -164,9 +164,9 @@ namespace TecanSparkRelay.System
         {
             try
             {
-                var data = new Forwarder.DataRow();
-                data.Error(err);
-                await this.forwarder.Forward(command.uuid, data);
+                var data = new Forwarder.Data(err);
+                var row = new Forwarder.DataRow(data);
+                await this.forwarder.Forward(command.uuid, row);
                 this.logger.Information("[configure.error.forwarded {uuid}", command.uuid);
             }
             catch (ApplicationException ex)

@@ -16,19 +16,26 @@ import click
 def publish(file, addr):
     with open(file, "r") as f:
         protocol = json.loads(f.read())
+
+        source = {"name": "test"}
+        if isinstance(protocol["spec"], list):
+            source["spec"] = [
+                {
+                    "experimentId": "123",
+                    "runId": "abc",
+                }
+            ]
+        else:
+            source["spec"] = {
+                "experimentId": "123",
+                "runId": "abc",
+            }
+
         data = {
             **protocol,
             **{
                 "uuid": uuid.uuid4().hex[:16],
-                "metadata": {
-                    "source": {
-                        "name": "test",
-                        "spec": {
-                            "experimentId": "123",
-                            "runId": "abc",
-                        },
-                    }
-                },
+                "metadata": {"source": source},
             },
         }
 

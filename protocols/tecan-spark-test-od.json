@@ -1,7 +1,34 @@
 {
   "apiVersion": "SparkControl/v1alpha1",
   "protocol": "TestOD",
-  "spec": {
-    "shakingDuration": "10"
-  }
+  "plate": {
+    "rows": 8,
+    "columns": 1
+  },
+  "spec": [
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    },
+    {
+      "shakingDuration": "10"
+    }
+  ]
 }
