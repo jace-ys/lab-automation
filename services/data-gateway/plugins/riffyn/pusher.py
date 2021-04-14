@@ -4,6 +4,7 @@ import riffyn_nexus_sdk_v1 as api
 import requests
 
 from lib import riffyn, utils
+from plugins import pushers
 from plugins.riffyn.config import PluginConfig
 
 cfg = PluginConfig()
@@ -13,9 +14,9 @@ class UnprocessableSource(BaseException):
     pass
 
 
-class Pusher:
+class Pusher(pushers.Pusher):
     def __init__(self, logger):
-        super(Pusher, self).__init__()
+        super(pushers.Pusher, self).__init__()
 
         self.logger = logger
         self.control_tower_addr = cfg.CONTROL_TOWER_ADDR
@@ -25,85 +26,108 @@ class Pusher:
         self.experiment_api = api.ExperimentApi(client)
         self.run_api = api.RunApi(client)
 
-    def push(self, payload):
+    def push(self, uuid, rows):
         try:
-            kv_data, rows = self.__merge_data(payload.data)
-            self.logger.info("data.push.started", uuid=payload.uuid, rows=rows)
+            command = self.__get_command(uuid)
+            metadata = self.__parse_metadata(command)
+            indexes = self.__build_indexes(rows)
 
-            cmd = self.__get_command_metadata(payload.uuid)
-            experiment_id, activity_id, run_id = self.__parse_riffyn_metadata(cmd)
-            activity = self.activity_api.get_activity(experiment_id, activity_id)
-
-            output_pkeys = self.__populate_output_pkeys(activity, run_id, kv_data)
-            output_rows = self.__add_batch_run_data(
-                experiment_id, activity_id, output_pkeys
+            self.logger.info(
+                "data.push.started", uuid=uuid, indexes=len(indexes), rows=len(rows)
             )
 
-            output_data = self.__populate_output_data(
-                activity, run_id, kv_data, output_rows
-            )
-            output_rows = self.__add_batch_run_data(
-                experiment_id, activity_id, output_data
-            )
+            if isinstance(metadata, list):
+                for index, data in indexes.items():
+                    if index > len(metadata) - 1:
+                        raise ValueError(f"index {index} exceeds metadata size")
 
-            self.logger.info("data.push.finished", uuid=payload.uuid, rows=rows)
+                    experiment_id, activity_id, run_id = metadata[index]
+                    activity = self.activity_api.get_activity(
+                        experiment_id, activity_id
+                    )
+
+                    self.__populate(experiment_id, run_id, activity, data)
+
+            else:
+                experiment_id, activity_id, run_id = metadata
+                activity = self.activity_api.get_activity(experiment_id, activity_id)
+                data = next(iter(indexes.values()))
+
+                self.__populate(experiment_id, run_id, activity, data)
+
+            self.logger.info(
+                "data.push.finished", uuid=uuid, indexes=len(indexes), rows=len(rows)
+            )
 
         except UnprocessableSource:
-            self.logger.error("data.push.skipped", uuid=payload.uuid)
+            self.logger.error("data.push.skipped", uuid=uuid)
             return  # No-op
 
         except api.rest.ApiException as err:
             self.logger.error(
                 "data.push.failed",
-                uuid=payload.uuid,
+                uuid=uuid,
                 status=err.status,
                 error=err.reason,
             )
-            raise
 
         except Exception as err:
-            self.logger.error("data.push.failed", uuid=payload.uuid, error=err)
-            raise
+            self.logger.error("data.push.failed", uuid=uuid, error=err)
 
-    def __merge_data(self, data):
-        if isinstance(data, list):
-            rows = data
-        else:
-            rows = [data]
-
-        properties = defaultdict(list)
-        for row in rows:
-            for key, value in row.items():
-                properties[key].append(str(value))
-
-        return dict(properties), len(rows)
-
-    def __get_command_metadata(self, uuid):
+    def __get_command(self, uuid):
         resp = requests.get(f"http://{self.control_tower_addr}/commands/{uuid}")
         resp.raise_for_status()
         return resp.json()
 
-    def __parse_riffyn_metadata(self, command):
+    def __parse_metadata(self, command):
         source = command["metadata"]["source"]
         if source["name"] != "riffyn":
             raise UnprocessableSource
 
         spec = source["spec"]
-        experiment_id = spec["experimentId"]
-        activity_id = spec["activityId"]
-        run_id = spec["runId"]
+        if isinstance(spec, list):
+            metadata = []
+            for index in spec:
+                metadata.append(
+                    (index["experimentId"], index["activityId"], index["runId"])
+                )
+        else:
+            metadata = (spec["experimentId"], spec["activityId"], spec["runId"])
 
-        return experiment_id, activity_id, run_id
+        return metadata
 
-    def __populate_output_pkeys(self, activity, run_id, kv_data):
-        # NOTE: Assume the activity only has a single output to be populated
+    def __build_indexes(self, rows):
+        indexes = {}
+        for row in rows:
+            if row.index not in indexes:
+                indexes[row.index] = defaultdict(list)
+
+            for key, value in row.data.items():
+                indexes[row.index][key].append(str(value))
+
+        return indexes
+
+    def __populate(self, experiment_id, run_id, activity, data):
+        pkeys = self.__build_pkeys(run_id, activity, data)
+        rows = self.run_api.add_batch_run_data(
+            api.AddBatchDataToInputBody(pkeys), experiment_id, activity.id
+        )
+
+        # NOTE: Assume the activity only has a single output resource to be populated
+        dataset = self.__build_dataset(run_id, activity, rows[0], data)
+        rows = self.run_api.add_batch_run_data(
+            api.AddBatchDataToInputBody(dataset), experiment_id, activity.id
+        )
+
+    def __build_pkeys(self, run_id, activity, data):
+        # NOTE: Assume the activity only has a single output resource to be populated
         output = activity.outputs[0]
+        pkey = next(iter(data.keys()))
 
-        pkey = next(iter(kv_data.keys()))
         # NOTE: Assume keys in data are camel-cased
         if pkey != utils.str_to_camelcase(output.properties[0].name):
             raise ValueError(
-                f'primary key does not match: expected "{output.properties[0].name}", got "{pkey}"'
+                f"primary key does not match: expected '{output.properties[0].name}', got '{pkey}'"
             )
 
         return [
@@ -111,48 +135,53 @@ class Pusher:
                 "resourceDefId": output.id,
                 "propertyTypeId": output.properties[0].id,
                 "runIds": [run_id],
-                "values": kv_data[pkey],
+                "values": data[pkey],
                 "append": True,
             }
         ]
 
-    def __populate_output_data(self, activity, run_id, kv_data, output_rows):
-        # NOTE: Assume the activity only has a single output to be populated
+    def __build_dataset(self, run_id, activity, rows, data):
+        # NOTE: Assume the activity only has a single output resource to be populated
         output = activity.outputs[0]
-        output_data = []
+        dataset = []
 
         for property in output.properties[1:]:
-            property_name = utils.str_to_camelcase(property.name)
+            pname = utils.str_to_camelcase(property.name)
+            self.__verify_data(pname, rows, data)
 
-            if property_name not in kv_data:
-                raise ValueError(f"could not find property with key: {property.name}")
-
-            if len(kv_data[property_name]) != len(output_rows["data"]):
-                raise ValueError(
-                    f'unexpected number of values for "{property.name}": expected {len(output_rows["data"])}, found {len(kv_data[property_name])}'
-                )
-
-            output_data.append(
-                {
-                    "resourceDefId": output.id,
-                    "propertyTypeId": property.id,
-                    "eventGroupId": output_rows["eventGroupId"],
-                    "runIds": [run_id],
-                    "values": [
+            values = []
+            for i, row in enumerate(rows["data"]):
+                value = data[pname][i]
+                if value:
+                    values.append(
                         {
                             "eventId": str(row["eventId"]),
-                            "value": kv_data[property_name][idx],
+                            "value": value,
                         }
-                        for idx, row in enumerate(output_rows["data"])
-                    ],
-                }
+                    )
+
+            if values:
+                dataset.append(
+                    {
+                        "resourceDefId": output.id,
+                        "propertyTypeId": property.id,
+                        "eventGroupId": rows["eventGroupId"],
+                        "runIds": [run_id],
+                        "values": values,
+                    }
+                )
+
+        return dataset
+
+    def __verify_data(self, property, rows, data):
+        # NOTE: Assume keys in data are camel-cased
+        if property not in data:
+            raise ValueError(f"could not find property in data: {property}")
+
+        expected = len(rows["data"])
+        actual = len(data[property])
+
+        if actual != expected:
+            raise ValueError(
+                f"unexpected number of values for '{property}': expected {expected}, found {actual}"
             )
-
-        return output_data
-
-    def __add_batch_run_data(self, experiment_id, activity_id, data):
-        output_rows = self.run_api.add_batch_run_data(
-            riffyn.AddBatchDataToInputBody(data), experiment_id, activity_id
-        )
-        # NOTE: Assume the activity only has a single output to be populated
-        return output_rows[0]

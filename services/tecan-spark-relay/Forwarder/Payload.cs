@@ -5,7 +5,7 @@ namespace TecanSparkRelay.Forwarder
     public class DataRow
     {
         public Data data;
-        public int? well;
+        public int? index;
 
         public DataRow(Data data)
         {
@@ -16,7 +16,7 @@ namespace TecanSparkRelay.Forwarder
         {
             var measurement = result.MeasurementResult;
             this.data = new Data(measurement.TimeStamp, measurement.Value);
-            this.well = Int16.Parse(result.WellIndex);
+            this.index = Int16.Parse(result.WellIndex);
         }
     }
 
