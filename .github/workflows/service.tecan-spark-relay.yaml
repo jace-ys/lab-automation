@@ -16,8 +16,8 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-service.tecan-spark-relay-${{ hashFiles('services/tecan-spark-relay/TecanSparkRelay.csproj') }}
-          restore-keys: ${{ runner.os }}-service.tecan-spark-relay-
+          key: ${{ runner.os }}-service.tecan-spark-relay-1-${{ hashFiles('services/tecan-spark-relay/TecanSparkRelay.csproj') }}
+          restore-keys: ${{ runner.os }}-service.tecan-spark-relay-1-
       - working-directory: ${{ env.WORKDIR }}
         run: dotnet restore
 
@@ -32,8 +32,8 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-service.tecan-spark-relay-${{ hashFiles('services/tecan-spark-relay/TecanSparkRelay.csproj') }}
-          restore-keys: ${{ runner.os }}-service.tecan-spark-relay-
+          key: ${{ runner.os }}-service.tecan-spark-relay-1-${{ hashFiles('services/tecan-spark-relay/TecanSparkRelay.csproj') }}
+          restore-keys: ${{ runner.os }}-service.tecan-spark-relay-1-
       - run: dotnet tool install -g dotnet-format
       - name: Lint code
         working-directory: ${{ env.WORKDIR }}
@@ -50,8 +50,8 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-service.tecan-spark-relay-${{ hashFiles('services/tecan-spark-relay/TecanSparkRelay.csproj') }}
-          restore-keys: ${{ runner.os }}-service.tecan-spark-relay-
+          key: ${{ runner.os }}-service.tecan-spark-relay-1-${{ hashFiles('services/tecan-spark-relay/TecanSparkRelay.csproj') }}
+          restore-keys: ${{ runner.os }}-service.tecan-spark-relay-1-
       - name: Run tests
         working-directory: ${{ env.WORKDIR }}
         run: dotnet test --no-restore

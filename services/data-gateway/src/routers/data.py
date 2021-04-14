@@ -16,38 +16,30 @@ router = APIRouter()
 
 class DataRow(BaseModel):
     data: typing.Dict[typing.Any, typing.Any]
-    well: typing.Union[None, int]
+    index: typing.Union[None, int]
 
 
-class DataPushRequest(BaseModel):
+class PushDataRequest(BaseModel):
     uuid: str
     row: DataRow
 
 
 @router.post("/data")
-async def push_data(req: DataPushRequest):
+async def push_data(req: PushDataRequest):
     for plugin, pusher in pushers.items():
-        try:
-            pusher.push(req)
-
-        except Exception:
-            pass
+        pusher.push(req.uuid, [req.row])
 
     return Response(status_code=status.HTTP_202_ACCEPTED)
 
 
-class DataBatchPushRequest(BaseModel):
+class PushDataBatchRequest(BaseModel):
     uuid: str
     rows: typing.List[DataRow]
 
 
 @router.post("/data/batch")
-async def push_data_batch(req: DataBatchPushRequest):
+async def push_data_batch(req: PushDataBatchRequest):
     for plugin, pusher in pushers.items():
-        try:
-            pusher.push(req)
-
-        except Exception:
-            pass
+        pusher.push(req.uuid, req.rows)
 
     return Response(status_code=status.HTTP_202_ACCEPTED)

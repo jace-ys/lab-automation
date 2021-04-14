@@ -1,8 +1,8 @@
 import json
 import uuid
 
-import redis
 import click
+import redis
 
 
 @click.command("publish")

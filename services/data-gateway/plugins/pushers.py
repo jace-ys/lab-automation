@@ -2,6 +2,11 @@ import glob
 import importlib
 
 
+class Pusher:
+    def push(self, uuid, rows):
+        return NotImplemented
+
+
 def load(logger):
     plugins = list(
         map(
