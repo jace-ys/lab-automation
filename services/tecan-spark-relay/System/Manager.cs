@@ -145,7 +145,7 @@ namespace TecanSparkRelay.System
                         using (var ai = AutomationInterfaceFactory.Build())
                         {
                             var resultsXML = File.ReadAllText(ai.MethodExecution.GetResults(result.WorkspaceId, result.ExecutionId));
-                            var rows = this.forwarder.ParseResults(resultsXML);
+                            var rows = this.forwarder.ParseResults(resultsXML).Where(row => row.index < command.spec.wells.Count).ToList();
 
                             this.logger.Information("[batch.forward.started] {uuid} {rows}", command.uuid, rows.Count);
                             await this.forwarder.BatchForward(command.uuid, rows);
