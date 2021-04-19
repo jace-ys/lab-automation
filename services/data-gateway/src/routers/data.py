@@ -5,11 +5,11 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 
 from lib import log
-from plugins import pushers
+from plugins import registry
 from plugins.riffyn.pusher import Pusher
 
 logger = log.Logger.new()
-pushers = pushers.load(logger)
+pushers = registry.load(logger)
 
 router = APIRouter()
 

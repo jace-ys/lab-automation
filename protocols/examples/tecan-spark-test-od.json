@@ -1,6 +1,6 @@
 {
-  "apiVersion": "SparkControl/v1alpha1",
-  "protocol": "TestOD",
+  "apiVersion": "TecanSpark/v1alpha1",
+  "protocol": "MeasureOD",
   "plate": {
     "rows": 8,
     "columns": 1
