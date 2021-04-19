@@ -1,6 +1,6 @@
 {
   "apiVersion": "TecanSpark/v1alpha1",
-  "protocol": "TestOD",
+  "protocol": "MeasureOD",
   "plate": {
     "rows": 8,
     "columns": 1

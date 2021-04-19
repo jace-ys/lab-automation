@@ -4,7 +4,7 @@ import riffyn_nexus_sdk_v1 as api
 import requests
 
 from lib import riffyn, utils
-from plugins import pushers
+from plugins import registry
 from plugins.riffyn.config import PluginConfig
 
 cfg = PluginConfig()
@@ -14,9 +14,9 @@ class UnprocessableSource(BaseException):
     pass
 
 
-class Pusher(pushers.Pusher):
+class Pusher(registry.Pusher):
     def __init__(self, logger):
-        super(pushers.Pusher, self).__init__()
+        super(registry.Pusher, self).__init__()
 
         self.logger = logger
         self.control_tower_addr = cfg.CONTROL_TOWER_ADDR
@@ -86,15 +86,19 @@ class Pusher(pushers.Pusher):
 
         spec = source["spec"]
         if isinstance(spec, list):
-            metadata = []
-            for index in spec:
-                metadata.append(
-                    (index["experimentId"], index["activityId"], index["runId"])
+            return list(
+                map(
+                    lambda index: (
+                        index["experimentId"],
+                        index["activityId"],
+                        index["runId"],
+                    ),
+                    spec,
                 )
-        else:
-            metadata = (spec["experimentId"], spec["activityId"], spec["runId"])
+            )
 
-        return metadata
+        else:
+            return (spec["experimentId"], spec["activityId"], spec["runId"])
 
     def __build_indexes(self, rows):
         indexes = {}

@@ -47,6 +47,7 @@ namespace TecanSparkRelay.Methods
     {
         private readonly static Dictionary<string, SparkMethod> methods = new Dictionary<string, SparkMethod>
         {
+            ["MeasureOD"] = new MeasureOD(),
             ["TestOD"] = new TestOD(),
         };
 
