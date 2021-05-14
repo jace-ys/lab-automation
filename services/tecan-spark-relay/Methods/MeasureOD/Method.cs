@@ -26,6 +26,16 @@ namespace TecanSparkRelay.Methods
         {
             return typeof(MeasureODSpec);
         }
+
+        public override int Rows()
+        {
+            return 8;
+        }
+
+        public override int Columns()
+        {
+            return 12;
+        }
     }
 
     public class MeasureODSpec
