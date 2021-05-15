@@ -40,7 +40,7 @@ namespace TecanSparkRelay.System
 
         public void Subscribe()
         {
-            subscription.OnMessage = (channel, message) =>
+            subscription.OnMessage = (topic, message) =>
             {
                 this.logger.Information("command.received, {command}", message);
 

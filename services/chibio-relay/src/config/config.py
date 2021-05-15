@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseSettings
 
 
@@ -14,6 +16,7 @@ class ForwarderConfig(BaseSettings):
 class ManagerConfig(BaseSettings):
     CACHE_KEY: str = "service.chibio-relay.manager"
     CHIBIO_SERVER_ADDR: str
+    DEVICE_NAME: Optional[str]
 
     class Config:
         env_prefix = "MANAGER_"
@@ -28,7 +31,6 @@ class RedisCacheConfig(BaseSettings):
 
 class RedisPubSubConfig(BaseSettings):
     ADDR: str = "127.0.0.1:6389"
-    SUBSCRIPTION_TOPIC: str = "ChiBio/v1alpha1"
 
     class Config:
         env_prefix = "REDIS_PUBSUB_"
@@ -43,6 +45,7 @@ class ServerConfig(BaseSettings):
 
 
 class Config(BaseSettings):
+    version: str = "ChiBio/v1alpha1"
     forwarder: ForwarderConfig = ForwarderConfig()
     manager: ManagerConfig = ManagerConfig()
     cache: RedisCacheConfig = RedisCacheConfig()

@@ -75,6 +75,7 @@ services:
     environment:
       <<: *environment
       MANAGER_CHIBIO_SERVER_ADDR: external.chibio-server:5000
+      MANAGER_DEVICE_NAME: ChioBio1
     volumes:
       - ./data:/usr/service/data
 

@@ -21,7 +21,7 @@ class CommandPublisher(threading.Thread):
                 self.publish(command)
                 self.logger.info(
                     "command.published",
-                    channel=command.apiVersion,
+                    topic=command.apiVersion,
                     command=command.json(),
                 )
 

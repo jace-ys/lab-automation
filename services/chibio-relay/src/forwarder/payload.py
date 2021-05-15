@@ -45,7 +45,7 @@ class Data:
         self.customProgPtatus = data[37]
         self.zigzagTarget = data[38]
         self.growthRate = data[39]
-        self.error = ""
+        self.error = None
 
 
 class DataRow:

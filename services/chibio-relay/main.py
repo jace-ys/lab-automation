@@ -3,7 +3,7 @@ import threading
 import uvicorn
 from fastapi import FastAPI
 
-from lib import log, redis
+from lib import api, log, redis
 from lib.commands.subscriber import Subscriber
 from src.config import config
 from src.forwarder.batch import BatchForwarder
@@ -23,11 +23,13 @@ if __name__ == "__main__":
     manager = SystemManager(logger, cache, cfg.manager)
     forwarder = BatchForwarder(logger, manager, cache, cfg.forwarder, done)
     subscriber = Subscriber(manager)
+    topic = api.device(cfg.version, cfg.manager.DEVICE_NAME)
 
     try:
-        pubsub.subscribe(**{cfg.pubsub.SUBSCRIPTION_TOPIC: subscriber.receive})
-        pubsub_thread = pubsub.run_in_thread()  # TODO: Handle exception in thread
-        logger.info("manager.subscribe.started", channel=cfg.pubsub.SUBSCRIPTION_TOPIC)
+        pubsub.subscribe(**{topic: subscriber.receive})
+        # TODO: Handle exception in thread using https://github.com/andymccurdy/redis-py/pull/1395
+        pubsub_thread = pubsub.run_in_thread()
+        logger.info("manager.subscribe.started", topic=topic)
 
         forwarder.start()
         logger.error("data.forwarder.started")
