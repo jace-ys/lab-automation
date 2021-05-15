@@ -55,7 +55,7 @@ async def handle_list_builds(request: Request):
             "error.html",
             {
                 "request": request,
-                "error": err,  # TODO: Inspect error to return different error messages
+                "error": err,
             },
         )
 
