@@ -5,6 +5,7 @@ namespace TecanSparkRelay
 {
     public class Config
     {
+        public string version = "TecanSpark/v1alpha1";
         public readonly ForwarderConfig forwarder;
         public readonly ManagerConfig manager;
         public readonly RedisPubSubConfig pubsub;
@@ -31,10 +32,12 @@ namespace TecanSparkRelay
 
     public class ManagerConfig
     {
+        public string DeviceName;
         public string Instrument = "1910012500";
 
         public ManagerConfig(IDictionary config)
         {
+            this.DeviceName = config["MANAGER_DEVICE_NAME"]?.ToString() ?? this.DeviceName;
             this.Instrument = config["MANAGER_INSTRUMENT"]?.ToString() ?? this.Instrument;
         }
     }
@@ -42,12 +45,10 @@ namespace TecanSparkRelay
     public class RedisPubSubConfig
     {
         public string Addr = "127.0.0.1:6389";
-        public string SubscriptionTopic = "TecanSpark/v1alpha1";
 
         public RedisPubSubConfig(IDictionary config)
         {
             this.Addr = config["REDIS_PUBSUB_ADDR"]?.ToString() ?? this.Addr;
-            this.SubscriptionTopic = config["REDIS_PUBSUB_SUBSCRIPTION_TOPIC"]?.ToString() ?? this.SubscriptionTopic;
         }
     }
 }

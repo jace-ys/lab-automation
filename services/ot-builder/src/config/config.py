@@ -17,7 +17,6 @@ class RedisCacheConfig(BaseSettings):
 
 class RedisPubSubConfig(BaseSettings):
     ADDR: str = "127.0.0.1:6389"
-    SUBSCRIPTION_TOPIC: str = "OT-2/v1alpha1"
 
     class Config:
         env_prefix = "REDIS_PUBSUB_"
@@ -33,6 +32,7 @@ class ServerConfig(BaseSettings):
 
 
 class Config(BaseSettings):
+    version: str = "OT-2/v1alpha1"
     builder: ProtocolBuilderConfig = ProtocolBuilderConfig()
     cache: RedisCacheConfig = RedisCacheConfig()
     pubsub: RedisPubSubConfig = RedisPubSubConfig()

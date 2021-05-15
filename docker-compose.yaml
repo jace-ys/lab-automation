@@ -73,6 +73,7 @@ services:
     environment:
       <<: *environment
       MANAGER_CHIBIO_SERVER_ADDR: external.chibio-server:5000
+      MANAGER_DEVICE_NAME: ChioBio1
     volumes:
       - ./data:/usr/service/data
 
@@ -88,6 +89,7 @@ services:
       - service.data-gateway
     environment:
       <<: *environment
+      MANAGER_DEVICE_NAME: GBSpark
     volumes:
       - ./data:/usr/service/data
 

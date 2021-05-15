@@ -1,5 +1,4 @@
 import itertools
-import re
 
 
 # Helper function for flattening a list of lists
