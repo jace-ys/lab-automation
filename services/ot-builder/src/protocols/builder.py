@@ -47,7 +47,6 @@ class ProtocolBuilder:
         self.cache.hset(self.cache_key, build_id, json.dumps(build))
 
     def delete(self, build_id):
-        # TODO
         pass
 
     def config(self, build):
