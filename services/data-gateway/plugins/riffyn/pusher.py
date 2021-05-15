@@ -117,18 +117,17 @@ class Pusher(registry.Pusher):
             api.AddBatchDataToInputBody(pkeys), experiment_id, activity.id
         )
 
-        # NOTE: Assume the activity only has a single output resource to be populated
         dataset = self.__build_dataset(run_id, activity, rows[0], data)
         rows = self.run_api.add_batch_run_data(
             api.AddBatchDataToInputBody(dataset), experiment_id, activity.id
         )
 
     def __build_pkeys(self, run_id, activity, data):
-        # NOTE: Assume the activity only has a single output resource to be populated
-        output = activity.outputs[0]
+        # NOTE: Assume the last output in the activity is the one to be populated
+        output = activity.outputs[-1]
         pkey = next(iter(data.keys()))
 
-        # NOTE: Assume keys in data are camel-cased
+        # NOTE: Keys in data have to camel-cased
         if pkey != utils.str_to_camelcase(output.properties[0].name):
             raise ValueError(
                 f"primary key does not match: expected '{output.properties[0].name}', got '{pkey}'"
@@ -145,8 +144,8 @@ class Pusher(registry.Pusher):
         ]
 
     def __build_dataset(self, run_id, activity, rows, data):
-        # NOTE: Assume the activity only has a single output resource to be populated
-        output = activity.outputs[0]
+        # NOTE: Assume the last output in the activity is the one to be populated
+        output = activity.outputs[-1]
         dataset = []
 
         for property in output.properties[1:]:
@@ -178,7 +177,6 @@ class Pusher(registry.Pusher):
         return dataset
 
     def __verify_data(self, property, rows, data):
-        # NOTE: Assume keys in data are camel-cased
         if property not in data:
             raise ValueError(f"could not find property in data: {property}")
 
