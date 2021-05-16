@@ -12,6 +12,7 @@ namespace TecanSparkRelay.System
         bool CheckMethod(Instrument selectedInstrument, string methodAsXml, string methodName, out IEnumerable<string> messages);
         MethodExecutionResult ExecuteMethod(Instrument selectedInstrument, string methodAsXml, string methodName, bool isStacker);
         string GetResults(Guid workspaceId, Guid executionId);
+        string GetMethodXml(string methodName);
     }
 
     public class FakeAutomationInterface : AutomationInterface
@@ -47,6 +48,11 @@ namespace TecanSparkRelay.System
         public string GetResults(Guid workspaceId, Guid executionId)
         {
             return $"./Methods/{this.methodName}/Export.xml";
+        }
+
+        public string GetMethodXml(string methodName)
+        {
+            throw new NotImplementedException();
         }
     }
 
