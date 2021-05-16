@@ -19,7 +19,7 @@ class BatchForwarder(threading.Thread):
         self.cache_key = cfg.CACHE_KEY
         self.check_interval = cfg.CHECK_INTERVAL
         self.data_dir = cfg.DATA_DIR
-        self.data_gateway_addr = cfg.DATA_GATEWAY_ADDR
+        self.data_gateway_url = cfg.DATA_GATEWAY_URL
 
     def run(self):
         while not self.done.is_set():
@@ -63,7 +63,7 @@ class BatchForwarder(threading.Thread):
 
     def __forward(self, uuid, rows: typing.List[DataRow]):
         resp = requests.post(
-            f"http://{self.data_gateway_addr}/data/batch",
+            f"{self.data_gateway_url}/data/batch",
             json={
                 "uuid": uuid,
                 "rows": list(map(lambda row: vars(row), rows)),

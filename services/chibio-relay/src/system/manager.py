@@ -50,7 +50,7 @@ class SystemManager:
         self.logger = logger
         self.cache = cache
         self.cache_key = cfg.CACHE_KEY
-        self.chibio_server_addr = cfg.CHIBIO_SERVER_ADDR
+        self.chibio_server_url = cfg.CHIBIO_SERVER_URL
 
     def handle_command(self, command):
         try:
@@ -135,7 +135,7 @@ class SystemManager:
             data["FP1"].update({"Gain": gain})
 
         resp = requests.post(
-            f"http://{self.chibio_server_addr}/sysData",
+            f"{self.chibio_server_url}/sysData",
             json={
                 "source": source,
                 "device": {"M": spec["devicePosition"], "name": spec["deviceName"]},
@@ -153,7 +153,7 @@ class SystemManager:
         return body["device"]["M"]
 
     def __create_experiment(self, device):
-        resp = requests.post(f"http://{self.chibio_server_addr}/Experiment/{device}")
+        resp = requests.post(f"{self.chibio_server_url}/Experiment/{device}")
         resp.raise_for_status()
 
         body = resp.json()

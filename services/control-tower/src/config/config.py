@@ -9,14 +9,14 @@ class CommandPublisherConfig(BaseSettings):
 
 
 class RedisCacheConfig(BaseSettings):
-    ADDR: str = "127.0.0.1:6379"
+    URL: str = "redis://127.0.0.1:6379"
 
     class Config:
         env_prefix = "REDIS_CACHE_"
 
 
 class RedisPubSubConfig(BaseSettings):
-    ADDR: str = "127.0.0.1:6389"
+    URL: str = "redis://127.0.0.1:6389"
 
     class Config:
         env_prefix = "REDIS_PUBSUB_"

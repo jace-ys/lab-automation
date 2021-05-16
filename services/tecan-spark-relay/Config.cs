@@ -22,11 +22,11 @@ namespace TecanSparkRelay
 
     public class ForwarderConfig
     {
-        public string DataGatewayAddr;
+        public string DataGatewayURL;
 
         public ForwarderConfig(IDictionary config)
         {
-            this.DataGatewayAddr = config["FORWARDER_DATA_GATEWAY_ADDR"].ToString() ?? this.DataGatewayAddr;
+            this.DataGatewayURL = config["FORWARDER_DATA_GATEWAY_URL"].ToString() ?? this.DataGatewayURL;
         }
     }
 
@@ -44,11 +44,11 @@ namespace TecanSparkRelay
 
     public class RedisPubSubConfig
     {
-        public string Addr = "127.0.0.1:6389";
+        public string URL = "redis://127.0.0.1:6389";
 
         public RedisPubSubConfig(IDictionary config)
         {
-            this.Addr = config["REDIS_PUBSUB_ADDR"]?.ToString() ?? this.Addr;
+            this.URL = config["REDIS_PUBSUB_URL"]?.ToString() ?? this.URL;
         }
     }
 }

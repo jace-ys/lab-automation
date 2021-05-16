@@ -10,7 +10,7 @@ from src.protocols.builder import ProtocolBuilder
 
 cfg = config.Config()
 logger = log.Logger.new()
-cache = redis.Client.connect(cfg.cache.ADDR)
+cache = redis.Client.connect(cfg.cache.URL)
 builder = ProtocolBuilder(logger, cache, cfg.builder)
 
 router = APIRouter()

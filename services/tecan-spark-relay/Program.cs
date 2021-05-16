@@ -15,7 +15,7 @@ namespace TecanSparkRelay
             var cfg = new Config();
             var logger = new LoggerConfiguration().WriteTo.Console(new CompactJsonFormatter()).CreateLogger();
 
-            var redis = new RedisClient(cfg.pubsub.Addr);
+            var redis = new RedisClient(cfg.pubsub.URL);
             var forwarder = new Forwarder.Forwarder(cfg.forwarder);
 
             var topic = cfg.version;

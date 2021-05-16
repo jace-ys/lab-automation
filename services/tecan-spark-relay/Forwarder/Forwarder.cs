@@ -14,11 +14,11 @@ namespace TecanSparkRelay.Forwarder
     public class Forwarder
     {
         private readonly HttpClient client = new HttpClient();
-        private readonly string dataGatewayAddr;
+        private readonly string dataGatewayURL;
 
         public Forwarder(ForwarderConfig cfg)
         {
-            this.dataGatewayAddr = cfg.DataGatewayAddr;
+            this.dataGatewayURL = cfg.DataGatewayURL;
         }
 
         public async Task Forward(string uuid, DataRow row)
@@ -31,7 +31,7 @@ namespace TecanSparkRelay.Forwarder
             try
             {
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await this.client.PostAsync($"http://{this.dataGatewayAddr}/data", content);
+                var response = await this.client.PostAsync($"{this.dataGatewayURL}/data", content);
             }
             catch (HttpRequestException ex)
             {
@@ -49,7 +49,7 @@ namespace TecanSparkRelay.Forwarder
             try
             {
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await this.client.PostAsync($"http://{this.dataGatewayAddr}/data/batch", content);
+                var response = await this.client.PostAsync($"{this.dataGatewayURL}/data/batch", content);
             }
             catch (HttpRequestException ex)
             {

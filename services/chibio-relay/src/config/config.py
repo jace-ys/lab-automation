@@ -7,7 +7,7 @@ class ForwarderConfig(BaseSettings):
     CACHE_KEY: str = "service.chibio-relay.forwarder"
     CHECK_INTERVAL: int = 10
     DATA_DIR: str = "data"
-    DATA_GATEWAY_ADDR: str
+    DATA_GATEWAY_URL: str
 
     class Config:
         env_prefix = "FORWARDER_"
@@ -15,7 +15,7 @@ class ForwarderConfig(BaseSettings):
 
 class ManagerConfig(BaseSettings):
     CACHE_KEY: str = "service.chibio-relay.manager"
-    CHIBIO_SERVER_ADDR: str
+    CHIBIO_SERVER_URL: str
     DEVICE_NAME: Optional[str]
 
     class Config:
@@ -23,14 +23,14 @@ class ManagerConfig(BaseSettings):
 
 
 class RedisCacheConfig(BaseSettings):
-    ADDR: str = "127.0.0.1:6379"
+    URL: str = "redis://127.0.0.1:6379"
 
     class Config:
         env_prefix = "REDIS_CACHE_"
 
 
 class RedisPubSubConfig(BaseSettings):
-    ADDR: str = "127.0.0.1:6389"
+    URL: str = "redis://127.0.0.1:6389"
 
     class Config:
         env_prefix = "REDIS_PUBSUB_"
