@@ -19,8 +19,7 @@ namespace TecanSparkRelay.Methods
 
         public virtual string GenerateMethodXML()
         {
-            var plate = new Plate(this.Rows(), this.Columns(), this.wells.Count);
-            var context = new { plate = plate, spec = this.SpecContext() };
+            var context = new { plate = this.Plate(), spec = this.SpecContext() };
             return templateXML.Render(new TemplateContext(context));
         }
 
@@ -41,6 +40,11 @@ namespace TecanSparkRelay.Methods
         public virtual Type SpecType()
         {
             throw new NotImplementedException();
+        }
+
+        public Plate Plate()
+        {
+            return new Plate(this.Rows(), this.Columns(), this.wells.Count);
         }
 
         public virtual int Rows()

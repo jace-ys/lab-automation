@@ -28,7 +28,7 @@ namespace TecanSparkRelay.Methods
                     // Row-first ordering for the well index as per by the method XML format
                     var index = col + (columns * row);
 
-                    // Column-first ordering for selecting wells as per the protocol conventions
+                    // Column-first ordering for selecting wells as per protocol conventions
                     var selected = row + (rows * col) < selectedWells ? "True" : "False";
 
                     this.layout.Add(new Well
