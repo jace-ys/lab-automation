@@ -7,28 +7,44 @@
   },
   "spec": [
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     },
     {
-      "shakingDuration": "10"
+      "cycles": 2,
+      "shakingDuration": 10,
+      "measurementWavelength": 600
     }
   ]
 }

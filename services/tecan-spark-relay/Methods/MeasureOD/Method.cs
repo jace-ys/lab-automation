@@ -9,11 +9,21 @@ namespace TecanSparkRelay.Methods
         public override void Validate()
         {
             base.Validate();
-
             var spec = (MeasureODSpec)this.SpecContext();
+
+            if (spec.cycles <= 0)
+            {
+                throw new ApplicationException("number of cycles must be a positive value");
+            }
+
             if (spec.shakingDuration <= 0)
             {
                 throw new ApplicationException("shaking duration must be a positive value");
+            }
+
+            if (spec.measurementWavelength <= 0)
+            {
+                throw new ApplicationException("measurement wavelength must be a positive value");
             }
         }
 
@@ -40,6 +50,8 @@ namespace TecanSparkRelay.Methods
 
     public class MeasureODSpec
     {
+        public int cycles { get; set; }
+        public int measurementWavelength { get; set; }
         public int shakingDuration { get; set; }
     }
 }
