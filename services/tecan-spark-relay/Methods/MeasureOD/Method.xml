@@ -36,7 +36,7 @@
           </Plate.PlateLayout>
         </Plate>
       </PlateStrip.Plates>
-      <KineticLoopStrip Duration="01:00:00" EvaluatedKineticIntervalLabelIndex="0" EvaluatedKineticIntervalLimitType="Cycle" EvaluatedKineticIntervalTimeType="TimeSpan" FixedKineticIntervalMilliseconds="60000" FixedKineticIntervalTimeSpan="00:01:00" FixedKineticIntervalTimeType="TimeSpan" Id="5c0bccc0-811e-42bd-be98-6bd08760eb9f" KineticIntervalType="NotDefined" KineticLoopType="Cycle" NumberOfCycles="2">
+      <KineticLoopStrip Duration="01:00:00" EvaluatedKineticIntervalLabelIndex="0" EvaluatedKineticIntervalLimitType="Cycle" EvaluatedKineticIntervalTimeType="TimeSpan" FixedKineticIntervalMilliseconds="60000" FixedKineticIntervalTimeSpan="00:01:00" FixedKineticIntervalTimeType="TimeSpan" Id="5c0bccc0-811e-42bd-be98-6bd08760eb9f" KineticIntervalType="NotDefined" KineticLoopType="Cycle" NumberOfCycles="{{ spec.cycles }}">
         <KineticLoopStrip.DataLabels>
           <sco:ObservableCollection x:TypeArguments="IDataLabel" />
         </KineticLoopStrip.DataLabels>
@@ -48,7 +48,7 @@
           </EvaluatedKineticIntervalLimit>
           <x:Reference>__ReferenceID1</x:Reference>
         </KineticLoopStrip.EvaluatedKineticIntervalLimits>
-        <AbsorbanceStrip SelectedInputData="{x:Null}" Id="a8529a6d-6f2b-4daa-b1c6-23971e166dc2" MeasurementsCount="1" MultipleReadsPerWell="False" NumberFlashes="10" NumberOfMRWPoints="308" PathlengthCorrectionFactor="0.186" Reference="False" SelectedBorder="500" SelectedMultipleReadsPerWell="NotDefined" SelectedPathLengthCorrectionFactorType="Manual" SelectedPathLengthStatus="NotDefined" SelectedPattern="Square" SelectedSize="2" SettleTime="50" TestWavelength="9770" WavelengthMeasurement="6000" WavelengthReference="6200">
+        <AbsorbanceStrip SelectedInputData="{x:Null}" Id="a8529a6d-6f2b-4daa-b1c6-23971e166dc2" MeasurementsCount="1" MultipleReadsPerWell="False" NumberFlashes="10" NumberOfMRWPoints="308" PathlengthCorrectionFactor="0.186" Reference="False" SelectedBorder="500" SelectedMultipleReadsPerWell="NotDefined" SelectedPathLengthCorrectionFactorType="Manual" SelectedPathLengthStatus="NotDefined" SelectedPattern="Square" SelectedSize="2" SettleTime="50" TestWavelength="9770" WavelengthMeasurement="{{ spec.measurementWavelength }}0" WavelengthReference="6200">
           <AbsorbanceStrip.DataLabels>
             <DataLabel InternalSuffix="{x:Null}" x:Name="__ReferenceID3" Index="0" MeasureMode="SinglePoint" OutputName="OD600" Type="Measurement" Unit="OpticalDensity" />
           </AbsorbanceStrip.DataLabels>

@@ -82,6 +82,7 @@ services:
       context: .
       dockerfile: ./docker/service.tecan-spark-relay/Dockerfile
     image: lab-automation/service.tecan-spark-relay:latest
+    command: server
     depends_on:
       - db.redis
       - pubsub.redis
