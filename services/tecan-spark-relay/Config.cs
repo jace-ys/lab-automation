@@ -32,7 +32,7 @@ namespace TecanSparkRelay
 
     public class ManagerConfig
     {
-        public string DeviceName;
+        public string DeviceName = "";
         public string Instrument = "1910012500";
 
         public ManagerConfig(IDictionary config)
