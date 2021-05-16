@@ -60,28 +60,3 @@ services:
       - 8000:8000
     environment:
       <<: *environment
-
-  service.chibio-relay:
-    build:
-      context: .
-      dockerfile: ./docker/service.chibio-relay/Dockerfile
-    image: lab-automation/service.chibio-relay:latest
-    depends_on:
-      - db.redis
-      - pubsub.redis
-      - service.control-tower
-      - service.data-gateway
-      - external.chibio-server
-    environment:
-      <<: *environment
-      MANAGER_CHIBIO_SERVER_URL: http://external.chibio-server:5000
-      MANAGER_DEVICE_NAME: ChioBio1
-    volumes:
-      - ./data:/usr/service/data
-
-  external.chibio-server:
-    image: lab-automation/chibio:latest
-    ports:
-      - 5000:5000
-    volumes:
-      - ./data:/src/data
