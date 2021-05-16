@@ -57,15 +57,16 @@ namespace TecanSparkRelay.Forwarder
             }
         }
 
-        public List<DataRow> ParseResults(string resultsXML)
+        public List<DataRow> ParseResults(string resultsXML, Methods.Plate plate)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(System.MeasurementResultData));
             using (TextReader reader = new StringReader(resultsXML))
             {
                 System.MeasurementResultData data = (System.MeasurementResultData)serializer.Deserialize(reader);
+
                 List<DataRow> rows = data.Absorbance.DataLabel.ResultContext.Select(result =>
                 {
-                    return new DataRow(result);
+                    return new DataRow(result, plate);
                 }).ToList();
 
                 return rows;
