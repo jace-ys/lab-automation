@@ -1,9 +1,9 @@
 version: "3.8"
 
 x-environment: &environment
-  REDIS_CACHE_ADDR: db.redis:6379
-  REDIS_PUBSUB_ADDR: pubsub.redis:6379
-  FORWARDER_DATA_GATEWAY_ADDR: service.data-gateway:8000
+  REDIS_CACHE_URL: redis://db.redis:6379
+  REDIS_PUBSUB_URL: redis://pubsub.redis:6379
+  FORWARDER_DATA_GATEWAY_URL: http://service.data-gateway:8000
   SERVER_HOST: 0.0.0.0
 
 services:
@@ -43,7 +43,7 @@ services:
       - ./services/data-gateway/.env
     environment:
       <<: *environment
-      PLUGIN_RIFFYN_CONTROL_TOWER_ADDR: service.control-tower:8000
+      PLUGIN_RIFFYN_CONTROL_TOWER_URL: http://service.control-tower:8000
 
   service.ot-builder:
     build:
@@ -72,7 +72,7 @@ services:
       - external.chibio-server
     environment:
       <<: *environment
-      MANAGER_CHIBIO_SERVER_ADDR: external.chibio-server:5000
+      MANAGER_CHIBIO_SERVER_URL: http://external.chibio-server:5000
       MANAGER_DEVICE_NAME: ChioBio1
     volumes:
       - ./data:/usr/service/data

@@ -11,8 +11,8 @@ from src.config import config
 
 cfg = config.Config()
 logger = log.Logger.new()
-cache = redis.Client.connect(cfg.cache.ADDR)
-pubsub = redis.Client.connect(cfg.pubsub.ADDR)
+cache = redis.Client.connect(cfg.cache.URL)
+pubsub = redis.Client.connect(cfg.pubsub.URL)
 publisher = CommandPublisher(logger, cache, pubsub, cfg.publisher)
 
 router = APIRouter()

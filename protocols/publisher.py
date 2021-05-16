@@ -8,12 +8,12 @@ import redis
 @click.command("publish")
 @click.argument("file")
 @click.option(
-    "--addr",
-    help="Address of the redis server.",
-    default="127.0.0.1:6389",
+    "--url",
+    help="URL of the redis server.",
+    default="redis://127.0.0.1:6389",
     show_default=True,
 )
-def publish(file, addr):
+def publish(file, url):
     with open(file, "r") as f:
         protocol = json.loads(f.read())
 
@@ -39,7 +39,7 @@ def publish(file, addr):
             },
         }
 
-        publisher = redis.StrictRedis.from_url(f"redis://{addr}")
+        publisher = redis.StrictRedis.from_url(url)
         publisher.publish(data["apiVersion"], json.dumps(data))
 
 

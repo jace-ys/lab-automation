@@ -19,7 +19,7 @@ class Pusher(registry.Pusher):
         super(registry.Pusher, self).__init__()
 
         self.logger = logger
-        self.control_tower_addr = cfg.CONTROL_TOWER_ADDR
+        self.control_tower_url = cfg.CONTROL_TOWER_URL
 
         client = riffyn.Client.default(cfg.API_KEY)
         self.activity_api = api.ProcessActivityApi(client)
@@ -75,7 +75,7 @@ class Pusher(registry.Pusher):
             self.logger.error("data.push.failed", uuid=uuid, error=err)
 
     def __get_command(self, uuid):
-        resp = requests.get(f"http://{self.control_tower_addr}/commands/{uuid}")
+        resp = requests.get(f"{self.control_tower_url}/commands/{uuid}")
         resp.raise_for_status()
         return resp.json()
 
