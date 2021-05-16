@@ -199,8 +199,10 @@
     <Compile Include="Config.cs" />
     <Compile Include="Forwarder\Forwarder.cs" />
     <Compile Include="Forwarder\Payload.cs" />
+    <Compile Include="Methods\MeasureOD\Method.cs" />
+    <Compile Include="Methods\Method.cs" />
+    <Compile Include="Methods\Plate.cs" />
     <Compile Include="Methods\Registry.cs" />
-    <Compile Include="Methods\TestOD\Method.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="System\Command.cs" />
     <Compile Include="System\Export.cs" />
@@ -211,14 +213,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Methods\TestOD\Export.xml" />
-    <Content Include="Methods\TestOD\Method.xml" />
+    <Content Include="Methods\MeasureOD\Export.xml" />
+    <Content Include="Methods\MeasureOD\Method.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>powershell.exe Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force;</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>powershell.exe -File "C:\Program Files\Tecan\SparkControl\Clients\CopyAdditionalAutomationInterfaceFiles.ps1" "C:\Users\GBSpark\Downloads\Jace\lab-automation\services\tecan-spark-relay\bin\Debug"</PostBuildEvent>
+    <PostBuildEvent>
+
+if "$(ConfigurationName)" == "Debug" (
+  powershell.exe -File "C:\Program Files\Tecan\SparkControl\Clients\CopyAdditionalAutomationInterfaceFiles.ps1" "C:\Users\GBSpark\Downloads\Jace\lab-automation\services\tecan-spark-relay\bin\Debug"
+) else if "$(ConfigurationName)" == "Release" (
+   powershell.exe -File "C:\Program Files\Tecan\SparkControl\Clients\CopyAdditionalAutomationInterfaceFiles.ps1" "C:\Users\GBSpark\Downloads\Jace\lab-automation\services\tecan-spark-relay\bin\Release
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>

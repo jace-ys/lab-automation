@@ -18,7 +18,12 @@ namespace TecanSparkRelay
             var redis = new RedisClient(cfg.pubsub.Addr);
             var forwarder = new Forwarder.Forwarder(cfg.forwarder);
 
-            var topic = Path.Join(cfg.version, cfg.manager.DeviceName);
+            var topic = cfg.version;
+            if (!String.IsNullOrEmpty(cfg.manager.DeviceName))
+            {
+                topic += $"/{cfg.manager.DeviceName}";
+            }
+
             var manager = new System.Manager(logger, forwarder, redis, topic, cfg.manager);
             var subscribe = new Thread(new ThreadStart(manager.Subscribe));
 

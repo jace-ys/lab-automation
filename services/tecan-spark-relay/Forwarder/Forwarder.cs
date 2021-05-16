@@ -62,8 +62,8 @@ namespace TecanSparkRelay.Forwarder
             XmlSerializer serializer = new XmlSerializer(typeof(System.MeasurementResultData));
             using (TextReader reader = new StringReader(resultsXML))
             {
-                System.MeasurementResultData result = (System.MeasurementResultData)serializer.Deserialize(reader);
-                List<DataRow> rows = result.Absorbance.DataLabel.ResultContext.Select(result =>
+                System.MeasurementResultData data = (System.MeasurementResultData)serializer.Deserialize(reader);
+                List<DataRow> rows = data.Absorbance.DataLabel.ResultContext.Select(result =>
                 {
                     return new DataRow(result);
                 }).ToList();
