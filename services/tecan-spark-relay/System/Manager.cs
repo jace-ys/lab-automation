@@ -28,14 +28,25 @@ namespace TecanSparkRelay.System
             this.forwarder = forwarder;
             this.subscription = redis.CreateSubscription();
             this.topic = topic;
-
-            AutomationInterfaceFactory.Start();
             this.SetInstrument(cfg.Instrument);
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 MissingMemberHandling = MissingMemberHandling.Error,
             };
+        }
+
+        public static void Init()
+        {
+            AutomationInterfaceFactory.Start();
+        }
+
+        public static string ExportMethod(string methodName)
+        {
+            using (var ai = AutomationInterfaceFactory.Build())
+            {
+                return ai.Queries.GetMethodXml(methodName);
+            }
         }
 
         public void Subscribe()

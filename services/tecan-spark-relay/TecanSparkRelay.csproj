@@ -41,6 +41,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="Fluid, Version=0.0.0.0, Culture=neutral, PublicKeyToken=51cdb8c1938e4789, processorArchitecture=MSIL">
       <HintPath>packages\Fluid.Core.1.0.0\lib\netstandard2.0\Fluid.dll</HintPath>
     </Reference>
@@ -209,6 +212,7 @@
     <Compile Include="System\Manager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Makefile" />
     <None Include="packages.config" />
   </ItemGroup>
