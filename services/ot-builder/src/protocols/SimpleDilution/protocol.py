@@ -1,7 +1,7 @@
 from opentrons import protocol_api
 
 # spec:
-#     - waterVolume
+#     - volume
 
 metadata = {
     "protocolName": "OT-2/v1alpha1/SimpleDilution",
@@ -15,8 +15,8 @@ def run(protocol: protocol_api.ProtocolContext):
     reservoir = protocol.load_labware(**config["reservoir"])
     pipette = protocol.load_instrument(**config["pipette"], tip_racks=[tiprack])
 
-    water = reservoir["A12"]
-    volumes = list(map(lambda element: element["waterVolume"], spec))
+    dilutant = reservoir["A1g"]
+    volumes = list(map(lambda well: well["volume"], spec))
     wells = plate.wells()[: len(volumes)]
 
-    pipette.distribute(volumes, water, wells, mix_after=(3, 10))
+    pipette.distribute(volumes, dilutant, wells, mix_after=(3, 10))
