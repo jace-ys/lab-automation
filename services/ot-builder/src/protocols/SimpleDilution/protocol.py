@@ -9,14 +9,24 @@ metadata = {
 }
 
 
+def describe():
+    return """
+This protocol performs a simple dilution by adding specified volumes of a diluent from
+a reservoir to wells on a destination plate.
+"""
+
+
 def run(protocol: protocol_api.ProtocolContext):
     tiprack = protocol.load_labware(**config["tiprack"])
-    plate = protocol.load_labware(**config["plate"])
-    reservoir = protocol.load_labware(**config["reservoir"])
     pipette = protocol.load_instrument(**config["pipette"], tip_racks=[tiprack])
 
-    dilutant = reservoir["A1g"]
-    volumes = list(map(lambda well: well["volume"], spec))
-    wells = plate.wells()[: len(volumes)]
+    # Plate containing solution to be diluted
+    plate = protocol.load_labware(**config["plate"])
+    # Reservoir containing diluent
+    reservoir = protocol.load_labware(**config["reservoir"])
 
-    pipette.distribute(volumes, dilutant, wells, mix_after=(3, 10))
+    pipette.distribute(
+        volume=list(map(lambda well: well["volume"], spec)),
+        source=reservoir["A1"],
+        dest=plate.wells()[: len(spec)],
+    )

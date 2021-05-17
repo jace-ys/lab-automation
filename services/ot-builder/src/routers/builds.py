@@ -64,6 +64,7 @@ async def handle_list_builds(request: Request):
 async def handle_get_build(request: Request, build_id: str):
     try:
         build = builder.get(build_id)
+        protocol = builder.protocol(build)
         config = builder.config(build)
 
         logger.info("build.get.success", build_id=build_id)
@@ -72,6 +73,7 @@ async def handle_get_build(request: Request, build_id: str):
             {
                 "request": request,
                 "build": build,
+                "protocol": protocol,
                 "config": config,
             },
         )
