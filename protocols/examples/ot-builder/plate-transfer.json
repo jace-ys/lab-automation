@@ -1,22 +1,22 @@
 {
   "apiVersion": "OT-2/v1alpha1",
-  "protocol": "SimpleDilution",
+  "protocol": "PlateTransfer",
   "plate": {
     "rows": 8,
     "columns": 1
   },
   "spec": [
     {
-      "volume": 25
+      "volume": 100
     },
     {
-      "volume": 25
+      "volume": 100
     },
     {
-      "volume": 25
+      "volume": 100
     },
     {
-      "volume": 25
+      "volume": 100
     },
     {
       "volume": 50

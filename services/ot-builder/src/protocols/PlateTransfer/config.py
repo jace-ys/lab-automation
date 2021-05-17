@@ -16,15 +16,15 @@ class Config(BaseConfig):
                     "mount": ConfigType.mount,
                 }
             },
-            "plate": {
-                "hint": "Plate containing the solution to be diluted",
+            "source": {
+                "hint": "Plate to transfer the solution from",
                 "spec": {
                     "load_name": ConfigType.labware,
                     "location": ConfigType.location,
                 },
             },
-            "reservoir": {
-                "hint": "Reservoir containing the diluent",
+            "destination": {
+                "hint": "Plate to transfer the solution to",
                 "spec": {
                     "load_name": ConfigType.labware,
                     "location": ConfigType.location,

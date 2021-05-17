@@ -7,8 +7,12 @@ from opentrons import simulate
 
 class Build(dict):
     def __init__(self, command):
-        config = {"config": {}}
-        super(Build, self).__init__({**command, **config})
+        super(Build, self).__init__(
+            {
+                "config": {},
+                **command,
+            }
+        )
 
 
 class ProtocolBuilder:
@@ -46,8 +50,8 @@ class ProtocolBuilder:
     def update(self, build_id, build):
         self.cache.hset(self.cache_key, build_id, json.dumps(build))
 
-    def delete(self, build_id):
-        pass
+    def protocol(self, build):
+        return importlib.import_module(f"src.protocols.{build['protocol']}.protocol")
 
     def config(self, build):
         return importlib.import_module(
@@ -61,7 +65,8 @@ class ProtocolBuilder:
 
     def build_protocol(self, build):
         with open(f"src/protocols/{build['protocol']}/protocol.py", "r") as f:
-            protocol_file = f"""spec = {build["spec"]}
+            protocol_file = f"""
+spec = {build["spec"]}
 config = {build["config"]}
 
 {f.read()}

@@ -10,20 +10,26 @@
       <a href="/builds">Back</a>
       <h3>Build ID: {{ build.uuid }}</h3>
       <h3>Protocol: {{ build.protocol }}</h3>
+      <p><em>{{ protocol.describe() }}</em></p>
+      <hr>
       <div style="margin: 2em 0;">
         <form action="/builds/{{ build.uuid }}/download" method="POST">
-          {%- for resource, properties in config.items() -%}
-          {% for property, spec in properties.items() %}
+        {%- for resource, item in config.items() -%}
+          <h4>{{ resource.title() }}</h4>
+          {% if item.hint %}
+          <em>{{ item.hint }}</em>
+          {% endif %}
+          {% for property, type in item.spec.items() %}
           <div style="margin: 1em 0;">
-            <label for="{{ resource }}.{{ property }}">{{ resource }} {{ property }}</label>
+            <label for="{{ resource }}.{{ property }}">{{ property }}</label>
             <select name="{{ resource }}.{{ property }}" id="{{ resource }}.{{ property }}">
-            {% if spec.type.name == "location" %}
+            {% if type.name == "location" %}
               {% for i in range(1, 13) -%}
               <option value="{{ i }}"{% if build.config.get(resource, {}).get(property) == i %} selected{% endif -%}>
                 {{ i }}
               </option>
               {% endfor -%}
-            {% elif spec.type.name == "labware" %}
+            {% elif type.name == "labware" %}
               <option value="corning_96_wellplate_360ul_flat"{% if build.config.get(resource, {}).get(property) == "corning_96_wellplate_360ul_flat" %} selected{% endif -%}>
                 corning_96_wellplate_360ul_flat
               </option>
@@ -39,7 +45,7 @@
               <option value="opentrons_6_tuberack_falcon_50ml_conical"{% if build.config.get(resource, {}).get(property) == "opentrons_6_tuberack_falcon_50ml_conical" %} selected{% endif -%}>
                 opentrons_6_tuberack_falcon_50ml_conical
               </option>
-            {% elif spec.type.name == "instrument" %}
+            {% elif type.name == "instrument" %}
               <option value="p300_single"{% if build.config.get(resource, {}).get(property) == "p300_single" %} selected{% endif -%}>
                 p300_single
               </option>
@@ -49,14 +55,14 @@
               <option value="p300_multi_gen2"{% if build.config.get(resource, {}).get(property) == "p300_multi_gen2" %} selected{% endif -%}>
                 p300_multi_gen2
               </option>
-            {% elif spec.type.name == "mount" %}
+            {% elif type.name == "mount" %}
               <option value="left"{% if build.config.get(resource, {}).get(property) == "left" %} selected{% endif -%}>
                 left
               </option>
               <option value="right"{% if build.config.get(resource, {}).get(property) == "right" %} selected{% endif -%}>
                 right
               </option>
-            {% elif spec.type.name == "strategy" %}
+            {% elif type.name == "strategy" %}
             <option value="never" {% if build.config.get(resource, {}).get(property)=="never" %} selected{% endif -%}>
               never
             </option>
@@ -64,7 +70,7 @@
             </select>
           </div>
           {%- endfor -%}
-          {% endfor %}
+        {% endfor %}
           <div style="margin: 2em 0;">
             <input type="submit" formaction="/builds/{{ build.uuid }}/simulate" value="Simulate">
             <input type="submit" value="Download">
