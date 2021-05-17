@@ -5,7 +5,7 @@ class Data:
         else:
             data = [""] * 40
 
-        self.expTime = data[0]
+        self.timeElapsed = data[0]
         self.odMeasured = data[1]
         self.odSetpoint = data[2]
         self.odZeroSetpoint = data[3]

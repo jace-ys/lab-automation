@@ -25,14 +25,14 @@ namespace TecanSparkRelay.Forwarder
 
     public class Data
     {
-        public string expTime;
-        public string odMeasured;
+        public string timeElapsed;
+        public string absorbance;
         public string error;
 
-        public Data(string expTime, string odMeasured)
+        public Data(string timeElapsed, string absorbance)
         {
-            this.expTime = expTime;
-            this.odMeasured = odMeasured;
+            this.timeElapsed = timeElapsed;
+            this.absorbance = absorbance;
         }
 
         public Data(Exception ex)

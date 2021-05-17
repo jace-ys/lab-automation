@@ -7,28 +7,28 @@
   },
   "spec": [
     {
-      "waterVolume": 25
+      "volume": 25
     },
     {
-      "waterVolume": 25
+      "volume": 25
     },
     {
-      "waterVolume": 25
+      "volume": 25
     },
     {
-      "waterVolume": 25
+      "volume": 25
     },
     {
-      "waterVolume": 50
+      "volume": 50
     },
     {
-      "waterVolume": 50
+      "volume": 50
     },
     {
-      "waterVolume": 50
+      "volume": 50
     },
     {
-      "waterVolume": 50
+      "volume": 50
     }
   ]
 }
