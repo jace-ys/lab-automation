@@ -9,9 +9,9 @@ namespace TecanSparkRelay.Methods
     public abstract class SparkMethod
     {
         public List<object> wells = new List<object>();
-        private IFluidTemplate templateXML;
+        private static IFluidTemplate templateXML;
 
-        public virtual void Register(string methodName)
+        public void Register(string methodName)
         {
             var template = File.ReadAllText($"./Methods/{methodName}/Method.xml");
             templateXML = FluidTemplate.Parse(template);
