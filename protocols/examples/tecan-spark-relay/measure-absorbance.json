@@ -1,6 +1,6 @@
 {
   "apiVersion": "TecanSpark/v1alpha1/GBSpark",
-  "protocol": "MeasureOD",
+  "protocol": "MeasureAbsorbance",
   "plate": {
     "rows": 8,
     "columns": 1
