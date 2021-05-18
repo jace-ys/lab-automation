@@ -89,6 +89,25 @@ async def handle_get_build(request: Request, build_id: str):
         )
 
 
+@router.post("/builds/{build_id}/delete")
+async def handle_delete_build(request: Request, build_id: str):
+    try:
+        builder.delete(build_id)
+
+        logger.info("build.get.success", build_id=build_id)
+        return RedirectResponse(url="/builds", status_code=status.HTTP_303_SEE_OTHER)
+
+    except Exception as err:
+        logger.info("build.delete.failed", error=err, build_id=build_id)
+        return views.TemplateResponse(
+            "error.html",
+            {
+                "request": request,
+                "error": err,
+            },
+        )
+
+
 @router.get("/builds/{build_id}/download")
 async def handle_download_build(request: Request, build_id: str):
     try:

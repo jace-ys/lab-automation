@@ -50,6 +50,9 @@ class ProtocolBuilder:
     def update(self, build_id, build):
         self.cache.hset(self.cache_key, build_id, json.dumps(build))
 
+    def delete(self, build_id):
+        self.cache.hdel(self.cache_key, build_id)
+
     def protocol(self, build):
         return importlib.import_module(f"src.protocols.{build['protocol']}.protocol")
 
