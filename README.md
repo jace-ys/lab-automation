@@ -1,4 +1,4 @@
-# Lab Automation Playground
+# Universal Lab Automation System for Synthetic Biology
 
 ## Foreword
 
@@ -16,15 +16,21 @@ While this project is far from complete or production-ready, it demonstrates the
 
 ## Services
 
-The following is the existing list of services:
+The following is the list of services that make up the core of the lab automation system:
 
-- [service.control-tower](services/control-tower)
-- [service.data-gateway](services/data-gateway)
-- [service.ot-builder](services/ot-builder)
-- [service.chibio-relay](services/chibio-relay)
-- [service.tecan-spark-relay](services/tecan-spark-relay)
+- [`service.control-tower`](services/control-tower)
+- [`service.data-gateway`](services/data-gateway)
+- [`service.ot-builder`](services/ot-builder)
+- [`service.chibio-relay`](services/chibio-relay)
+- [`service.tecan-spark-relay`](services/tecan-spark-relay)
 
-Documentation on their purpose, how they work, as well as running and developing them individually can be found in each service's README. It is recommended to go through all of them before jumping into the [Getting Started](docs/getting-started) section on how to use the lab automation system.
+Documentation on their purpose, how they work, as well as running and developing them individually can be found in each service's README. It is recommended to go through all of them before jumping into the [Getting Started](docs/getting-started.md) section on how to use the lab automation system.
+
+Auxiliary services include (for their configuration, see [`docker-compose.yaml`](docker-compose.yaml)):
+
+- `db.redis`
+- `pubsub.redis`
+- [`external.chibio-relay`](docs/development.md#service.chibio-server)
 
 ## Development
 
