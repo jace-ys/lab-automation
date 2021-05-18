@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using Fluid;
@@ -6,9 +7,9 @@ namespace TecanSparkRelay.Methods
 {
     public class Registry
     {
-        private readonly static Dictionary<string, SparkMethod> methods = new Dictionary<string, SparkMethod>
+        private readonly static Dictionary<string, Type> methods = new Dictionary<string, Type>
         {
-            ["MeasureOD"] = new MeasureOD(),
+            ["MeasureOD"] = typeof(MeasureOD),
         };
 
         static Registry()
@@ -16,11 +17,9 @@ namespace TecanSparkRelay.Methods
             TemplateContext.GlobalMemberAccessStrategy.Register<Plate>();
             TemplateContext.GlobalMemberAccessStrategy.Register<Well>();
 
-            foreach (KeyValuePair<string, SparkMethod> kvp in methods)
+            foreach (var methodName in methods.Keys)
             {
-                var methodName = kvp.Key;
-                var method = kvp.Value;
-
+                var method = GetMethod(methodName);
                 method.Register(methodName);
                 TemplateContext.GlobalMemberAccessStrategy.Register(method.SpecType());
             }
@@ -28,7 +27,7 @@ namespace TecanSparkRelay.Methods
 
         public static SparkMethod GetMethod(string methodName)
         {
-            return methods[methodName];
+            return (SparkMethod)Activator.CreateInstance(methods[methodName], new object[] { });
         }
     }
 }
