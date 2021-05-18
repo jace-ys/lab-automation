@@ -2,14 +2,14 @@ using System;
 
 namespace TecanSparkRelay.Methods
 {
-    public class MeasureOD : SparkMethod
+    public class MeasureAbsorbance : SparkMethod
     {
-        public MeasureOD() : base() { }
+        public MeasureAbsorbance() : base() { }
 
         public override void Validate()
         {
             base.Validate();
-            var spec = (MeasureODSpec)this.SpecContext();
+            var spec = (MeasureAbsorbanceSpec)this.SpecContext();
 
             if (spec.cycles <= 0)
             {
@@ -34,7 +34,7 @@ namespace TecanSparkRelay.Methods
 
         public override Type SpecType()
         {
-            return typeof(MeasureODSpec);
+            return typeof(MeasureAbsorbanceSpec);
         }
 
         public override int Rows()
@@ -48,7 +48,7 @@ namespace TecanSparkRelay.Methods
         }
     }
 
-    public class MeasureODSpec
+    public class MeasureAbsorbanceSpec
     {
         public int cycles { get; set; }
         public int measurementWavelength { get; set; }

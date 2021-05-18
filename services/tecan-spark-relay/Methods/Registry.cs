@@ -9,7 +9,7 @@ namespace TecanSparkRelay.Methods
     {
         private readonly static Dictionary<string, Type> methods = new Dictionary<string, Type>
         {
-            ["MeasureOD"] = typeof(MeasureOD),
+            ["MeasureAbsorbance"] = typeof(MeasureAbsorbance),
         };
 
         static Registry()
