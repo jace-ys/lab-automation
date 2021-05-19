@@ -21,7 +21,7 @@ class Experiment:
 
 
 class SystemManager:
-    FP1_EXCITE = {
+    FP_EXCITE = {
         "395/30": "LEDA",
         "457/35": "LEDB",
         "500/55": "LEDC",
@@ -32,7 +32,7 @@ class SystemManager:
         "Laser": "LASER650",
     }
 
-    FP1_GAIN = {
+    FP_GAIN = {
         "0.5x": "x0",
         "1x": "x1",
         "2x": "x2",
@@ -115,7 +115,7 @@ class SystemManager:
         if "fp1Excite" in spec:
             data["FP1"] = {"ON": 1}
 
-            led = SystemManager.FP1_EXCITE.get(spec["fp1Excite"])
+            led = SystemManager.FP_EXCITE.get(spec["fp1Excite"])
             if led is None:
                 raise ConfigureError(
                     f"invalid value for fp1Excite: {spec['fp1Excite']}"
@@ -124,7 +124,7 @@ class SystemManager:
             data["FP1"].update({"LED": led})
 
             if "fp1Gain" in spec:
-                gain = SystemManager.FP1_GAIN.get(spec["fp1Gain"])
+                gain = SystemManager.FP_GAIN.get(spec["fp1Gain"])
                 if gain is None:
                     raise ConfigureError(
                         f"invalid value for fp1gain: {spec['fp1Gain']}"

@@ -4,6 +4,7 @@
 
 These are the common requirements needed to get started with local development for most services:
 
+- `GNU Make`
 - `docker v1.13.0`
 - `docker-compose v1.10.0`
 
