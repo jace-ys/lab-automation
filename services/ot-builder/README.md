@@ -9,8 +9,6 @@ The `service.ot-builder` works as a unidirectional service - it only handles ups
 - `python 3.9`
 - `poetry 1.0`
 
-You will also require a local instance of the Chi.Bio server. See this [guide](../../docs/development.md#externalchibio-server) for more info.
-
 ## Usage
 
 - Install dependencies:
