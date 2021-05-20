@@ -48,28 +48,28 @@ namespace TecanSparkRelay.System
         {
             subscription.OnMessage = (topic, message) =>
             {
-                this.logger.Information("command.received, {command}", message);
+                this.logger.Information("trigger.received, {trigger}", message);
 
-                Command command = new Command();
+                Trigger trigger = new Trigger();
                 try
                 {
-                    command = JsonConvert.DeserializeObject<Command>(message);
+                    trigger = JsonConvert.DeserializeObject<Trigger>(message);
 
                     if (this.running)
                     {
                         throw new ApplicationException("An existing experiment is already running");
                     }
 
-                    this.HandleCommand(command);
+                    this.HandleTrigger(trigger);
                 }
                 catch (ApplicationException ex)
                 {
-                    this.logger.Error("[experiment.create.failed] {uuid} {error}", command.uuid, ex.Message);
-                    this.ForwardError(command, ex);
+                    this.logger.Error("[experiment.create.failed] {uuid} {error}", trigger.uuid, ex.Message);
+                    this.ForwardError(trigger, ex);
                 }
                 catch (Exception ex)
                 {
-                    this.logger.Error("[experiment.create.failed] {uuid} {error}", command.uuid, ex.Message);
+                    this.logger.Error("[experiment.create.failed] {uuid} {error}", trigger.uuid, ex.Message);
                 }
             };
 
@@ -95,16 +95,16 @@ namespace TecanSparkRelay.System
             }
         }
 
-        void HandleCommand(Command command)
+        void HandleTrigger(Trigger trigger)
         {
             string methodXML = "";
             try
             {
-                command.spec.Validate();
-                methodXML = command.spec.GenerateMethodXML();
+                trigger.spec.Validate();
+                methodXML = trigger.spec.GenerateMethodXML();
 
                 IEnumerable<string> messages;
-                if (!this.ai.CheckMethod(this.instrument, methodXML, command.protocol, out messages))
+                if (!this.ai.CheckMethod(this.instrument, methodXML, trigger.protocol, out messages))
                 {
                     string msg = string.Join(", ", messages);
                     throw new ApplicationException(msg);
@@ -112,7 +112,7 @@ namespace TecanSparkRelay.System
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Error generating method XML for {command.protocol}: {ex.Message}");
+                throw new ApplicationException($"Error generating method XML for {trigger.protocol}: {ex.Message}");
             }
 
             new Task(async () =>
@@ -122,14 +122,14 @@ namespace TecanSparkRelay.System
                     MethodExecutionResult result = null;
                     try
                     {
-                        this.logger.Information("[experiment.execute.started] {uuid}", command.uuid);
-                        result = this.ai.ExecuteMethod(this.instrument, methodXML, command.protocol, false);
-                        this.logger.Information("[experiment.execute.finished] {uuid} {workspace} {execution}", command.uuid, result.WorkspaceId, result.ExecutionId);
+                        this.logger.Information("[experiment.execute.started] {uuid}", trigger.uuid);
+                        result = this.ai.ExecuteMethod(this.instrument, methodXML, trigger.protocol, false);
+                        this.logger.Information("[experiment.execute.finished] {uuid} {workspace} {execution}", trigger.uuid, result.WorkspaceId, result.ExecutionId);
                     }
                     catch (Exception ex)
                     {
-                        this.logger.Error("[experiment.execute.failed] {uuid} {error}", command.uuid, ex.Message);
-                        this.ForwardError(command, ex);
+                        this.logger.Error("[experiment.execute.failed] {uuid} {error}", trigger.uuid, ex.Message);
+                        this.ForwardError(trigger, ex);
                         return;
                     }
                     finally
@@ -140,31 +140,31 @@ namespace TecanSparkRelay.System
                     try
                     {
                         var resultsXML = File.ReadAllText(this.ai.GetResults(result.WorkspaceId, result.ExecutionId));
-                        var rows = this.forwarder.ParseResults(resultsXML, command.spec.Plate()).Where(row => row.index < command.spec.wells.Count).ToList();
+                        var rows = this.forwarder.ParseResults(resultsXML, trigger.spec.Plate()).Where(row => row.index < trigger.spec.wells.Count).ToList();
 
-                        this.logger.Information("[batch.forward.started] {uuid} {rows}", command.uuid, rows.Count);
-                        await this.forwarder.BatchForward(command.uuid, rows);
-                        this.logger.Information("[batch.forward.finished] {uuid} {rows}", command.uuid, rows.Count);
+                        this.logger.Information("[batch.forward.started] {uuid} {rows}", trigger.uuid, rows.Count);
+                        await this.forwarder.BatchForward(trigger.uuid, rows);
+                        this.logger.Information("[batch.forward.finished] {uuid} {rows}", trigger.uuid, rows.Count);
                     }
                     catch (Exception ex)
                     {
-                        this.logger.Error("[batch.forward.failed] {uuid} {error}", command.uuid, ex.Message);
+                        this.logger.Error("[batch.forward.failed] {uuid} {error}", trigger.uuid, ex.Message);
                     }
                 }).Start();
         }
 
-        async void ForwardError(Command command, Exception err)
+        async void ForwardError(Trigger trigger, Exception err)
         {
             try
             {
                 var data = new Forwarder.Data(err);
                 var row = new Forwarder.DataRow(data);
-                await this.forwarder.Forward(command.uuid, row);
-                this.logger.Information("[configure.error.forwarded {uuid}", command.uuid);
+                await this.forwarder.Forward(trigger.uuid, row);
+                this.logger.Information("[configure.error.forwarded {uuid}", trigger.uuid);
             }
             catch (ApplicationException ex)
             {
-                this.logger.Error("[configure.error.forward.failed {uuid} {error}", command.uuid, ex.Message);
+                this.logger.Error("[configure.error.forward.failed {uuid} {error}", trigger.uuid, ex.Message);
             }
         }
     }

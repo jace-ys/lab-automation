@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 
 from lib import log, redis
-from lib.commands.subscriber import Subscriber
+from lib.triggers.subscriber import Subscriber
 from src.config import config
 from src.protocols.builder import ProtocolBuilder
 from src.routers import builds

@@ -7,9 +7,9 @@ import uvicorn
 from fastapi import FastAPI
 
 from lib import log, redis
-from src.commands.publisher import CommandPublisher
+from src.triggers.publisher import TriggerPublisher
 from src.config import config
-from src.routers import commands
+from src.routers import triggers
 
 cfg = config.Config()
 logger = log.Logger.new()
@@ -18,17 +18,17 @@ pubsub = redis.Client.connect(cfg.pubsub.URL)
 queue = Queue()
 
 app = FastAPI()
-app.include_router(commands.router)
+app.include_router(triggers.router)
 
 
 if __name__ == "__main__":
     done = threading.Event()
-    publisher = CommandPublisher(logger, cache, pubsub, cfg.publisher, queue, done)
+    publisher = TriggerPublisher(logger, cache, pubsub, cfg.publisher, queue, done)
     watchers = {}
 
     try:
         publisher.start()
-        logger.info("command.publisher.started")
+        logger.info("trigger.publisher.started")
 
         plugins = list(
             map(
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         done.set()
 
         publisher.join()
-        logger.info("command.publisher.stopped")
+        logger.info("trigger.publisher.stopped")
 
         for plugin, watcher in watchers.items():
             watcher.join()

@@ -6,11 +6,11 @@ from opentrons import simulate
 
 
 class Build(dict):
-    def __init__(self, command):
+    def __init__(self, trigger):
         super(Build, self).__init__(
             {
                 "config": {},
-                **command,
+                **trigger,
             }
         )
 
@@ -21,16 +21,16 @@ class ProtocolBuilder:
         self.cache = cache
         self.cache_key = cfg.CACHE_KEY
 
-    def handle_command(self, command):
+    def handle_trigger(self, trigger):
         try:
-            build = Build(command)
+            build = Build(trigger)
             self.create(build)
             self.logger.info(
                 "build.created", uuid=build["uuid"], protocol=build["protocol"]
             )
 
         except Exception as err:
-            self.logger.error("build.failed", uuid=command["uuid"], error=err)
+            self.logger.error("build.failed", uuid=trigger["uuid"], error=err)
 
     def list(self):
         # TODO: Order builds by creation time
