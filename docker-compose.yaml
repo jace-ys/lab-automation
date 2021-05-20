@@ -25,10 +25,9 @@ services:
     depends_on:
       - db.redis
       - pubsub.redis
-    env_file:
-      - ./services/control-tower/.env
     environment:
       <<: *environment
+      PLUGIN_RIFFYN_API_KEY: ${RIFFYN_API_KEY}
 
   service.data-gateway:
     build:
@@ -39,10 +38,9 @@ services:
       - db.redis
       - pubsub.redis
       - service.control-tower
-    env_file:
-      - ./services/data-gateway/.env
     environment:
       <<: *environment
+      PLUGIN_RIFFYN_API_KEY: ${RIFFYN_API_KEY}
       PLUGIN_RIFFYN_CONTROL_TOWER_URL: http://service.control-tower:8000
 
   service.ot-builder:

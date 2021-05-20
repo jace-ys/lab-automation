@@ -80,9 +80,14 @@ The `service.chibio-relay` forwards data produced by the Chi.Bio to the `service
   "error": "error",
   "odMeasured": "OD measured",
   "odSetpoint": "OD setpoint"
+  ...
 }
 ```
 
+The full list of exported data parameters is reflected in [`src/forwarder/payload.py`](src/forwarder/payload.py).
+
 ## Development
 
-#### Adding New Protocols
+#### Adding New Spec Parameters
+
+To add new parameters to the `Bioreactor` protocol spec, you will need to modify the code in [`src/system/manager.py`](src/system/manager.py). You should also have a look at the source code for the ChiBio server to see how the `sysData` object can be configured.
