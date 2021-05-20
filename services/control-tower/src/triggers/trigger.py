@@ -3,7 +3,7 @@ import re
 import uuid
 
 
-class Command:
+class Trigger:
     def __init__(self, api_version, protocol, spec=None):
         if re.match(r"(?i)[a-z0-9-]+\/v[1-9]+[a-z0-9]*", api_version) is None:
             raise InvalidAPIVersion
@@ -20,10 +20,10 @@ class Command:
         self.metadata = {"source": {"name": source, "spec": spec or {}}}
 
     def json(self):
-        return json.dumps(self, cls=CommandEncoder)
+        return json.dumps(self, cls=TriggerEncoder)
 
 
-class CommandEncoder(json.JSONEncoder):
+class TriggerEncoder(json.JSONEncoder):
     def default(self, o):
         return o.__dict__
 

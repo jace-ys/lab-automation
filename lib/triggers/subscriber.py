@@ -11,6 +11,6 @@ class Subscriber:
 
     def receive(self, message):
         if message["type"] == "message":
-            logger.info("command.received", command=message["data"])
-            command = json.loads(message["data"])
-            self.handler.handle_command(command)
+            logger.info("trigger.received", trigger=message["data"])
+            trigger = json.loads(message["data"])
+            self.handler.handle_trigger(trigger)

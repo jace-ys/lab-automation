@@ -1,4 +1,4 @@
-# PlateTransfer
+# `PlateTransfer`
 
 This protocol transfers the specified volumes from wells on a source plate to their
 corresponding wells on a destination plate.

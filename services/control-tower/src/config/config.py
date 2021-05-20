@@ -1,7 +1,7 @@
 from pydantic import BaseSettings
 
 
-class CommandPublisherConfig(BaseSettings):
+class TriggerPublisherConfig(BaseSettings):
     CACHE_KEY: str = "service.control-tower"
 
     class Config:
@@ -31,7 +31,7 @@ class ServerConfig(BaseSettings):
 
 
 class Config(BaseSettings):
-    publisher: CommandPublisherConfig = CommandPublisherConfig()
+    publisher: TriggerPublisherConfig = TriggerPublisherConfig()
     cache: RedisCacheConfig = RedisCacheConfig()
     pubsub: RedisPubSubConfig = RedisPubSubConfig()
     server: ServerConfig = ServerConfig()

@@ -5,40 +5,40 @@ from fastapi.responses import Response
 from pydantic import BaseModel, validator
 
 from lib import log, redis
-from src.commands import command
-from src.commands.publisher import CommandPublisher
+from src.triggers import trigger
+from src.triggers.publisher import TriggerPublisher
 from src.config import config
 
 cfg = config.Config()
 logger = log.Logger.new()
 cache = redis.Client.connect(cfg.cache.URL)
 pubsub = redis.Client.connect(cfg.pubsub.URL)
-publisher = CommandPublisher(logger, cache, pubsub, cfg.publisher)
+publisher = TriggerPublisher(logger, cache, pubsub, cfg.publisher)
 
 router = APIRouter()
 
 
-class GetCommandResponse(BaseModel):
+class GetTriggerResponse(BaseModel):
     apiVersion: str
     protocol: str
     spec: typing.Dict[typing.Any, typing.Any]
     metadata: typing.Dict[typing.Any, typing.Any]
 
 
-@router.get("/commands/{uuid}")
-async def get_command(uuid: str):
+@router.get("/triggers/{uuid}")
+async def get_trigger(uuid: str):
     try:
-        cmd = publisher.get(uuid)
-        return cmd
+        trg = publisher.get(uuid)
+        return trg
 
     except Exception as err:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"failed to get command: {str(err)}",
+            detail=f"failed to get trigger: {str(err)}",
         )
 
 
-class PublishCommandRequest(BaseModel):
+class PublishTriggerRequest(BaseModel):
     apiVersion: str
     protocol: str
     spec: typing.Dict[typing.Any, typing.Any]
@@ -51,22 +51,22 @@ class PublishCommandRequest(BaseModel):
         return v
 
 
-@router.post("/commands")
-async def publish_command(req: PublishCommandRequest):
+@router.post("/triggers")
+async def publish_trigger(req: PublishTriggerRequest):
     try:
-        cmd = command.Command(req.apiVersion, req.protocol, req.spec)
-        cmd.metadata("service.control-tower.api", {"endpoint": "/commands"})
-        publisher.publish(cmd)
+        trg = trigger.Trigger(req.apiVersion, req.protocol, req.spec)
+        trg.metadata("service.control-tower.api", {"endpoint": "/triggers"})
+        publisher.publish(trg)
         return Response(status_code=status.HTTP_202_ACCEPTED)
 
-    except command.InvalidAPIVersion:
+    except trigger.InvalidAPIVersion:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"failed to publish command: invalid API version",
+            detail=f"failed to publish trigger: invalid API version",
         )
 
     except Exception as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"failed to publish command: {str(err)}",
+            detail=f"failed to publish trigger: {str(err)}",
         )

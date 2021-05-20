@@ -52,35 +52,35 @@ class SystemManager:
         self.cache_key = cfg.CACHE_KEY
         self.chibio_server_url = cfg.CHIBIO_SERVER_URL
 
-    def handle_command(self, command):
+    def handle_trigger(self, trigger):
         try:
-            device = self.__configure_experiment(command)
+            device = self.__configure_experiment(trigger)
             experiment_id = self.__create_experiment(device)
             csv = f"{experiment_id}_data.csv"
 
-            experiment = Experiment(command["uuid"], csv)
+            experiment = Experiment(trigger["uuid"], csv)
             self.create(experiment)
             self.logger.info("experiment.created", uuid=experiment.uuid)
 
         except ConfigureError as err:
             self.logger.error(
-                "experiment.create.failed", uuid=command["uuid"], error=err
+                "experiment.create.failed", uuid=trigger["uuid"], error=err
             )
 
             try:
                 data = Data()
                 data.error = str(err)
-                forwarder.forward(command["uuid"], DataRow(data))
-                self.logger.info("configure.error.forwarded", uuid=command["uuid"])
+                forwarder.forward(trigger["uuid"], DataRow(data))
+                self.logger.info("configure.error.forwarded", uuid=trigger["uuid"])
 
             except Exception as err:
                 self.logger.error(
-                    "configure.error.forward.failed", uuid=command["uuid"], error=err
+                    "configure.error.forward.failed", uuid=trigger["uuid"], error=err
                 )
 
         except Exception as err:
             self.logger.error(
-                "experiment.create.failed", uuid=command["uuid"], error=err
+                "experiment.create.failed", uuid=trigger["uuid"], error=err
             )
 
     def create(self, experiment):
@@ -93,13 +93,13 @@ class SystemManager:
 
         return uuid
 
-    def __configure_experiment(self, command):
-        if "metadata" in command:
-            source = command["metadata"]["source"]["name"]
+    def __configure_experiment(self, trigger):
+        if "metadata" in trigger:
+            source = trigger["metadata"]["source"]["name"]
         else:
-            source = command["uuid"]
+            source = trigger["uuid"]
 
-        spec = command["spec"]
+        spec = trigger["spec"]
         data = {}
 
         # TODO: Handle more cases

@@ -6,29 +6,29 @@ using Newtonsoft.Json.Linq;
 
 namespace TecanSparkRelay.System
 {
-    [JsonConverter(typeof(CommandConverter))]
-    class Command
+    [JsonConverter(typeof(TriggerConverter))]
+    class Trigger
     {
         public string uuid { get; set; }
         public string apiVersion { get; set; }
         public string protocol { get; set; }
         public Plate plate { get; set; }
         public Methods.SparkMethod spec { get; set; }
-        public CommandMetadata metadata { get; set; }
+        public TriggerMetadata metadata { get; set; }
     }
 
-    public class CommandConverter : JsonConverter
+    public class TriggerConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return (objectType == typeof(Command));
+            return (objectType == typeof(Trigger));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject obj = JObject.Load(reader);
 
-            var command = new Command();
+            var trigger = new Trigger();
             var methodName = (string)obj["protocol"];
             var method = Methods.Registry.GetMethod(methodName);
 
@@ -40,10 +40,10 @@ namespace TecanSparkRelay.System
             }
             obj.Remove("spec");
 
-            command.spec = method;
-            serializer.Populate(obj.CreateReader(), command);
+            trigger.spec = method;
+            serializer.Populate(obj.CreateReader(), trigger);
 
-            return command;
+            return trigger;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -58,12 +58,12 @@ namespace TecanSparkRelay.System
         public int columns { get; set; }
     }
 
-    class CommandMetadata
+    class TriggerMetadata
     {
-        public CommandSource source { get; set; }
+        public TriggerSource source { get; set; }
     }
 
-    class CommandSource
+    class TriggerSource
     {
         public string name { get; set; }
         public List<Dictionary<string, dynamic>> spec { get; set; }

@@ -6,7 +6,7 @@ import requests
 
 from lib import riffyn, utils
 from plugins.riffyn.config import PluginConfig
-from src.commands import command
+from src.triggers import trigger
 
 cfg = PluginConfig()
 
@@ -47,16 +47,16 @@ class Watcher(threading.Thread):
                         complete, plate = self.__aggregate(run)
                         if len(complete) > 0:
                             if plate:
-                                commands = self.__build_commands(
+                                triggers = self.__build_triggers(
                                     experiment_id, complete, plate
                                 )
                             else:
-                                commands = self.__build_commands(
+                                triggers = self.__build_triggers(
                                     experiment_id, complete
                                 )
 
-                            for cmd in commands:
-                                self.queue.put(cmd)
+                            for trigger in triggers:
+                                self.queue.put(trigger)
 
                         self.cache.hset(self.cache_key, run.id, "")
 
@@ -148,12 +148,12 @@ class Watcher(threading.Thread):
         key = f"{self.cache_key}/{run.activity_id}/{name}"
         return (key, int(rows), int(cols), int(idx) - 1)
 
-    def __build_commands(self, experiment_id, runs, plate=None):
+    def __build_triggers(self, experiment_id, runs, plate=None):
         activity = self.activity_api.get_activity(experiment_id, runs[0].activity_id)
         data = self.__get_experiment_data_raw(experiment_id, activity.id, runs)
-        commands = self.__init_commands(experiment_id, activity, runs, plate)
+        triggers = self.__init_triggers(experiment_id, activity, runs, plate)
 
-        for api_version, (cmd, resources) in commands.items():
+        for (trigger, resources) in triggers.values():
             properties = {}
             for input in activity.inputs:
                 if input.id in resources:
@@ -170,12 +170,12 @@ class Watcher(threading.Thread):
                     if value is not None:
                         spec[property] = value
 
-                if isinstance(cmd.spec, list):
-                    cmd.spec[idx] = spec
+                if isinstance(trigger.spec, list):
+                    trigger.spec[idx] = spec
                 else:
-                    cmd.spec = spec
+                    trigger.spec = spec
 
-        return [cmd for (cmd, resources) in commands.values()]
+        return [trigger for (trigger, resources) in triggers.values()]
 
     def __get_experiment_data_raw(self, experiment_id, activity_id, runs):
         resp = requests.get(
@@ -190,22 +190,22 @@ class Watcher(threading.Thread):
         resp.raise_for_status()
         return resp.json()
 
-    def __init_commands(self, experiment_id, activity, runs, plate=None):
-        # Create a mapping of API version -> (command, resource IDs)
-        commands = {}
+    def __init_triggers(self, experiment_id, activity, runs, plate=None):
+        # Create a mapping of API version -> (trigger, resource IDs)
+        triggers = {}
         protocol = activity.name.replace(" ", "")
 
         for input in runs[0].inputs:
             try:
                 api_version = input.resource_name
-                if api_version not in commands:
-                    cmd = command.Command(api_version, protocol)
+                if api_version not in triggers:
+                    trg = trigger.Trigger(api_version, protocol)
 
                     if plate:
-                        cmd.plate(*plate)
+                        trg.plate(*plate)
                         # Pre-fill the spec with an array equal to the number of runs
-                        cmd.spec = [None] * len(runs)
-                        cmd.metadata(
+                        trg.spec = [None] * len(runs)
+                        trg.metadata(
                             "riffyn",
                             list(
                                 map(
@@ -220,7 +220,7 @@ class Watcher(threading.Thread):
                         )
 
                     else:
-                        cmd.metadata(
+                        trg.metadata(
                             "riffyn",
                             {
                                 "experimentId": experiment_id,
@@ -229,11 +229,11 @@ class Watcher(threading.Thread):
                             },
                         )
 
-                    commands[api_version] = (cmd, [])
+                    triggers[api_version] = (trg, [])
 
-                commands[api_version][1].append(input.resource_def_id)
+                triggers[api_version][1].append(input.resource_def_id)
 
-            except command.InvalidAPIVersion:
+            except trigger.InvalidAPIVersion:
                 continue
 
-        return commands
+        return triggers

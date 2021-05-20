@@ -1,4 +1,4 @@
-# SimpleDilution
+# `SimpleDilution`
 
 This protocol performs a simple dilution by adding specified volumes of a diluent from
 a reservoir to wells on a destination plate.

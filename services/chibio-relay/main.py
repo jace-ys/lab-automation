@@ -3,8 +3,9 @@ import threading
 import uvicorn
 from fastapi import FastAPI
 
-from lib import api, log, redis
-from lib.commands.subscriber import Subscriber
+from lib import log, redis
+from lib.triggers import api
+from lib.triggers.subscriber import Subscriber
 from src.config import config
 from src.forwarder.batch import BatchForwarder
 from src.system.manager import SystemManager

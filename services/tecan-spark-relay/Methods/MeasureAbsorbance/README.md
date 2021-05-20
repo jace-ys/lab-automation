@@ -1,6 +1,6 @@
-# MeasureAbsorbance
+# `MeasureAbsorbance`
 
-This method performs an absorbance measurement under the given specifications.
+This protocol uses the plate reader to perform an absorbance measurement under the given specifications.
 
 ## Spec
 

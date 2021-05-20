@@ -28,8 +28,8 @@ class Pusher(registry.Pusher):
 
     def push(self, uuid, rows):
         try:
-            command = self.__get_command(uuid)
-            metadata = self.__parse_metadata(command)
+            trigger = self.__get_trigger(uuid)
+            metadata = self.__parse_metadata(trigger)
             indexes = self.__build_indexes(rows)
 
             self.logger.info(
@@ -74,13 +74,13 @@ class Pusher(registry.Pusher):
         except Exception as err:
             self.logger.error("data.push.failed", uuid=uuid, error=err)
 
-    def __get_command(self, uuid):
-        resp = requests.get(f"{self.control_tower_url}/commands/{uuid}")
+    def __get_trigger(self, uuid):
+        resp = requests.get(f"{self.control_tower_url}/triggers/{uuid}")
         resp.raise_for_status()
         return resp.json()
 
-    def __parse_metadata(self, command):
-        source = command["metadata"]["source"]
+    def __parse_metadata(self, trigger):
+        source = trigger["metadata"]["source"]
         if source["name"] != "riffyn":
             raise UnprocessableSource
 
