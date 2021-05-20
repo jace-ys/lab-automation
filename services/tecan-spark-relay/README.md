@@ -24,7 +24,7 @@ The `service.tecan-spark-relay` is the service layer for interacting with a [Tec
 
   ```
   export MANAGER_DEVICE_NAME=<a unique name for the current device>
-  export FORWARDER_DATA_GATEWAY_URL=<the base URL for the data-gateway service>
+  export FORWARDER_DATA_GATEWAY_URL=<the base URL for the service.data-gateway>
   ```
 
   Other environment variables that can be configured can be found in [`Config.cs`](Config.cs).

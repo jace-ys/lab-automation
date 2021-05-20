@@ -31,7 +31,7 @@ You will also require a local instance of the Chi.Bio server. See this [guide](.
   export MANAGER_CHIBIO_SERVER_URL=<base URL for the Chi.Bio server>
   export MANAGER_DEVICE_NAME=<a unique name for the current device>
   export FORWARDER_DATA_DIR=<the relative path to the Chi.Bio server's data directory>
-  export FORWARDER_DATA_GATEWAY_URL=<the base URL for the data-gateway service>
+  export FORWARDER_DATA_GATEWAY_URL=<the base URL for the service.data-gateway>
   ```
 
   Other environment variables that can be configured can be found in [`src/config/config.py`](src/config/config.py).
