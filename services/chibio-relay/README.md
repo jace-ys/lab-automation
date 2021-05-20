@@ -48,7 +48,7 @@ Upon receiving a protocol trigger, the `service.chibio-relay` forwards the param
 
 ![chibio-console](../../docs/assets/chibio-terminal.jpg)
 
-The `service.chibio-relay` also creates an experiment to be executed via the `/Experiment/{device}` endpoint - you should see an experiment ID in the top left corner of the Chi.Bio UI. A user is still required to start and stop buttons manually as this ensures that the Chi.Bio doesn't start running until a user is present to supervise it, which otherwise might pose some safety risks.
+The `service.chibio-relay` also creates an experiment to be executed via the `/Experiment/{device}` endpoint - you should see an experiment ID in the top left corner of the Chi.Bio UI. A user is still required to start and stop the experiment manually via the UI as this ensures that the Chi.Bio doesn't start running until a user is present to supervise it, which otherwise might pose some safety risks.
 
 <p align="center">
   <img src="../../docs/assets/chibio-experiment.jpg" alt="chibio-experiment" width="300">

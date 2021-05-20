@@ -45,7 +45,7 @@ Once the method has completed execution, an XML file containing the measurement 
 
 ## Protocols
 
-Available protocols can be found under the [Methods](./Methods) directory. Each protocol contains a README documenting the required spec to trigger it.
+Available protocols can be found under the [`Methods`](Methods) directory. Each protocol contains a README documenting the required spec to trigger it.
 
 Examples of protocol triggers for the `service.tecan-spark-relay` can be found under [`protocols/examples/tecan-spark-relay`](../../protocols/examples/tecan-spark-relay).
 
