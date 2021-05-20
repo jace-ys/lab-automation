@@ -79,7 +79,7 @@ The `service.chibio-relay` forwards data produced by the Chi.Bio to the `service
   "timeElapsed": "time elapsed",
   "error": "error",
   "odMeasured": "OD measured",
-  "odSetpoint": "OD setpoint"
+  "odSetpoint": "OD setpoint",
   ...
 }
 ```
