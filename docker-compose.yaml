@@ -38,6 +38,8 @@ services:
       - db.redis
       - pubsub.redis
       - service.control-tower
+    ports:
+      - 9000:8000
     environment:
       <<: *environment
       PLUGIN_RIFFYN_API_KEY: ${RIFFYN_API_KEY}
