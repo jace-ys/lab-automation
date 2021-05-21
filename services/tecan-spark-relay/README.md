@@ -23,6 +23,7 @@ The `service.tecan-spark-relay` is the service layer for interacting with a [Tec
 - Export the following environment variables to the current shell:
 
   ```
+  export REDIS_PUBSUB_URL=<the URL for connecting to the pubsub.redis service>
   export MANAGER_DEVICE_NAME=<a unique name for the current device>
   export FORWARDER_DATA_GATEWAY_URL=<the base URL for the service.data-gateway>
   ```
@@ -62,5 +63,7 @@ The `service.tecan-spark-relay` forwards data produced by the Spark® to the `se
 ```
 
 ## Development
+
+#### Mock SparkControl API
 
 #### Adding New Protocols

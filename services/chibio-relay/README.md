@@ -28,6 +28,8 @@ You will also require a local instance of the Chi.Bio server. See this [guide](.
 - Export the following environment variables to the current shell:
 
   ```
+  export REDIS_CACHE_URL=<the URL for connecting to the db.redis service>
+  export REDIS_PUBSUB_URL=<the URL for connecting to the pubsub.redis service>
   export MANAGER_CHIBIO_SERVER_URL=<base URL for the Chi.Bio server>
   export MANAGER_DEVICE_NAME=<a unique name for the current device>
   export FORWARDER_DATA_DIR=<the relative path to the Chi.Bio server's data directory>
