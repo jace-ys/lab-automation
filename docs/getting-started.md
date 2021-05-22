@@ -4,7 +4,7 @@ This guide is a brief primer on how to get started with deploying and running th
 
 At a high-level, the microservices that make up the overall system can be divided into core and edge services. See [Architecture](architecture.md) for an explanation of the differences between them.
 
-To run the lab automation system locally and get a feel of how it works without any edge connections, see the guide on [Running Locally](development.md#running-locally). To run the individual services for local development, check out their respective README's for instructions.
+This branch of the lab automation system is able to run all the core and edge services locally without any actual edge connections, allowing you to get a feel of how the system works. It does this by using mock implementations of the underlying device integrations. See [Local Mocks](development.md#local-mocks) for more info. To run the individual services for local development, check out their respective README's for instructions.
 
 ## Minimum Requirements
 

@@ -8,9 +8,9 @@ This lab automation system is primarily meant as a low-cost and flexible alterna
 
 ## Introduction
 
-This lab automation system allows one to integrate various software and hardware components used within the lab into a unified platform that forms the backbone and "building blocks" that enables one to compose automated workflows and experimental protocols that span across multiple equipment and tools. These include [laboratory information management systems](https://en.wikipedia.org/wiki/Laboratory_information_management_system), [liquid handling robots](https://en.wikipedia.org/wiki/Liquid_handling_robot), [plate readers](https://en.wikipedia.org/wiki/Plate_reader), etc.
+This lab automation system allows one to integrate various software and hardware components used within the lab into a unified platform that forms the backbone and "building blocks" that enable one to compose automated workflows and experimental protocols that span across multiple equipment and tools. These include [laboratory information management systems](https://en.wikipedia.org/wiki/Laboratory_information_management_system), [liquid handling robots](https://en.wikipedia.org/wiki/Liquid_handling_robot), [plate readers](https://en.wikipedia.org/wiki/Plate_reader), etc.
 
-The system is built as a set of microservices that work in tandem by allowing these integrations to "communicate" with one another and facilitate the flow of data between them. To find out more about how the overall system works, check out the documentation on [Architecture](docs/architecture.md).
+The system is built as a set of microservices that work in tandem by enabling these integrations to "communicate" with one another and facilitate the flow of data between them. To find out more about how the overall system works, check out the documentation on [Architecture](docs/architecture.md).
 
 While this project is far from complete or production-ready, it demonstrates the proof of concept and lays the groundwork towards building a robust and universal platform for developing lab automation at scale.
 
@@ -24,13 +24,13 @@ The following is the list of services that make up the core of the lab automatio
 - [`service.chibio-relay`](services/chibio-relay)
 - [`service.tecan-spark-relay`](services/tecan-spark-relay)
 
-Documentation on their purpose, how they work, as well as running and developing them individually can be found in each service's README. It is recommended to go through all of them before jumping into the [Getting Started](docs/getting-started.md) section on how to use the lab automation system.
+Documentation on their purposes, how they work, as well as running and developing them individually can be found in each service's README. It is recommended to go through all of them before jumping into the [Getting Started](docs/getting-started.md) section on how to use the lab automation system.
 
 Auxiliary services include (for their configuration, see [`docker-compose.yaml`](docker-compose.yaml)):
 
 - `db.redis`
 - `pubsub.redis`
-- [`external.chibio-relay`](docs/development.md#external.chibio-server)
+- [`external.chibio-server`](docs/development.md#externalchibio-server)
 
 ## Development
 
