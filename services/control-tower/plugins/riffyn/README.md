@@ -18,7 +18,7 @@ Other environment variables for the plugin that can be configured can be found i
 
 The plugin continuously polls the Riffyn API at fixed intervals for all `experiments` and their `runs`, thereafter selecting all `runs` in the `started` state that have not yet been handled. It also keeps track of all `runs` that are in the `stopped` state for bookkeeping.
 
-For each of these `runs`, it will iterate through its list of `input resources` and select the ones with a `resource name` that follows the API versioning convention (eg. `ChiBio/v1alpha1`). A protocol trigger is generated for each unique API version found, with its name set to the name of the `activity` converted to pascal-case (ie. `Serial Dilution` -> `SerialDilution`).
+For each of these `runs`, it will iterate through its list of `input resources` and select the ones with a `resource name` that follows the API versioning convention (eg. `ChiBio/v1alpha1`). A protocol trigger is generated for each unique API version found, with its name set to the name of the `activity` converted to pascal-case (ie. `Serial Dilution` -> `SerialDilution`). If the name of an `input resource` does not meet the API versioning convention, it is ignored.
 
 The `spec` of these protocol triggers are populated using the `properties` of their associated `input resources` - the name of the `property` is converted to camel-case and its value is assigned to it. For example, a `property` of `measurement wavelength` with value `600` is added to the `spec` as a key-value pair of `"measurementWavelength": 600`. Multi-valued input is currently not supported.
 

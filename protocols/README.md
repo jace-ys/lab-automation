@@ -1,6 +1,6 @@
 # Protocol Triggers Utility
 
-This is a [small utility Python script](publisher.py) for simulating protocol triggers that would typically be issued by the [`service.control-tower`](../services/control-tower), without having to run the server and its plugins.
+This is a [small utility Python script](publisher.py) for simulating [protocol triggers](../docs/protocols.md) that would typically be issued by the [`service.control-tower`](../services/control-tower), without having to run the server and its plugins.
 
 This script basically takes an input JSON file containing a protocol trigger and publishes it to a Redis instance, which downstream services can subscribe to and receive. This should make it more convenient to test the behaviour of a service upon receiving a protocol trigger.
 

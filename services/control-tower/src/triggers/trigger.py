@@ -17,7 +17,7 @@ class Trigger:
         self.plate = {"rows": rows, "columns": cols}
 
     def metadata(self, source, spec=None):
-        self.metadata = {"source": {"name": source, "spec": spec or {}}}
+        self.metadata = {"source": source, "spec": spec or {}}
 
     def json(self):
         return json.dumps(self, cls=TriggerEncoder)

@@ -2,6 +2,12 @@
 
 The `service.tecan-spark-relay` is the service layer for interacting with a [Tecan Spark® Multimode Plate Reader](https://lifesciences.tecan.com/multimode-plate-reader) through the SparkControl API provided by Tecan. This API is not available publicly, so please contact your customer service representiative at Tecan to find out how you can access it.
 
+Note that this branch of the `service.tecan-spark-relay` uses a [mock SparkControl API](#mock-sparkcontrol-api) and thus does not actually integrate with the actual Spark® system. This is especially helpful for developing the `service.tecan-spark-relay` locally.
+
+## Supported APIs
+
+- [`TecanSpark/v1alpha1`](#tecanspark/v1alpha1)
+
 ## Minimum Requirements
 
 - `.NET 5.0`
@@ -45,6 +51,8 @@ This method XML file is then passed to the SparkControl API to be executed. Whil
 Once the method has completed execution, an XML file containing the measurement data produced by the Spark® is exported via the API. See [here for an example](Methods/MeasureAbsorbance/Export.xml) of this data export XML file. This file is then parsed and transformed into a format that can be pushed to the [`service.data-gateway`](../data-gateway).
 
 ## Protocols
+
+#### `TecanSpark/v1alpha1`
 
 Available protocols can be found under the [`Methods`](Methods) directory. Each protocol contains a README documenting the required `spec` to trigger it.
 

@@ -4,6 +4,10 @@ The `service.ot-builder` is the service layer for working with the [Opentrons OT
 
 The `service.ot-builder` works as a unidirectional service - it only handles upstream triggers but does not actually export any data to the `service.data-gateway`.
 
+## Supported APIs
+
+- [`OT-2/v1alpha1`](#ot-2/v1alpha1)
+
 ## Minimum Requirements
 
 - `python 3.9`
@@ -48,6 +52,8 @@ Clicking into a build allows you to select the operational configuration require
 Once you have selected the configuration for the protocol you wish to run on the OT-2, you can view a step-by-step simulation of what the OT-2 will execute before downloading the generated protocol file. This allows you to tweak the configuration until you are confident it will work. You can then have the OT-2 execute this protocol file by uploading it via the Opentrons App.
 
 ## Protocols
+
+#### `OT-2/v1alpha1`
 
 Available protocols can be found under the [`src/protocols`](src/protocols) directory. Each protocol contains a README documenting the required `spec` to trigger it.
 

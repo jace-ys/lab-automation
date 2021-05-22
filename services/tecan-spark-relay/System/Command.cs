@@ -60,12 +60,7 @@ namespace TecanSparkRelay.System
 
     class TriggerMetadata
     {
-        public TriggerSource source { get; set; }
-    }
-
-    class TriggerSource
-    {
-        public string name { get; set; }
+        public string source { get; set; }
         public List<Dictionary<string, dynamic>> spec { get; set; }
     }
 }

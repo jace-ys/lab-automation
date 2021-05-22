@@ -80,11 +80,11 @@ class Pusher(registry.Pusher):
         return resp.json()
 
     def __parse_metadata(self, trigger):
-        source = trigger["metadata"]["source"]
-        if source["name"] != "riffyn":
+        metadata = trigger["metadata"]
+        if metadata["source"] != "riffyn":
             raise UnprocessableSource
 
-        spec = source["spec"]
+        spec = metadata["spec"]
         if isinstance(spec, list):
             return list(
                 map(

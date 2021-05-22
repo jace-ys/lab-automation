@@ -10,7 +10,7 @@ These are the common requirements needed to get started with local development f
 - `docker v1.13.0`
 - `docker-compose v1.10.0`
 
-These are mostly used to spin up containers containing auxiliary services that are depended upon by the service you're trying to develop. Some of these auxiliary services include the `db.redis` and `pubsub.redis` services.
+These are mostly used to spin up containers containing auxiliary services that are depended upon by the service you're trying to develop. Some of the common ones include the `db.redis` and `pubsub.redis` services.
 
 On top of that, you will also need to meet the minimum requirements listed in each service's README.
 
@@ -20,7 +20,7 @@ To be able to conveniently test the behaviour of services in the service layer, 
 
 ## Local Mocks
 
-To enable rapid prototyping without the need for hooking the lab automation system to edge services and actual hardware, mock implementations that imitate the behaviour of the underlying integrations are provided.
+To enable rapid prototyping without the need for hooking up the lab automation system to edge devices and actual hardware, mock implementations that imitate the behaviour of the underlying integrations are provided.
 
 #### `external.chibio-server`
 
@@ -39,3 +39,7 @@ docker-compose up
 ```
 
 The Chi.Bio UI should be accessible at http://localhost:5000.
+
+#### Mock SparkControl API
+
+See [`service.tecan-spark-relay`](../services/tecan-spark-relay).

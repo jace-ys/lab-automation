@@ -4,6 +4,10 @@ The `service.chibio-relay` is the service layer for interacting with a [Chi.Bio]
 
 **Note that this currently only works with a fork of the Chi.Bio software. This fork can be found at https://github.com/jace-ys/ChiBio/tree/develop.**
 
+## Supported APIs
+
+- [`ChiBio/v1alpha1`](#chibio/v1alpha1)
+
 ## Minimum Requirements
 
 - `python 3.9`
@@ -60,7 +64,9 @@ Additionally, the `service.chibio-relay` uses this experiment ID to keep track o
 
 ## Protocols
 
-The `service.chibio-relay` currently only has one protocol named `Bioreactor`. The `spec` for this protocol is detailed below:
+#### `ChiBio/v1alpha1`
+
+The `ChiBio/v1alpha1` API currently only supports one protocol named `Bioreactor`. The `spec` for this protocol is detailed below:
 
 - `devicePosition (string)`: device position from M0 to M8
 - `deviceName (string)`: name of device (eg. Hydrogen, Lithium)

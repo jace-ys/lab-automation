@@ -95,7 +95,7 @@ class SystemManager:
 
     def __configure_experiment(self, trigger):
         if "metadata" in trigger:
-            source = trigger["metadata"]["source"]["name"]
+            source = trigger["metadata"]["source"]
         else:
             source = trigger["uuid"]
 
