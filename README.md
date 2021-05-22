@@ -30,7 +30,7 @@ Auxiliary services include (for their configuration, see [`docker-compose.yaml`]
 
 - `db.redis`
 - `pubsub.redis`
-- [`external.chibio-relay`](docs/development.md#service.chibio-server)
+- [`external.chibio-relay`](docs/development.md#external.chibio-server)
 
 ## Development
 

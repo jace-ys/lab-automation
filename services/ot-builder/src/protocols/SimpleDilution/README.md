@@ -5,6 +5,6 @@ a reservoir to wells on a destination plate.
 
 ## Spec
 
-This protocol is a well-based protocol and thus expects a list of `spec` objects containing the following parameters:
+This protocol is a plate-based protocol and thus expects a list of `spec` objects containing the following parameters:
 
 - `volume (int)`: amount of diluent in uL to add to the well in the destination plate

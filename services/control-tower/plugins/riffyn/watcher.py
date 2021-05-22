@@ -1,19 +1,19 @@
 import re
-import threading
 
 import riffyn_nexus_sdk_v1 as api
 import requests
 
 from lib import riffyn, utils
+from plugins import registry
 from plugins.riffyn.config import PluginConfig
 from src.triggers import trigger
 
 cfg = PluginConfig()
 
 
-class Watcher(threading.Thread):
+class Watcher(registry.Watcher):
     def __init__(self, logger, cache, queue, done):
-        super(Watcher, self).__init__()
+        super(Watcher, self).__init__(logger, cache, queue, done)
 
         self.logger = logger
         self.cache = cache
@@ -71,7 +71,7 @@ class Watcher(threading.Thread):
                         partial = self.__is_partial(run)
                         if partial:
                             key, rows, cols, idx = partial
-                            if key in self.partials:
+                            if key in self.partials and idx < len(self.partials[key]):
                                 self.partials[key][idx] = None
 
                         self.cache.hdel(self.cache_key, run.id)
@@ -131,7 +131,9 @@ class Watcher(threading.Thread):
         if key not in self.partials:
             # Pre-fill an array equal to the number of expected partials
             self.partials[key] = [None] * (rows * cols)
-        self.partials[key][idx] = run
+
+        if idx < len(self.partials[key]):
+            self.partials[key][idx] = run
 
         # Check that all partial runs in the aggregated set have been populated
         if all(partial is not None for partial in self.partials[key]):
@@ -144,9 +146,9 @@ class Watcher(threading.Thread):
         if not partial:
             return False
 
-        name, rows, cols, idx = partial.group(1, 2, 3, 4)
+        name, rows, cols, num = partial.group(1, 2, 3, 4)
         key = f"{self.cache_key}/{run.activity_id}/{name}"
-        return (key, int(rows), int(cols), int(idx) - 1)
+        return (key, int(rows), int(cols), int(num) - 1)
 
     def __build_triggers(self, experiment_id, runs, plate=None):
         activity = self.activity_api.get_activity(experiment_id, runs[0].activity_id)
@@ -193,7 +195,7 @@ class Watcher(threading.Thread):
     def __init_triggers(self, experiment_id, activity, runs, plate=None):
         # Create a mapping of API version -> (trigger, resource IDs)
         triggers = {}
-        protocol = activity.name.replace(" ", "")
+        protocol = activity.name.title().replace(" ", "")
 
         for input in runs[0].inputs:
             try:

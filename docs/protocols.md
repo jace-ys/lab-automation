@@ -1,5 +1,3 @@
 # Protocols
 
-## Conventions
-
-#### Well-Based Protocols
+## Plate-Based Protocols
