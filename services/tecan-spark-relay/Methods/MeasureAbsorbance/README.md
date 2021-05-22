@@ -4,7 +4,7 @@ This protocol uses the plate reader to perform an absorbance measurement under t
 
 ## Spec
 
-This protocol is a well-based protocol and thus expects a list of `spec` objects containing the following parameters:
+This protocol is a plate-based protocol and thus expects a list of `spec` objects containing the following parameters:
 
 - `cycles (int)`: number of kinetic loop cycles
 - `measurementWavelength (int)`: wavelength to use for absorbance measurement in _nm_

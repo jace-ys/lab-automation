@@ -4,7 +4,7 @@ This plugin is an integration with the Riffyn API that allows data to be pushed 
 
 ## Configuration
 
-The following environment variables can be set to configure the plugin:
+The following environment variables need to be configured for the plugin:
 
 ```
 export PLUGIN_RIFFYN_API_KEY=<your Riffyn API key>
@@ -28,7 +28,7 @@ Upon receiving a set of data rows to be forwarded to Riffyn, the plugin first qu
 }
 ```
 
-**Note that for well-based protocols, the spec will be a list of nested objects corresponding to each well index.**
+**Note that for plate-based protocols, the `spec` will be a list of nested objects corresponding to each well index.**
 
 The plugin uses these IDs to push data to the respective `run`. **Note that the plugin will populate the last (right-most) `output resource` of the `run`, so you will need to design your `process` in a way that corresponds with this behaviour.**
 

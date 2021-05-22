@@ -46,7 +46,7 @@ Once the method has completed execution, an XML file containing the measurement 
 
 ## Protocols
 
-Available protocols can be found under the [`Methods`](Methods) directory. Each protocol contains a README documenting the required spec to trigger it.
+Available protocols can be found under the [`Methods`](Methods) directory. Each protocol contains a README documenting the required `spec` to trigger it.
 
 Examples of protocol triggers for the `service.tecan-spark-relay` can be found under [`protocols/examples/tecan-spark-relay`](../../protocols/examples/tecan-spark-relay).
 
@@ -65,5 +65,9 @@ The `service.tecan-spark-relay` forwards data produced by the Spark® to the `se
 ## Development
 
 #### Mock SparkControl API
+
+As the SparkControl API is only available on a machine with the SparkControl software installed, it might not always be very convenient when developing on another machine. To facilitate this, a mock implementation of the SparkControl API is provided for local development. The implementation can be found in [`System/AutomationInterface.cs`](System/AutomationInterface.cs), and it more or less fulfils a similar interface to that of the actual API.
+
+You will still need to tweak the code slightly when integrating with the actual API, but this should get you 90% of the way there while being able to test your code's logic without having to hook up the actual Spark®.
 
 #### Adding New Protocols

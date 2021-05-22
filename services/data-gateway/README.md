@@ -1,6 +1,6 @@
 # `service.data-gateway`
 
-The `service.data-gateway` acts as the data plane of the routing layer. It's role is to act as the gateway for data exported by downstream services in the service layer to upstream destinations for data storage - it uses a plugin-based approach to forward data to one or more upstream destinations.
+The `service.data-gateway` acts as the data plane of the routing layer. Its role is to act as the gateway for data exported by downstream services in the service layer to upstream destinations for data storage - it uses a plugin-based approach to forward data to one or more upstream destinations.
 
 ## Minimum Requirements
 
@@ -65,7 +65,7 @@ Examples of valid data objects:
 }
 ```
 
-The `index` key is only required for [well-based protocols](../../docs/protocols.md#well-based-protocols). As long as the request body conforms to the expected schema, it will be accepted and forwarded to each plugin's upstream destination; each plugin handles the actual logic for how to push data to their respective destinations.
+The `index` key refers to the well index and is only required for [plate-based protocols](../../docs/protocols.md#platebased-protocols). As long as the request body conforms to the expected schema, it will be accepted and forwarded to each plugin's upstream destination; each plugin handles the actual logic for how to push data to their respective destinations.
 
 ## Plugins
 

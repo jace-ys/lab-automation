@@ -24,7 +24,7 @@ To enable rapid prototyping without the need for hooking the lab automation syst
 
 #### `external.chibio-server`
 
-A mock Chi.Bio server is provided as a Docker image. With this mock implementation, you can start the server and interact with the Chi.Bio UI as you would for the actual server, but without any hardware side-effects - all the code for hardware interactions are commented out. The source code for this mock implementation can be found at. https://github.com/jace-ys/ChiBio/tree/lab-automation.
+A mock Chi.Bio server is provided as a Docker image. With this mock implementation, you can start the server and interact with the Chi.Bio UI as you would for the actual server, but without any hardware side-effects - all the code for hardware interactions are commented out. The source code for this mock implementation can be found at https://github.com/jace-ys/ChiBio/tree/lab-automation.
 
 You will first need to clone the above repository and build the Docker image:
 

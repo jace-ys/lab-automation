@@ -49,7 +49,7 @@ Once you have selected the configuration for the protocol you wish to run on the
 
 ## Protocols
 
-Available protocols can be found under the [`src/protocols`](src/protocols) directory. Each protocol contains a README documenting the required spec to trigger it.
+Available protocols can be found under the [`src/protocols`](src/protocols) directory. Each protocol contains a README documenting the required `spec` to trigger it.
 
 Examples of protocol triggers for the `service.ot-builder` can be found under [`protocols/examples/ot-builder`](../../protocols/examples/ot-builder).
 

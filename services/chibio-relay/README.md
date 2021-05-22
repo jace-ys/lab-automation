@@ -46,7 +46,7 @@ You will also require a local instance of the Chi.Bio server. See this [guide](.
 
 ## How it Works
 
-Upon receiving a protocol trigger, the `service.chibio-relay` forwards the parameters in the protocol's spec via a POST request to the `/sysData` endpoint. This configures the settings for an experiment for the specified device position on the Chi.Bio (`M0`-`M8`). The updated parameters should be visible in the Chi.Bio UI and terminal.
+Upon receiving a protocol trigger, the `service.chibio-relay` forwards the parameters in the protocol's `spec` via a POST request to the `/sysData` endpoint. This configures the settings for an experiment for the specified device position on the Chi.Bio (`M0`-`M8`). The updated parameters should be visible in the Chi.Bio UI and terminal.
 
 ![chibio-console](../../docs/assets/chibio-terminal.jpg)
 
@@ -60,7 +60,7 @@ Additionally, the `service.chibio-relay` uses this experiment ID to keep track o
 
 ## Protocols
 
-The `service.chibio-relay` currently only has one protocol named `Bioreactor`. The spec for this protocol is detailed below:
+The `service.chibio-relay` currently only has one protocol named `Bioreactor`. The `spec` for this protocol is detailed below:
 
 - `devicePosition (string)`: device position from M0 to M8
 - `deviceName (string)`: name of device (eg. Hydrogen, Lithium)
