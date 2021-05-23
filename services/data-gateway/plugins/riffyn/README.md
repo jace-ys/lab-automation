@@ -1,6 +1,6 @@
 # `plugin.riffyn`
 
-This plugin is an integration with the Riffyn API that allows data to be pushed to `runs` in a Riffyn `experiment`. It includes support for multi-valued data.
+This plugin is an integration with the [Riffyn Nexus](https://riffyn.com/) API that allows data to be pushed to `runs` in a Riffyn `experiment`. It includes support for multi-valued data.
 
 ## Configuration
 

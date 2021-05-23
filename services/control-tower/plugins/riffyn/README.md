@@ -1,6 +1,6 @@
 # `plugin.riffyn`
 
-This plugin is an integration with the Riffyn API that polls Riffyn `experiments` for `runs` that have been `started` and converts its `input resources` into protocol triggers, with a `spec` generated from their `property` values, as long as they meet the required shape. This protocol trigger is then published to the message queue via the `service.control-tower`.
+This plugin is an integration with the [Riffyn Nexus](https://riffyn.com/) API that polls Riffyn `experiments` for `runs` that have been `started` and converts its `input resources` into protocol triggers, with a `spec` generated from their `property` values, as long as they meet the required shape. This protocol trigger is then published to the message queue via the `service.control-tower`.
 
 As the Riffyn API currently does not provide any support for webhooks, the plugin has to continuously poll the API at fixed intervals. This means that upon starting a `run`, it might take a few seconds before the protocol trigger is generated. You will also need to stop a `run` for a few seconds before it can be restarted to generate a new protocol trigger. This delay is determined by the `PLUGIN_RIFFYN_POLL_INTERVAL` environment variable.
 
