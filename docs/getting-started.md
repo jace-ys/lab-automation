@@ -2,7 +2,7 @@
 
 This guide is a brief primer on how to get started with deploying and running the lab automation system in your lab environment.
 
-At a high-level, the microservices that make up the overall system can be divided into core and edge services. See [Architecture](architecture.md) for an explanation of the differences between them.
+At a high-level, the microservices that make up the overall system can be divided into core and edge services. See [Architecture](architecture.md#core-and-edge-services) for an explanation of the differences between them.
 
 This branch of the lab automation system is able to run all the core and edge services locally without any actual edge connections, allowing you to get a feel of how the system works. It does this by using mock implementations of the underlying device integrations. See [Local Mocks](development.md#local-mocks) for more info. To run the individual services for local development, check out their respective README's for instructions.
 
@@ -19,7 +19,7 @@ These are the main requirements needed to get started with running the core serv
 
 #### Edge Services
 
-Edge services typically require you to run them individually on their respective machines - additional requirements for running these services are detailed in their respective READMEs.
+Edge services typically require you to run them individually on peripheral machines alongside the device they are integrated with - additional requirements for running these services are detailed in their respective READMEs.
 
 The following are edge services:
 
