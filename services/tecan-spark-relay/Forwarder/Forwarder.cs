@@ -23,6 +23,7 @@ namespace TecanSparkRelay.Forwarder
 
         public async Task Forward(string uuid, DataRow row)
         {
+            // Serialize the data to JSON
             var payload = JsonConvert.SerializeObject(new Dictionary<string, dynamic>{
                 {"uuid", uuid},
                 {"row", row}
@@ -30,6 +31,7 @@ namespace TecanSparkRelay.Forwarder
 
             try
             {
+                // Forward the data to the service.data-gateway
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
                 var response = await this.client.PostAsync($"{this.dataGatewayURL}/data", content);
             }
@@ -41,6 +43,7 @@ namespace TecanSparkRelay.Forwarder
 
         public async Task BatchForward(string uuid, List<DataRow> rows)
         {
+            // Serialize the data to JSON
             var payload = JsonConvert.SerializeObject(new Dictionary<string, dynamic>{
                 {"uuid", uuid},
                 {"rows", rows}
@@ -48,6 +51,7 @@ namespace TecanSparkRelay.Forwarder
 
             try
             {
+                // Forward the data to the service.data-gateway
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
                 var response = await this.client.PostAsync($"{this.dataGatewayURL}/data/batch", content);
             }
@@ -57,13 +61,15 @@ namespace TecanSparkRelay.Forwarder
             }
         }
 
-        public List<DataRow> ParseResults(string resultsXML, Methods.Plate plate)
+        public List<DataRow> ParseResults(string resultsXML, Protocols.Plate plate)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(System.MeasurementResultData));
             using (TextReader reader = new StringReader(resultsXML))
             {
+                // Parse the XML measurement data
                 System.MeasurementResultData data = (System.MeasurementResultData)serializer.Deserialize(reader);
 
+                // Convert the measurement data to data rows that the service.data-gateway is able to accept
                 List<DataRow> rows = data.Absorbance.DataLabel.ResultContext.Select(result =>
                 {
                     return new DataRow(result, plate);

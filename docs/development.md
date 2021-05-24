@@ -2,6 +2,8 @@
 
 This is a quick guide on how you can get started with developing and extending ULAS. More in-depth documentation for each service can be found in their respective README's.
 
+A [`local` branch](https://github.com/jace-ys/lab-automation/tree/local/services/tecan-spark-relay) is provided to help make development easier when developing the lab automation system without edge connections. A typical workflow is to make your changes on the `local` branch, then cherry-pick your commits into the `master` branch.
+
 ## Minimum Requirements
 
 These are the common requirements needed to get started with local development for most services:

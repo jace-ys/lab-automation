@@ -76,6 +76,8 @@ The `ChiBio/v1alpha1` API currently only supports one protocol named `Bioreactor
 - `fp1Excite (string)`: value for the FP 1 Excite setting
 - `fp1Gain (string)`: value for the FP 1 Gain setting
 
+Not all these parameters are required. Set the ones you need as how you would typically use the Chi.Bio UI.
+
 Examples of protocol triggers for the `service.chibio-relay` can be found under [`protocols/examples/chibio-relay`](../../protocols/examples/chibio-relay).
 
 ## Data Export

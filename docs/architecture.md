@@ -1,10 +1,10 @@
 # Architecture
 
-ULAS is built as a set of microservices to form the backbone that integrates various lab equipment and tools into a single platform. Each service has a single domain of responsibility and they communicate over the network to enable data to flow between them. You can find out more about each service through their respective README's. They can be broadly categorised into [core and edge services](#core-and-edge-services). There also exists auxiliary services that play complimentary roles in the overall system architecture such as databases, caches, message queues, etc.
+ULAS is built as a set of microservices that integrates various lab instruments and software tools into a unified platform for orchestrating lab automation workflows. Each service has a single domain of responsibility and they communicate over the network to enable data to flow between them. You can find out more about each service through their respective README's. They can be broadly categorised into [core and edge services](#core-and-edge-services). There also exists auxiliary services that play complimentary roles in the overall system architecture such as databases, caches, message queues, etc.
 
 The system operates on an internal data language called [protocols](protocols.md) that are represented as JSON objects. These are the messages sent to downstream automation targets that encapsulates the "instructions" on what operations to carry out at each step of the workflow.
 
-These integrations essentially form the "building blocks" that allow one to compose lab automation workflows in steps that span across multiple integrations. Additionally, the sharing of data within the system means that the outputs from one step can be used as inputs for subsequent steps, allowing one to create cohesive workflows.
+These integrations essentially form the "building blocks" that allow one to compose and orchestrate lab automation workflows in steps that span across multiple integrations. Additionally, the sharing of data within the system means that the outputs from one step can be used as inputs for subsequent steps, allowing one to create cohesive workflows.
 
 For instance, one can design a lab automation workflow that performs measurements on a plate via a plate reader, followed by using those measurements to carry out liquid transfers via a liquid handling robot, all within the same framework. Through integrating with laboratory information management systems, this workflow design process can be enhanced even further. A good example of this is using [Riffyn Nexus](https://riffyn.com/) to design the steps of an experiment in the model of a directed-acylic graph.
 
@@ -14,7 +14,7 @@ Below is a diagram of the current software architecture, which can be further di
 
 ### Access Layer
 
-The access layer is the user-facing layer that allows users to design experimental workflows as well as capture experimental data. This is typically done through integrating with external software such as laboratory information management systems that provide powerful user interfaces for managing the lifecycle of experiments. Good examples are [Riffyn Nexus](https://riffyn.com/) and [Benchling](https://www.benchling.com/). There can be more than one integrations plugged into the lab automation system, and they can all work simultaneously.
+The access layer is the user-facing layer that integrates with external software to allow users to manage the lifecycle of automated workflows. This is typically done through integrating with external software such as laboratory information management systems that provide powerful user interfaces for designing experiments and capturing experimental data. Good examples are [Riffyn Nexus](https://riffyn.com/) and [Benchling](https://www.benchling.com/). There can be more than one integrations plugged into the lab automation system, and they can all work simultaneously.
 
 While one would typically use the same integration for both designing experimental workflows and capturing experimental data, it is not strictly necessary. It is entirely feasible to have one software for workflow design (such as Riffyn Nexus), and another for data capture (such as an AWS S3 bucket). This however, means that data might not be able to flow from one step to the next, making it harder to build cohesive workflows.
 

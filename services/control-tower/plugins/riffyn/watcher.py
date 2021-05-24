@@ -30,10 +30,12 @@ class Watcher(registry.Watcher):
         self.partials = {}
 
     def run(self):
+        # Keep polling until a done signal is received
         while not self.done.is_set():
             self.logger.info("runs.poll.started")
 
             try:
+                # Fetch the statuses of all runs in Riffyn
                 runs = self.__fetch_run_statuses()
                 for experiment_id, runs in runs.items():
                     for run in runs["started"]:
@@ -44,7 +46,9 @@ class Watcher(registry.Watcher):
                             run_name=run.name,
                         )
 
+                        # Try to aggregate across multiple runs for plate-based protocols
                         complete, plate = self.__aggregate(run)
+                        # Once we get a complete set of runs to execute
                         if len(complete) > 0:
                             if plate:
                                 triggers = self.__build_triggers(
@@ -55,9 +59,11 @@ class Watcher(registry.Watcher):
                                     experiment_id, complete
                                 )
 
+                            # Add the triggers to the queue to be published
                             for trigger in triggers:
                                 self.queue.put(trigger)
 
+                        # Add started runs to the cache for tracking
                         self.cache.hset(self.cache_key, run.id, "")
 
                     for run in runs["stopped"]:
@@ -68,12 +74,14 @@ class Watcher(registry.Watcher):
                             run_name=run.name,
                         )
 
+                        # Check if the run is part of an aggregated set
                         partial = self.__is_partial(run)
                         if partial:
                             key, rows, cols, idx = partial
                             if key in self.partials and idx < len(self.partials[key]):
                                 self.partials[key][idx] = None
 
+                        # Remove the stopped run from the cache
                         self.cache.hdel(self.cache_key, run.id)
 
                 self.logger.info("runs.poll.finished")
@@ -92,6 +100,7 @@ class Watcher(registry.Watcher):
         experiments = self.__fetch_experiments()
         active_runs = self.cache.hgetall(self.cache_key)
 
+        # Select runs that have been started or stopped since we last polled
         runs = {}
         for experiment in experiments:
             status = {"started": [], "stopped": []}
@@ -123,6 +132,7 @@ class Watcher(registry.Watcher):
         return utils.flatten(runs)
 
     def __aggregate(self, run):
+        # Check if the run is part of a plate-based protocol
         partial = self.__is_partial(run)
         if not partial:
             return [run], None
@@ -133,6 +143,7 @@ class Watcher(registry.Watcher):
             self.partials[key] = [None] * (rows * cols)
 
         if idx < len(self.partials[key]):
+            # Add the run to the aggregated set
             self.partials[key][idx] = run
 
         # Check that all partial runs in the aggregated set have been populated
@@ -142,29 +153,38 @@ class Watcher(registry.Watcher):
         return [], None
 
     def __is_partial(self, run):
+        # Check the run name if it is part of a plate-based protocol using the format
+        # <name of run> [row x columns] <well index>
         partial = re.search(r"(.*) \[([1-9])+x([1-9])+\] ([1-9])+$", run.name)
         if not partial:
             return False
 
+        # Return the dimensions of the plate and the well index
         name, rows, cols, num = partial.group(1, 2, 3, 4)
         key = f"{self.cache_key}/{run.activity_id}/{name}"
         return (key, int(rows), int(cols), int(num) - 1)
 
     def __build_triggers(self, experiment_id, runs, plate=None):
+        # Fetch the experiment's activity and raw data from Riffyn
         activity = self.activity_api.get_activity(experiment_id, runs[0].activity_id)
         data = self.__get_experiment_data_raw(experiment_id, activity.id, runs)
+        # Initialise the triggers to be populated
         triggers = self.__init_triggers(experiment_id, activity, runs, plate)
 
+        # Populate each trigger's spec using raw data from the runs
         for (trigger, resources) in triggers.values():
             properties = {}
             for input in activity.inputs:
+                # If the resource is associated with a trigger's API version
                 if input.id in resources:
+                    # Add the property header to the trigger
                     for property in input.properties:
                         header = f"{activity.id} | input | {input.id} | {property.id} | value"
                         properties[utils.str_to_camelcase(property.name)] = header
 
             for idx, run in enumerate(runs):
                 spec = {}
+                # Add each property and its value to the spec object
                 for property, header in properties.items():
                     datatable = data["datatables"][run.id]["datatable"][0]
                     value = datatable[header]
@@ -172,6 +192,7 @@ class Watcher(registry.Watcher):
                     if value is not None:
                         spec[property] = value
 
+                # For plate-based protocols, assign the spec to the corresponding well index
                 if isinstance(trigger.spec, list):
                     trigger.spec[idx] = spec
                 else:
@@ -200,9 +221,11 @@ class Watcher(registry.Watcher):
         for input in runs[0].inputs:
             try:
                 api_version = input.resource_name
+                # If we have not seen this API version before, create a new trigger
                 if api_version not in triggers:
                     trg = trigger.Trigger(api_version, protocol)
 
+                    # Initialise the trigger for plate-based protocols
                     if plate:
                         trg.plate(*plate)
                         # Pre-fill the spec with an array equal to the number of runs
@@ -233,6 +256,7 @@ class Watcher(registry.Watcher):
 
                     triggers[api_version] = (trg, [])
 
+                # Add the resource ID to the its associated API version
                 triggers[api_version][1].append(input.resource_def_id)
 
             except trigger.InvalidAPIVersion:

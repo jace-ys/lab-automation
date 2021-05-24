@@ -12,12 +12,13 @@ namespace TecanSparkRelay.Forwarder
             this.data = data;
         }
 
-        public DataRow(System.ResultContext result, Methods.Plate plate)
+        public DataRow(System.ResultContext result, Protocols.Plate plate)
         {
             var measurement = result.MeasurementResult;
             this.data = new Data(measurement.TimeStamp, measurement.Value);
 
-            // Translate row-first to column-first well indexing as per protocol conventions
+            // Translate row-first to column-first well indexing as per the conventions
+            // for plate-based protocols
             var well = Int16.Parse(result.WellIndex);
             this.index = (well / plate.columns) + ((well % plate.columns) * plate.rows);
         }

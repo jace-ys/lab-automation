@@ -32,22 +32,22 @@ This service should run on the same Windows machine as the SparkControl software
 - Run the server:
 
   ```
-  ./bin/Release/TecanSparkRelay.exe run server
+  ./bin/Release/TecanSparkRelay.exe server
   ```
 
 ## How it Works
 
-Upon receiving a protocol trigger, the `service.tecan-spark-relay` generates a corresponding method XML file that can be understood by the Spark®, based on the protocol's name and spec. For an example of how this XML file looks like, see the [method XML file template for the MeasureAbsorbance protocol](Methods/MeasureAbsorbance/Method.xml).
+Upon receiving a protocol trigger, the `service.tecan-spark-relay` generates a corresponding method XML file that can be understood by the Spark®, based on the protocol's name and spec. For an example of how this XML file looks like, see the [method XML file template for the MeasureAbsorbance protocol](Protocols/MeasureAbsorbance/Method.xml).
 
 This method XML file is then passed to the SparkControl API to be executed. While the method is being executed, the `service.tecan-spark-relay` is blocked from handling new protocol triggers. You can view the method while it's being executed through the SparkControl Dashboard. If the Spark® stops running midway through, the execution will not complete successfully.
 
-Once the method has completed execution, an XML file containing the measurement data produced by the Spark® is exported via the API. See [here for an example](Methods/MeasureAbsorbance/Export.xml) of this data export XML file. This file is then parsed and transformed into a format that can be pushed to the [`service.data-gateway`](../data-gateway).
+Once the method has completed execution, an XML file containing the measurement data produced by the Spark® is exported via the API. See [here for an example](Protocols/MeasureAbsorbance/Export.xml) of this data export XML file. This file is then parsed and transformed into a format that can be pushed to the [`service.data-gateway`](../data-gateway).
 
 ## Protocols
 
 #### `TecanSpark/v1alpha1`
 
-Available protocols can be found under the [`Methods`](Methods) directory. Each protocol contains a README documenting the required `spec` to trigger it.
+Available protocols can be found under the [`Protocols`](Protocols) directory. Each protocol is named after its corresponding Spark method and contains a README documenting the required `spec` to trigger it.
 
 Examples of protocol triggers for the `service.tecan-spark-relay` can be found under [`protocols/examples/tecan-spark-relay`](../../protocols/examples/tecan-spark-relay).
 
@@ -73,7 +73,7 @@ As the SparkControl API is only available on a machine with the SparkControl sof
 
 To implement new protocols that the `service.tecan-spark-relay` should handle, follow these steps:
 
-- Create a new directory for your protocol under [`Methods`](Methods)
-- Create a `Method.cs` file and write your implementation for the abstract class [`SparkMethod`](Methods/Registry.cs)
-- Create a `Method.xml` file, containing a templated version of the method XML that your protocol should generate. One way to get started with this is to create a dummy version using the SparkControl Method Editor software, then use the `./bin/Release/TecanSpark.exe run export` utility to export it as an XML file. You can then edit this XML file accordingly such that it can be templated by your custom method in `Method.cs`.
-- Add your method to the [`Registry`](Methods/Registry.cs)
+- Create a new directory for your protocol under [`Protocols`](Protocols)
+- Create a `Protocol.cs` file and write your implementation for the abstract class [`Protocol`](Protocols/Protocol.cs)
+- Create a `Method.xml` file, containing a templated version of the method XML that your protocol should generate. One way to get started with this is to create a dummy version using the SparkControl Method Editor software, then use the `./bin/Release/TecanSpark.exe run export` utility to export it as an XML file. You can then edit this XML file accordingly such that it can be templated with the protocol's spec.
+- Add your method to the [`Registry`](Protocols/Registry.cs)
