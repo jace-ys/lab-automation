@@ -54,11 +54,14 @@ class SystemManager:
 
     def handle_trigger(self, trigger):
         try:
+            # Configure an experiment on the Chi.Bio server
             device = self.__configure_experiment(trigger)
+            # Create the experiment on the Chi.Bio server
             experiment_id = self.__create_experiment(device)
             csv = f"{experiment_id}_data.csv"
 
             experiment = Experiment(trigger["uuid"], csv)
+            # Store the experiment to be managed in the cache for tracking
             self.create(experiment)
             self.logger.info("experiment.created", uuid=experiment.uuid)
 
@@ -68,6 +71,7 @@ class SystemManager:
             )
 
             try:
+                # Forward any errors upstream
                 data = Data()
                 data.error = str(err)
                 forwarder.forward(trigger["uuid"], DataRow(data))
@@ -94,6 +98,7 @@ class SystemManager:
         return uuid
 
     def __configure_experiment(self, trigger):
+        # Extract the source from the trigger metadata
         if "metadata" in trigger:
             source = trigger["metadata"]["source"]
         else:
@@ -102,6 +107,7 @@ class SystemManager:
         spec = trigger["spec"]
         data = {}
 
+        # Use the trigger spec to build the experiment configuration data
         # TODO: Handle more cases
         if "od" in spec:
             data["OD"] = {"target": spec["od"]}
@@ -134,6 +140,7 @@ class SystemManager:
 
             data["FP1"].update({"Gain": gain})
 
+        # Send the configuration data to the /sysData endpoint on the Chi.Bio server
         resp = requests.post(
             f"{self.chibio_server_url}/sysData",
             json={
@@ -153,6 +160,7 @@ class SystemManager:
         return body["device"]["M"]
 
     def __create_experiment(self, device):
+        # Create an experiment for the device on the Chi.Bio server
         resp = requests.post(f"{self.chibio_server_url}/Experiment/{device}")
         resp.raise_for_status()
 

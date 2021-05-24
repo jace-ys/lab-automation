@@ -56,7 +56,7 @@ The [`docker-compose.yaml`](../docker-compose.yaml) contains the configuration f
 
 To get the core and edge services connected and properly deployed, you might need to perform the following steps:
 
-- Open host ports on your remote server running the core services. These ports can be found in the [`docker-compose.yaml`](../docker-compose.yaml) file.
+- Open host ports on your remote server running the core services. These ports can be found in the [`docker-compose.yaml`](../docker-compose.yaml) file. This can be done using something like `iptables` or `ufw`.
 
 - Use environment variables to point the edge services running on peripheral machines to the core services running on a remote server. Check each service's README for the list of environment variables that can be configured.
 

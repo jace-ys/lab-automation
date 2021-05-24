@@ -53,8 +53,10 @@ namespace TecanSparkRelay.System
                 Trigger trigger = new Trigger();
                 try
                 {
+                    // Deserialize the incoming protocol trigger
                     trigger = JsonConvert.DeserializeObject<Trigger>(message);
 
+                    // Return an error if we are currently running a method
                     if (this.running)
                     {
                         throw new ApplicationException("An existing experiment is already running");
@@ -83,12 +85,14 @@ namespace TecanSparkRelay.System
 
         void SetInstrument(string selectedInstrument)
         {
+            // Set the instrument to the selected one
             this.instrument = this.ai.GetInstruments().FirstOrDefault(i => i.SerialNumber == selectedInstrument);
             if (this.instrument is null)
             {
                 throw new ApplicationException($"Could not find an instrument with serial {selectedInstrument}");
             }
 
+            // Check that the instrument is operational
             if (this.instrument.State != InstrumentState.FullyOperational)
             {
                 throw new ApplicationException($"Instrument with serial {selectedInstrument} is not fully operational");
@@ -100,9 +104,11 @@ namespace TecanSparkRelay.System
             string methodXML = "";
             try
             {
+                // Validate the protocol spec and generate a method XML
                 trigger.spec.Validate();
                 methodXML = trigger.spec.GenerateMethodXML();
 
+                // Check that the method XML file is valid
                 IEnumerable<string> messages;
                 if (!this.ai.CheckMethod(this.instrument, methodXML, trigger.protocol, out messages))
                 {
@@ -119,6 +125,7 @@ namespace TecanSparkRelay.System
                 {
                     this.running = true;
 
+                    // Execute the method XML file
                     MethodExecutionResult result = null;
                     try
                     {
@@ -139,10 +146,12 @@ namespace TecanSparkRelay.System
 
                     try
                     {
+                        // Read and parse the file containing the XML measurement data
                         var resultsXML = File.ReadAllText(this.ai.GetResults(result.WorkspaceId, result.ExecutionId));
                         var rows = this.forwarder.ParseResults(resultsXML, trigger.spec.Plate()).Where(row => row.index < trigger.spec.wells.Count).ToList();
 
                         this.logger.Information("[batch.forward.started] {uuid} {rows}", trigger.uuid, rows.Count);
+                        // Forward the data to the service.data-gateway
                         await this.forwarder.BatchForward(trigger.uuid, rows);
                         this.logger.Information("[batch.forward.finished] {uuid} {rows}", trigger.uuid, rows.Count);
                     }

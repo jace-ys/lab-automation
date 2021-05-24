@@ -1,10 +1,13 @@
 class Data:
     def __init__(self, row=None):
         if row:
+            # Split the CSV data row
             data = row.split(",", 46)
         else:
+            # Set to empty string
             data = [""] * 47
 
+        # Assign the data accordingly
         (
             self.timeElapsed,
             self.odMeasured,

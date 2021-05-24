@@ -10,6 +10,7 @@ class BasicForwarder:
         self.data_gateway_url = cfg.DATA_GATEWAY_URL
 
     def forward(self, uuid, row: DataRow):
+        # Forward the data to the service.date-gateway
         resp = requests.post(
             f"{self.data_gateway_url}/data",
             json={

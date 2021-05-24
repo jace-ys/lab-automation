@@ -13,7 +13,7 @@ namespace TecanSparkRelay.System
         public string apiVersion { get; set; }
         public string protocol { get; set; }
         public Plate plate { get; set; }
-        public Methods.SparkMethod spec { get; set; }
+        public Protocols.Protocol spec { get; set; }
         public TriggerMetadata metadata { get; set; }
     }
 
@@ -28,19 +28,23 @@ namespace TecanSparkRelay.System
         {
             JObject obj = JObject.Load(reader);
 
+            // Get the corresponding based on the trigger's protocol name
             var trigger = new Trigger();
-            var methodName = (string)obj["protocol"];
-            var method = Methods.Registry.GetMethod(methodName);
+            var protocolName = (string)obj["protocol"];
+            var protocol = Protocols.Registry.GetProtocol(protocolName);
 
+            // Loop through the wells in the protocol's spec
             foreach (var well in obj["spec"])
             {
-                var spec = Activator.CreateInstance(method.SpecType());
+                // Deserialize each spec object and add it to the list of wells
+                var spec = Activator.CreateInstance(protocol.SpecType());
                 serializer.Populate(well.CreateReader(), spec);
-                method.wells.Add(spec);
+                protocol.wells.Add(spec);
             }
             obj.Remove("spec");
 
-            trigger.spec = method;
+            // Set the protocol's spec object
+            trigger.spec = protocol;
             serializer.Populate(obj.CreateReader(), trigger);
 
             return trigger;

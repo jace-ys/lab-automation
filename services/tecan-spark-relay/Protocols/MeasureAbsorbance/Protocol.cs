@@ -1,8 +1,8 @@
 using System;
 
-namespace TecanSparkRelay.Methods
+namespace TecanSparkRelay.Protocols
 {
-    public class MeasureAbsorbance : SparkMethod
+    public class MeasureAbsorbance : Protocol
     {
         public MeasureAbsorbance() : base() { }
 

@@ -17,6 +17,8 @@ router = APIRouter()
 views = Jinja2Templates(directory=cfg.server.VIEWS_DIR)
 
 
+# Parse the form to get the config set by the user
+# plate.location = 1 -> { "plate": { "location": 1 } }
 def parse_form(form_data):
     spec = {}
 
@@ -113,6 +115,7 @@ async def handle_download_build(request: Request, build_id: str):
     try:
         build = builder.get(build_id)
         protocol_file = builder.build_protocol(build)
+        # Set the response headers for file download
         headers = {
             "Content-Disposition": f"attachment; filename={build['protocol']}_{build['uuid']}.py"
         }
@@ -136,6 +139,7 @@ async def handle_update_download(request: Request, build_id: str):
     try:
         build = builder.get(build_id)
         form_data = await request.form()
+        # Set the build config to that set by the user
         build["config"] = parse_form(form_data)
         builder.update(build_id, build)
 
@@ -187,6 +191,7 @@ async def handle_update_simulate(request: Request, build_id: str):
     try:
         build = builder.get(build_id)
         form_data = await request.form()
+        # Set the build config to that set by the user
         build["config"] = parse_form(form_data)
         builder.update(build_id, build)
 

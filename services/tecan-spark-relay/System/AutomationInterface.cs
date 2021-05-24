@@ -47,7 +47,7 @@ namespace TecanSparkRelay.System
 
         public string GetResults(Guid workspaceId, Guid executionId)
         {
-            return $"./Methods/{this.methodName}/Export.xml";
+            return $"./Protocols/{this.methodName}/Export.xml";
         }
 
         public string GetMethodXml(string methodName)

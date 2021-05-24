@@ -15,9 +15,11 @@ class TriggerPublisher(threading.Thread):
         self.cache_key = cfg.CACHE_KEY
 
     def run(self):
+        # Keep polling the queue until a done signal is received
         while not self.done.is_set():
             try:
                 trigger = self.queue.get(block=False)
+                # Publish the trigger
                 self.publish(trigger)
                 self.logger.info(
                     "trigger.published",
@@ -32,6 +34,7 @@ class TriggerPublisher(threading.Thread):
                 self.logger.error("trigger.publish.failed", error=err)
 
     def publish(self, trigger):
+        # Add the trigger to the cache for tracking
         self.create(trigger)
         self.pubsub.publish(trigger.apiVersion, trigger.json())
 

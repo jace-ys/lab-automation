@@ -28,16 +28,21 @@ class Pusher(registry.Pusher):
 
     def push(self, uuid, rows):
         try:
+            # Fetch the protocol trigger for the UUID
             trigger = self.__get_trigger(uuid)
+            # Parse the trigger's metadata on Riffyn
             metadata = self.__parse_metadata(trigger)
+            # Merge the data rows for each well
             indexes = self.__build_indexes(rows)
 
             self.logger.info(
                 "data.push.started", uuid=uuid, indexes=len(indexes), rows=len(rows)
             )
 
+            # If the protocol is plate-based
             if isinstance(metadata, list):
                 for index, data in indexes.items():
+                    # Error if the well index exceeds the metadata size
                     if index > len(metadata) - 1:
                         raise ValueError(f"index {index} exceeds metadata size")
 
@@ -46,6 +51,7 @@ class Pusher(registry.Pusher):
                         experiment_id, activity_id
                     )
 
+                    # Populate the run with the data for the well
                     self.__populate(experiment_id, run_id, activity, data)
 
             else:
@@ -53,6 +59,7 @@ class Pusher(registry.Pusher):
                 activity = self.activity_api.get_activity(experiment_id, activity_id)
                 data = next(iter(indexes.values()))
 
+                # Populate the run with the data
                 self.__populate(experiment_id, run_id, activity, data)
 
             self.logger.info(
@@ -80,10 +87,12 @@ class Pusher(registry.Pusher):
         return resp.json()
 
     def __parse_metadata(self, trigger):
+        # Only handle triggers from Riffyn
         metadata = trigger["metadata"]
         if metadata["source"] != "riffyn":
             raise UnprocessableSource
 
+        # Extract the experiment, activity and run ID for each well index
         spec = metadata["spec"]
         if isinstance(spec, list):
             return list(
@@ -101,6 +110,8 @@ class Pusher(registry.Pusher):
             return (spec["experimentId"], spec["activityId"], spec["runId"])
 
     def __build_indexes(self, rows):
+        # Combine {"index": 1, "data": {"a": 1, "b": 2}}, {"index": 1, "data": {"a": 2, "b": 3}}
+        # into {"1": {"a": [1, 2], "b": [2, 3]}} for each well index
         indexes = {}
         for row in rows:
             if row.index not in indexes:
@@ -112,11 +123,13 @@ class Pusher(registry.Pusher):
         return indexes
 
     def __populate(self, experiment_id, run_id, activity, data):
+        # Create multi-valued data using primary keys in Riffyn
         pkeys = self.__build_pkeys(run_id, activity, data)
         rows = self.run_api.add_batch_run_data(
             api.AddBatchDataToInputBody(pkeys), experiment_id, activity.id
         )
 
+        # Use the multi-valued data row IDs to push the remaining dataset
         dataset = self.__build_dataset(run_id, activity, rows[0], data)
         rows = self.run_api.add_batch_run_data(
             api.AddBatchDataToInputBody(dataset), experiment_id, activity.id
@@ -148,8 +161,10 @@ class Pusher(registry.Pusher):
         output = activity.outputs[-1]
         dataset = []
 
+        # Build payload for batch data request to Riffyn
         for property in output.properties[1:]:
             pname = utils.str_to_camelcase(property.name)
+            # Verify that the output property is available in the dataset
             self.__verify_data(pname, rows, data)
 
             values = []
