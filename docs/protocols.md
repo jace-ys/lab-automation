@@ -1,6 +1,6 @@
 # Protocols
 
-Protocols, in the context of the lab automation system, are the set of operations that can be performed by services in the service layer - you can think of them as pre-defined "functions" that a downstream target service is able to understand and execute. A protocol is represented as a JSON object that encapsulates all the information needed for a target service to execute it. Similar to functions in code, one is able to pass in parameters to customise how the protocol should be executed - this is done through the protocol `spec`, which is explained below.
+Protocols, in the context of ULAS, are the set of operations that can be performed by services in the service layer - you can think of them as pre-defined "functions" that a downstream target service is able to understand and execute. A protocol is represented as a JSON object that encapsulates all the information needed for a target service to execute it. Similar to functions in code, one is able to pass in parameters to customise how the protocol should be executed - this is done through the protocol `spec`, which is explained below.
 
 The specifics of how a protocol is executed is entirely up to the target service implementing that protocol - the implementation can be seen as the "instructions" or logic carried out by the service. For example, a liquid handling robot might have a `SerialDilution` protocol while a plate reader might have a `MeasureAbsorbance` protocol, but different liquid handling robots and plate readers would have different implementation logic for how to execute these protocols.
 
@@ -83,7 +83,7 @@ This is a complete example of a protocol trigger:
 
 ## Working with Multiple Devices
 
-It is entirely likely that you will have more than one of the same device in your lab that you want to use with the lab automation system. You can achieve this by running multiple instances of the service for that integration - one for each device.
+It is entirely likely that you will have more than one of the same device in your lab that you want to use with ULAS. You can achieve this by running multiple instances of the service for that integration - one for each device.
 
 However, running multiple instances of a service means that they will all respond to the same protocol trigger - this is probably not behaviour that you want. To solve this, you can namespace the multiple devices by suffixing an additional name to the API version.
 

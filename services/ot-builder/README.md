@@ -62,3 +62,9 @@ Examples of protocol triggers for the `service.ot-builder` can be found under [`
 ## Development
 
 #### Adding New Protocols
+
+To implement new protocols that the `service.ot-builder` should handle, follow these steps:
+
+- Create a new directory for your protocol under [`src/protocols`](src/protocols)
+- Create a `protocol.py` file and write the implementation for your Opentrons Python protocol
+- Create a `config.py` file, containing the config schema for your protocol. The possible config types can be found in [`src/protocols/config.py`](src/protocols/config.py)
