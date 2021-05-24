@@ -1,6 +1,6 @@
 # Architecture
 
-The lab automation system is built as a set of microservices to form the backbone that integrates various lab equipment and tools into a single platform. Each service has a single domain of responsibility and they communicate over the network to enable data to flow between them. You can find out more about each service through their respective README's. They can be broadly categorised into [core and edge services](#core-and-edge-services). There also exists auxiliary services that play complimentary roles in the overall system architecture such as databases, caches, message queues, etc.
+ULAS is built as a set of microservices to form the backbone that integrates various lab equipment and tools into a single platform. Each service has a single domain of responsibility and they communicate over the network to enable data to flow between them. You can find out more about each service through their respective README's. They can be broadly categorised into [core and edge services](#core-and-edge-services). There also exists auxiliary services that play complimentary roles in the overall system architecture such as databases, caches, message queues, etc.
 
 The system operates on an internal data language called [protocols](protocols.md) that are represented as JSON objects. These are the messages sent to downstream automation targets that encapsulates the "instructions" on what operations to carry out at each step of the workflow.
 

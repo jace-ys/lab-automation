@@ -1,6 +1,6 @@
 # Development
 
-This is a quick guide on how you can get started with developing and extending the lab automation system. More in-depth documentation for each service can be found in their respective README's.
+This is a quick guide on how you can get started with developing and extending ULAS. More in-depth documentation for each service can be found in their respective README's.
 
 ## Minimum Requirements
 
@@ -20,7 +20,7 @@ To be able to conveniently test the behaviour of services in the service layer, 
 
 ## Local Mocks
 
-To enable rapid prototyping without the need for hooking up the lab automation system to edge devices and actual hardware, mock implementations that imitate the behaviour of the underlying integrations are provided.
+To enable rapid prototyping without the need for hooking up ULAS to edge devices and actual hardware, mock implementations that imitate the behaviour of the underlying integrations are provided.
 
 #### `external.chibio-server`
 

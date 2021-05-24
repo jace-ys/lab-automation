@@ -79,3 +79,10 @@ As the SparkControl API is only available on a machine with the SparkControl sof
 You will still need to tweak the code slightly when integrating with the actual API, but this should get you 90% of the way there while being able to test your code's logic without having to hook up the actual Spark®.
 
 #### Adding New Protocols
+
+To implement new protocols that the `service.tecan-spark-relay` should handle, follow these steps:
+
+- Create a new directory for your protocol under [`Methods`](Methods)
+- Create a `Method.cs` file and write your implementation for the abstract class [`SparkMethod`](Methods/Registry.cs)
+- Create a `Method.xml` file, containing a templated version of the method XML that your protocol should generate. One way to get started with this is to create a dummy version using the SparkControl Method Editor software, then use the `./bin/Release/TecanSpark.exe run export` utility to export it as an XML file. You can then edit this XML file accordingly such that it can be templated by your custom method in `Method.cs`.
+- Add your method to the [`Registry`](Methods/Registry.cs)
