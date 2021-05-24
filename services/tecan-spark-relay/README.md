@@ -2,29 +2,22 @@
 
 The `service.tecan-spark-relay` is the service layer for interacting with a [Tecan Spark® Multimode Plate Reader](https://lifesciences.tecan.com/multimode-plate-reader) through the SparkControl API provided by Tecan. This API is not available publicly, so please contact your customer service representiative at Tecan to find out how you can access it.
 
-Note that this branch of the `service.tecan-spark-relay` uses a [mock SparkControl API](#mock-sparkcontrol-api) and thus does not actually integrate with the actual Spark® system. This is especially helpful for developing the `service.tecan-spark-relay` locally.
-
 ## Supported APIs
 
 - [`TecanSpark/v1alpha1`](#tecanspark/v1alpha1)
 
 ## Minimum Requirements
 
+- SparkControl v3.1
 - `.NET 5.0`
+- A `bash`-like environment (eg. Git Bash, WSL2)
+
+This service should run on the same Windows machine as the SparkControl software as it has to access the local SparkControl Automation Interface API.
 
 ## Usage
 
-- Install dependencies:
-
-  ```
-  dotnet restore
-  ```
-
-- Start auxiliary containers:
-
-  ```
-  make dependencies
-  ```
+- Open the project in Visual Studio 2019 and follow the manual for setting up the SparkControl Automation Interface API.
+- Build the solution in `Release` mode. This should place the `TecanSparkRelay` executable in the `./bin/Release` directory. You will need to tweak the post-build event for the project to copy the additional Automation Interface files to this same directory.
 
 - Export the following environment variables to the current shell:
 
@@ -39,7 +32,7 @@ Note that this branch of the `service.tecan-spark-relay` uses a [mock SparkContr
 - Run the server:
 
   ```
-  dotnet run server
+  ./bin/Release/TecanSparkRelay.exe run server
   ```
 
 ## How it Works
@@ -74,8 +67,6 @@ The `service.tecan-spark-relay` forwards data produced by the Spark® to the `se
 
 #### Mock SparkControl API
 
-As the SparkControl API is only available on a machine with the SparkControl software installed, it might not always be very convenient when developing on another machine. To facilitate this, a mock implementation of the SparkControl API is provided for local development. The implementation can be found in [`System/AutomationInterface.cs`](System/AutomationInterface.cs), and it more or less fulfils a similar interface to that of the actual API.
-
-You will still need to tweak the code slightly when integrating with the actual API, but this should get you 90% of the way there while being able to test your code's logic without having to hook up the actual Spark®.
+As the SparkControl API is only available on a machine with the SparkControl software installed, it might not always be very convenient when developing on another machine. To facilitate this, a mock implementation of the SparkControl API is provided for local development in the [`local` branch](https://github.com/jace-ys/lab-automation/tree/local/services/tecan-spark-relay).
 
 #### Adding New Protocols

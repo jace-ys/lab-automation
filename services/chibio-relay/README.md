@@ -13,7 +13,7 @@ The `service.chibio-relay` is the service layer for interacting with a [Chi.Bio]
 - `python 3.9`
 - `poetry 1.0`
 
-You will also require a local instance of the Chi.Bio server. See this [guide](../../docs/development.md#externalchibio-server) for more info.
+This service should run on the same host as the Chi.Bio server, as it requires access to the local file system.
 
 ## Usage
 
