@@ -202,11 +202,11 @@
     <Compile Include="Config.cs" />
     <Compile Include="Forwarder\Forwarder.cs" />
     <Compile Include="Forwarder\Payload.cs" />
-    <Compile Include="Methods\MeasureOD\Method.cs" />
-    <Compile Include="Methods\Method.cs" />
-    <Compile Include="Methods\Plate.cs" />
-    <Compile Include="Methods\Registry.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Protocols\MeasureAbsorbance\Protocol.cs" />
+    <Compile Include="Protocols\Plate.cs" />
+    <Compile Include="Protocols\Protocol.cs" />
+    <Compile Include="Protocols\Registry.cs" />
     <Compile Include="System\Command.cs" />
     <Compile Include="System\Export.cs" />
     <Compile Include="System\Manager.cs" />
@@ -215,10 +215,11 @@
     <None Include="app.config" />
     <None Include="Makefile" />
     <None Include="packages.config" />
+    <None Include="Protocols\MeasureAbsorbance\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Methods\MeasureOD\Export.xml" />
-    <Content Include="Methods\MeasureOD\Method.xml" />
+    <Content Include="Protocols\MeasureAbsorbance\Export.xml" />
+    <Content Include="Protocols\MeasureAbsorbance\Method.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
